@@ -14,5 +14,6 @@ patient_rr = int(input("Please enter the patient's respiratory rate: "))
 patient_temp = float(input("Please enter the patient's temperature: "))
 
 
-
-
+BP_values = patient_BP.split("/")
+systolic_BP = int(BP_values[0])
+diastolic_BP = int(BP_values[1])
