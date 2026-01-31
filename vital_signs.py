@@ -13,7 +13,6 @@ patient_spO2 = int(input("Please enter the patient's oxygen saturation: "))
 patient_rr = int(input("Please enter the patient's respiratory rate: "))
 patient_temp = float(input("Please enter the patient's temperature: "))
 
-# patient_BP = "180/120"
 BP_values = patient_BP.split("/")
 systolic_BP = int(BP_values[0])
 diastolic_BP = int(BP_values[1])
@@ -32,10 +31,20 @@ elif (systolic_BP >= 180) and (diastolic_BP >=120):
 
 
 #Classifying Cardiac Rhythms
+#patient_HR = 59
 if patient_HR <60:
     print("Rhythm: Bradycardia")
 elif (60 <= patient_HR <100):
     print("Rhythm: Normal Heart Rate") 
 elif (patient_HR >= 100):
     print("Rhythm: Tachycardia")
-    
+
+
+#Classifying Oxygen Saturation
+patient_spO2 = 78
+if patient_spO2 >= 92:
+    print("Normal Oxygen Saturation")
+elif (88 <= patient_spO2 <=92): 
+    print("Patient's Oxygen Saturation Unstable")
+else:
+    print("Patient currently hypoxemic")
