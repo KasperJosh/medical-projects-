@@ -13,12 +13,12 @@ patient_spO2 = int(input("Please enter the patient's oxygen saturation: "))
 patient_rr = int(input("Please enter the patient's respiratory rate: "))
 patient_temp = float(input("Please enter the patient's temperature: "))
 
-
+# patient_BP = "180/120"
 BP_values = patient_BP.split("/")
 systolic_BP = int(BP_values[0])
 diastolic_BP = int(BP_values[1])
 
-
+#Classifying Blood Pressures 
 if (systolic_BP <=120 and diastolic_BP<=80):
     print ("Blood pressure: Healthy")
 elif (120 <= systolic_BP <= 129) and diastolic_BP <80:
@@ -30,3 +30,12 @@ elif (140 <=systolic_BP < 179) and (diastolic_BP >= 90):
 elif (systolic_BP >= 180) and (diastolic_BP >=120):
     print ("Blood pressure: Hypertension Crisis")
 
+
+#Classifying Cardiac Rhythms
+if patient_HR <60:
+    print("Rhythm: Bradycardia")
+elif (60 <= patient_HR <100):
+    print("Rhythm: Normal Heart Rate") 
+elif (patient_HR >= 100):
+    print("Rhythm: Tachycardia")
+    
