@@ -55,3 +55,12 @@ elif (12 <= patient_rr <20):
     print("Patient is eupneic. Normal Breathing") 
 elif (patient_HR >= 20):
     print("Patient is tachypneic")
+
+
+#Classfying Respiratory Rate
+if patient_temp <36.0:
+    print("Patient is hypothermic")
+elif (36.0 <= patient_temp <38.0):
+    print("Patient's temperature is normal") 
+elif (patient_temp >= 38.0):
+    print("Patient is hyperthermic. The patient is having a fever!")
