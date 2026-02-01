@@ -8,7 +8,7 @@ print("Please enter all the required information on the patients")
 patient_name = str(input("Please enter the patient's name: "))
 patient_MRN = int(input("Please enter the patient's MRN: "))
 patient_BP = str(input("Please enter the patient's blood pressure: "))
-patient_HR = int(input("PLease enter the patient's pulse rate: "))
+patient_HR = int(input("Please enter the patient's pulse rate: "))
 patient_spO2 = int(input("Please enter the patient's oxygen saturation: "))
 patient_rr = int(input("Please enter the patient's respiratory rate: "))
 patient_temp = float(input("Please enter the patient's temperature: "))
@@ -16,6 +16,10 @@ patient_temp = float(input("Please enter the patient's temperature: "))
 BP_values = patient_BP.split("/")
 systolic_BP = int(BP_values[0])
 diastolic_BP = int(BP_values[1])
+
+print("Current Patient: " + patient_name)
+print("Patient's MRN: " + patient_MRN)
+
 
 #Classifying Blood Pressures 
 if (systolic_BP <=120 and diastolic_BP<=80):
@@ -57,7 +61,7 @@ elif (patient_HR >= 20):
     print("Patient is tachypneic")
 
 
-#Classfying Respiratory Rate
+#Classifying Temperature 
 if patient_temp <36.0:
     print("Patient is hypothermic")
 elif (36.0 <= patient_temp <38.0):
