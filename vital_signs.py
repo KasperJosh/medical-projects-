@@ -7,6 +7,7 @@ print("Please enter all the required information on the patients")
 
 patient_name = str(input("Please enter the patient's name: "))
 patient_MRN = int(input("Please enter the patient's MRN: "))
+patient_birthday = str(input("Please enter the patient's birthday (Format: Month/Day/Year)"))
 patient_BP = str(input("Please enter the patient's blood pressure: "))
 patient_HR = int(input("Please enter the patient's pulse rate: "))
 patient_spO2 = int(input("Please enter the patient's oxygen saturation: "))
@@ -18,7 +19,9 @@ systolic_BP = int(BP_values[0])
 diastolic_BP = int(BP_values[1])
 
 print("Current Patient: " + patient_name)
-print("Patient's MRN: " + patient_MRN)
+print("Patient's MRN: " + str(patient_MRN))
+
+
 
 
 #Classifying Blood Pressures 
