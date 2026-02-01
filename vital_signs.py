@@ -41,10 +41,17 @@ elif (patient_HR >= 100):
 
 
 #Classifying Oxygen Saturation
-patient_spO2 = 78
 if patient_spO2 >= 92:
     print("Normal Oxygen Saturation")
 elif (88 <= patient_spO2 <=92): 
     print("Patient's Oxygen Saturation Unstable")
 else:
     print("Patient currently hypoxemic")
+
+#Classfying Respiratory Rate
+if patient_rr <12:
+    print("Patient is bradypneic")
+elif (12 <= patient_rr <20):
+    print("Patient is eupneic. Normal Breathing") 
+elif (patient_HR >= 20):
+    print("Patient is tachypneic")
