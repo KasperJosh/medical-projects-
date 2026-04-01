@@ -15,3 +15,6 @@ while pin != 123456:
 if pin == 123456:
     print("Hospital PIN accepted. Welcome!")
 
+
+
+
