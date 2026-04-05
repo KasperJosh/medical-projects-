@@ -1,7 +1,7 @@
 
 class VitalSigns:
 
-    """A simple class recording the vital_signs of a patient"""
+    """A simple Vital Signs class and interpreting the meaning of it"""
 
     def __init__(self, systolic_bp, diastolic_bp, heart_rate, oxygen_saturation, respiratory_rate, temperature):
         
@@ -9,8 +9,8 @@ class VitalSigns:
         self.systolic_bp = systolic_bp
         self.diastolic_bp = diastolic_bp
         self.heart_rate = heart_rate
-        self.oxygen_saturation = oxygen_saturation
         self.respiratory_rate = respiratory_rate
+        self.oxygen_saturation = oxygen_saturation
         self.temperature = temperature
 
     def display_vitals(self):
@@ -71,3 +71,4 @@ class VitalSigns:
             print("Patient is hyperthermic. The patient is having a fever!")
 
 vitals1 = VitalSigns(110,90, 65, 18, 95, 36.5 )
+vitals1.display_vitals()
