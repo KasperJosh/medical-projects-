@@ -37,29 +37,29 @@ class VitalSigns:
     def interpret_hr(self):
         """Interpreting Heart Rate and print it's classification"""
         if self.heart_rate <60:
-            return ("Rhythm: Bradycardia")
+            return ("Heart Rate: Bradycardia")
         elif (60 <= self.heart_rate <100):
-            return ("Rhythm: Normal Heart Rate") 
+            return ("Heart Rate: Normal Heart Rate") 
         elif (self.heart_rate >= 100):
-            return ("Rhythm: Tachycardia")
+            return ("Heart Rate: Tachycardia")
 
     def interpret_spo2(self):
         """Interpreting Oxygen Saturation and printing it's classification"""
         if self.oxygen_saturation >= 92:
-            return ("Normal Oxygen Saturation")
+            return ("Oxygen Saturation Status: Normal")
         elif (88 <= self.oxygen_saturation  <=92): 
-            return ("Patient's Oxygen Saturation Unstable")
+            return ("Oxygen Saturation Status: Dropping")
         else:
-            return ("Patient currently hypoxemic")
+            return ("Oxygen Saturation Status: Low")
 
     def interpret_rr(self):
         """Interpreting Respiratory Rate and printing it's classification"""
         if self.respiratory_rate <12:
-            return ("Patient is bradypneic")
+            return ("Respiration Rate Status: Bradypneic")
         elif (12 <= self.respiratory_rate <20):
-            return ("Patient is eupneic. Normal Breathing") 
+            return ("Respiration Rate Status: Normal Breathing") 
         elif (self.respiratory_rate>= 20):
-            return ("Patient is tachypneic")
+            return ("Respiration Rate Status: Tachypneic")
 
     def interpret_temperature(self):
         """Interpreting Temperature and printing it's classification"""
@@ -70,6 +70,47 @@ class VitalSigns:
         elif (self.temperature >= 38.0):
             return ("Patient is hyperthermic. The patient is having a fever!")
 
-vitals1 = VitalSigns(110,90, 65, 18, 95, 36.5 )
+    def calculate_mean_arterial_pressure(self):
+        mean_arterial_pressure = (self.systolic_bp + (2*self.diastolic_bp))//3
+        return (f"Patient's MAP: {mean_arterial_pressure}")
+
+    
+    def is_unstable(self):
+        return (
+            self.oxygen_saturation < 90 or
+            self.systolic_bp < 90 or
+            self.heart_rate < 50 or self.heart_rate > 130 or
+            self.temperature >39
+        )
+    
+    def overall_status(self):
+        return "UNSTABLE " if self.is_unstable() else "STABLE"
+
+    # Earning Warning Score (In Progress)
+    def early_warning_score(self):
+        score = 0
+
+        # Heart Rate
+        if self.heart_rate < 40 or self.heart_rate > 130:
+            score +=3
+        elif 110 <= self.heart_rate <=130:
+            score +=2
+        
+        # BP
+        if self.systolic_bp <90:
+            score +=3
+        
+        # Temp
+        if self.temperature > 38.5 or self.temperature <35:
+            score +=2
+        
+        return score 
+
+
+
+
+vitals1 = VitalSigns(110,70, 65, 18, 95, 36.5 )
 vitals1.display_vitals()
-vitals1.interpret_bp()
+print(vitals1.interpret_bp())
+print(vitals1.overall_status())
+print(vitals1.calculate_mean_arterial_pressure())
