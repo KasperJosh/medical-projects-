@@ -93,6 +93,9 @@ class Patient:
         print(f"Isolation: {self.isolation}")
         print(f"Level of Intervention: {self.level_intervention}")
 
+#-------------------------
+#Methods that updates the required attributes 
+    #def update_room(self):
 
 
 patient1 = Patient( 'K0210', 'Joshua Visario', 5091999, 26, 'M', '2026-04-05', 'MRC', 'A', 'Team 1 Cardiology', 'MVD', ['DM2', 'HTN' 'DLP'],
