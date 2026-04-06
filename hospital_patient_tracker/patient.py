@@ -14,9 +14,9 @@ class Patient:
         isolation,
         level_intervention,
         team_doctor,
-        diagnostic,
+        diagnosis,
         past_hx,
-        allergy,
+        allergies,
         type_sx,
         procedures,
         rhythm,
@@ -32,67 +32,71 @@ class Patient:
         plans,
         pros_involved,
         home_screen,
-        possible_DC
+        possible_dc
     ):
-        self.room = room
-        self.name = name
-        self.mrn = mrn
-        self.age = age
-        self.gender = gender
-        self.admission_date = admission_date
-        self.isolation = isolation
-        self.level_intervention = level_intervention
-        self.team_doctor = team_doctor
-        self.diagnostic = diagnostic
-        self.past_hx = past_hx
-        self.allergy = allergy
-        self.type_sx = type_sx
-        self.procedures = procedures
-        self.rhythm = rhythm
-        self.ventilation = ventilation
-        self.iv_access = iv_access
-        self.nutrition = nutrition
-        self.dressings = dressings
-        self.elimination = elimination
-        self.mobility = mobility
-        self.labs = labs
-        self.medications = medications
-        self.issues = issues
-        self.plans = plans
-        self.pros_involved = pros_involved
-        self.home_screen = home_screen
-        self.possible_DC = possible_DC
+        self.room = room    #K0210
+        self.name = name    #Joshua Visario
+        self.mrn = mrn      #05091999
+        self.age = age      #26
+        self.gender = gender    #M
+        self.admission_date = admission_date    #2026-04-05
+        self.isolation = isolation      #MRC
+        self.level_intervention = level_intervention    #A
+        self.team_doctor = team_doctor  #Team 1 Cardiology
+        self.diagnosis = diagnosis  #MVD
+        self.past_hx = past_hx  #['DM2', 'HTN' 'DLP']
+        self.allergies = allergies #['PNC','Vancomycin']
+        self.type_sx = type_sx #CABGx4
+        self.procedures = procedures # ['CXR:___, 'Cardiac Echo:___']
+        self.rhythm = rhythm #'SR'
+        self.ventilation = ventilation #RA
+        self.iv_access = iv_access #L PIV
+        self.nutrition = nutrition #['Cardiac', 'Diabetic']
+        self.dressings = dressings #['Sternum']
+        self.elimination = elimination 
+        self.mobility = mobility #Indep
+        self.labs = labs #['K:__, Na+:__]
+        self.medications = medications #['Lasix','ASA','Metoprolol']
+        self.issues = issues #None
+        self.plans = plans  #DC Soon
+        self.pros_involved = pros_involved  #['SW','PT','OT]
+        self.home_screen = home_screen #Lives alone
+        self.possible_dc = possible_dc #2026-04-10
 
 
-        def display_info(self):
-            print(f"\n--- Patient {self.mrn} ---")
-            print(f"Room: {self.room}")
-            print(f"Name: {self.name}")
-            print(f"Age/Gender: {self.age} / {self.gender}")
-            print(f"Admission Date: {self.admission_date}")
-            print(f"Doctor: {self.team_doctor}")
-            print(f"Diagnosis: {self.diagnostic}")
-            print(f"Past Hx: {self.past_hx}")
-            print(f"Allergies: {self.allergy}")
-            print(f"Surgery Type: {self.type_sx}")
-            print(f"Procedures: {self.procedures}")
-            print(f"Rhythm: {self.rhythm}")
-            print(f"Ventilation: {self.ventilation}")
-            print(f"IV Access: {self.iv_access}")
-            print(f"Nutrition: {self.nutrition}")
-            print(f"Dressings: {self.dressings}")
-            print(f"Elimination: {self.elimination}")
-            print(f"Mobility: {self.mobility}")
-            print(f"Labs: {self.labs}")
-            print(f"Medications: {self.medications}")
-            print(f"Issues: {self.issues}")
-            print(f"Plans: {self.plans}")
-            print(f"Professionals Involved: {self.pros_involved}")
-            print(f"Home Situation: {self.home_screen}")
-            print(f"Possible Discharge: {self.possible_DC}")
-            print(f"Isolation: {self.isolation}")
-            print(f"Level of Intervention: {self.level_intervention}")
+    def display_info(self):
+        print(f"\n--- Patient {self.mrn} ---")
+        print(f"Room: {self.room}")
+        print(f"Name: {self.name}")
+        print(f"Age/Gender: {self.age} / {self.gender}")
+        print(f"Admission Date: {self.admission_date}")
+        print(f"Doctor: {self.team_doctor}")
+        print(f"Diagnosis: {self.diagnosis}")
+        print(f"Past Hx: {self.past_hx}")
+        print(f"Allergies: {self.allergies}")
+        print(f"Surgery Type: {self.type_sx}")
+        print(f"Procedures: {self.procedures}")
+        print(f"Rhythm: {self.rhythm}")
+        print(f"Ventilation: {self.ventilation}")
+        print(f"IV Access: {self.iv_access}")
+        print(f"Nutrition: {self.nutrition}")
+        print(f"Dressings: {self.dressings}")
+        print(f"Elimination: {self.elimination}")
+        print(f"Mobility: {self.mobility}")
+        print(f"Labs: {self.labs}")
+        print(f"Medications: {self.medications}")
+        print(f"Issues: {self.issues}")
+        print(f"Plans: {self.plans}")
+        print(f"Professionals Involved: {self.pros_involved}")
+        print(f"Home Situation: {self.home_screen}")
+        print(f"Possible Discharge: {self.possible_dc}")
+        print(f"Isolation: {self.isolation}")
+        print(f"Level of Intervention: {self.level_intervention}")
 
 
 
-        #def admit_patient()
+patient1 = Patient( 'K0210', 'Joshua Visario', 5091999, 26, 'M', '2026-04-05', 'MRC', 'A', 'Team 1 Cardiology', 'MVD', ['DM2', 'HTN' 'DLP'],
+        ['PNC','Vancomycin'], 'CABGx4', ['CXR:___', 'Cardiac Echo:___'], 'SR', 'RA', 'L PIV',['Cardiac', 'Diabetic'],['Sternum'], None,  
+        'Indep', ['K:__', 'Na+:__'], ['Lasix','ASA','Metoprolol'],None, 'DC Soon', ['SW','PT','OT'], 'Lives alone', '2026-04-10')
+
+patient1.display_info()
