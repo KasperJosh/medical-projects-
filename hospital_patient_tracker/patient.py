@@ -45,22 +45,22 @@ class Patient:
 
         self.isolation = isolation      #MRC
         self.level_intervention = level_intervention    #A
-        self.past_hx = past_hx  #['DM2', 'HTN' 'DLP']
-        self.allergies = allergies #['PNC','Vancomycin']
+        self.past_hx = past_hx if past_hx else []  #['DM2', 'HTN' 'DLP']
+        self.allergies = allergies if allergies else [] #['PNC','Vancomycin']
         self.type_sx = type_sx #CABGx4
-        self.procedures = procedures # ['CXR:___, 'Cardiac Echo:___']
+        self.procedures = procedures if procedures else []# ['CXR:___, 'Cardiac Echo:___']
         self.rhythm = rhythm #'SR'
         self.ventilation = ventilation #RA
         self.iv_access = iv_access #L PIV
-        self.nutrition = nutrition #['Cardiac', 'Diabetic']
-        self.dressings = dressings #['Sternum']
+        self.nutrition = nutrition if nutrition else [] #['Cardiac', 'Diabetic']
+        self.dressings = dressings if dressings else [] #['Sternum']
         self.elimination = elimination 
         self.mobility = mobility #Indep
-        self.labs = labs #['K:__, Na+:__]
-        self.medications = medications #['Lasix','ASA','Metoprolol']
-        self.issues = issues #None
+        self.labs = labs if labs else [] #['K:__, Na+:__]
+        self.medications = medications if medications else [] #['Lasix','ASA','Metoprolol']
+        self.issues = issues if issues else [] #None
         self.plans = plans  #DC Soon
-        self.pros_involved = pros_involved  #['SW','PT','OT]
+        self.pros_involved = pros_involved if pros_involved else []  #['SW','PT','OT]
         self.home_screen = home_screen #Lives alone
         self.possible_dc = possible_dc #2026-04-10
 
