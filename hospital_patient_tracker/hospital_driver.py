@@ -40,9 +40,9 @@ def admit_patient(patients):
     admission_date = input("Please enter the admitting date: ")
     team_doctor = input("Please enter the team of doctor: ")
     diagnosis = input("Please enter the diagnosis: ")
-    isolation = input("Please enter the isolation status ")
-    level_intervention = input("Please enter the level of intervention ")
-    past_hx = input("Please enter the past medical history ")
+    isolation = input("Please enter the isolation status: ")
+    level_intervention = input("Please enter the level of intervention: ")
+    past_hx = input("Please enter the Past Medical History: ")
     allergies = input("Please enter the allergies: ")
     type_sx = input("Please enter the type of surgery: ")
     procedures =input("Please enter the procedures done: ")
@@ -51,15 +51,15 @@ def admit_patient(patients):
     iv_access= input("Please enter the IV accesses: ")
     nutrition= input("Please enter the nutrition status: ")
     dressings= input("Please enter the dressings present: ")
-    elimination= input("Please enter the elimination status ")
+    elimination= input("Please enter the elimination status: ")
     mobility= input("Please enter the mobility status: ")
-    labs = input("Please enter the critical labs")
-    medications = input("Please enter the medication list ")
+    labs = input("Please enter the critical labs: ")
+    medications = input("Please enter the medication list: ")
     issues= input("Please enter the current issues: ")
     plans= input("Please enter the plan: ")
     pros_involved= input("Please enter the pros involved: ")
     home_screen= input("Please enter the home situation: ")
-    possible_dc= input("Please enter the p0ssible D/C date ")
+    possible_dc= input("Please enter the possible D/C date: ")
 
     patient = patient_info.Patient(
         room,
@@ -96,6 +96,38 @@ def admit_patient(patients):
     #To test
     patient.display_info()
     print("Patient successfully added!")
+    print(patients)
+    print("---------------------------------------")
+
+
+# Discharging a patient from the unit 
+def discharge_patient(patients):
+
+    patient_mrn = int(input("Enter the MRN of the patient you want to discharge: "))
+
+    if patient_mrn in patients:
+        discharged_patient = patients [patient_mrn]
+        del patients[patient_mrn]
+        print(f"\nPatient {discharged_patient.name} has been discharged successfully.")
+    
+    else:
+        print("\nNo patient found with that MRN.")
+
+# Transferring a patient to another unit
+
+def transfer_patient(patients):
+
+    patient_mrn = int(input("Enter the MRN of the patient you want to transfer: "))
+    if patient_mrn in patients:
+        transferred_patient = patients [patient_mrn]
+        
+        transfer_location = input("Enter the location where you want to transfer the patient: ")
+        
+        del patients[patient_mrn] #To fix
+        print(f"\nPatient {transferred_patient.name} has been transferred successfully to {transfer_location}.")
+    
+    else:
+        print("\nNo patient found with that MRN.")
 
 
 class Hospital_Driver:
@@ -118,33 +150,37 @@ class Hospital_Driver:
             case 1:  
                 print("Admit a patient")
                 admit_patient(patients)
-                print(patients)
-                break
+                
+                
+
             # Discharging patient from unit
             case 2:
                 print("Discharging a patient")
-                break
+                discharge_patient(patients)
+                print(patients)
+                
+
             # Transferring a patient to another unit
             case 3:
                 print("Transferring a patient to another unit")
-                break
+                
             case 4:
                 print("Updating patient information")
-                break
+                
             case 5:
                 print("Viewing all the patients")
-                break
+                
             case 6:
                 print("Viewing one patient")
-                break
+                
             case 7:
                 print("Exiting")
                 break
             case _:
                 print("Invalid choice. Try again!")
 
-        while(menu_choice !=7):
-            print("Thank you for visiting the unit! Application now closing")
+    
+    print("Thank you for visiting the unit! Application now closing")
     
 
     
