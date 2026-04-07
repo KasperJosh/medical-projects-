@@ -11,28 +11,28 @@ class Patient:
         age,
         gender,
         admission_date,
-        isolation,
-        level_intervention,
         team_doctor,
         diagnosis,
-        past_hx,
-        allergies,
-        type_sx,
-        procedures,
-        rhythm,
-        ventilation,
-        iv_access,
-        nutrition,
-        dressings,
-        elimination,
-        mobility,
-        labs,
-        medications,
-        issues,
-        plans,
-        pros_involved,
-        home_screen,
-        possible_dc
+        isolation = "N/A",
+        level_intervention ="N/A",
+        past_hx =None,
+        allergies = None,
+        type_sx ="N/A",
+        procedures =None,
+        rhythm= "N/A",
+        ventilation="N/A",
+        iv_access="N/A",
+        nutrition=None,
+        dressings=None,
+        elimination="N/A",
+        mobility="N/A",
+        labs=None,
+        medications=None,
+        issues=None,
+        plans="N/A",
+        pros_involved=None,
+        home_screen="N/A",
+        possible_dc="N/A"
     ):
         self.room = room    #K0210
         self.name = name    #Joshua Visario
@@ -40,10 +40,11 @@ class Patient:
         self.age = age      #26
         self.gender = gender    #M
         self.admission_date = admission_date    #2026-04-05
-        self.isolation = isolation      #MRC
-        self.level_intervention = level_intervention    #A
         self.team_doctor = team_doctor  #Team 1 Cardiology
         self.diagnosis = diagnosis  #MVD
+
+        self.isolation = isolation      #MRC
+        self.level_intervention = level_intervention    #A
         self.past_hx = past_hx  #['DM2', 'HTN' 'DLP']
         self.allergies = allergies #['PNC','Vancomycin']
         self.type_sx = type_sx #CABGx4
@@ -68,10 +69,14 @@ class Patient:
         print(f"\n--- Patient {self.mrn} ---")
         print(f"Room: {self.room}")
         print(f"Name: {self.name}")
+        print (f"MRN: {self.mrn}")
         print(f"Age/Gender: {self.age} / {self.gender}")
         print(f"Admission Date: {self.admission_date}")
         print(f"Doctor: {self.team_doctor}")
         print(f"Diagnosis: {self.diagnosis}")
+
+        print(f"Isolation: {self.isolation}")
+        print(f"Level of intervention: {self.level_intervention}")
         print(f"Past Hx: {self.past_hx}")
         print(f"Allergies: {self.allergies}")
         print(f"Surgery Type: {self.type_sx}")
@@ -90,15 +95,13 @@ class Patient:
         print(f"Professionals Involved: {self.pros_involved}")
         print(f"Home Situation: {self.home_screen}")
         print(f"Possible Discharge: {self.possible_dc}")
-        print(f"Isolation: {self.isolation}")
-        print(f"Level of Intervention: {self.level_intervention}")
 
 #-------------------------
 #Methods that updates the required attributes 
     #def update_room(self):
 
 
-patient1 = Patient( 'K0210', 'Joshua Visario', 5091999, 26, 'M', '2026-04-05', 'MRC', 'A', 'Team 1 Cardiology', 'MVD', ['DM2', 'HTN' 'DLP'],
+patient1 = Patient( 'K0210', 'Joshua Visario', 5091999, 26, 'M', '2026-04-05', 'Team 1 Cardiology','MVD', 'MRC', 'A', ['DM2', 'HTN', 'DLP'],
         ['PNC','Vancomycin'], 'CABGx4', ['CXR:___', 'Cardiac Echo:___'], 'SR', 'RA', 'L PIV',['Cardiac', 'Diabetic'],['Sternum'], None,  
         'Indep', ['K:__', 'Na+:__'], ['Lasix','ASA','Metoprolol'],None, 'DC Soon', ['SW','PT','OT'], 'Lives alone', '2026-04-10')
 
