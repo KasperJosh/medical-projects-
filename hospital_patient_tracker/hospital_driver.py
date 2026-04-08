@@ -218,6 +218,37 @@ def transfer_patient(patients):
     else:
         print("\nNo patient found with that MRN.")
 
+# Helper Function to manage change the lists
+def update_list_field(item_list, field_name):
+    
+    while True:
+        print(f"\nCurrent {field_name}: {item_list}")
+        print(f"1. Add to {field_name}")
+        print(f"2. Remove from {field_name}")
+        print("3. Return")
+
+        choice = input("select an option")
+
+        if choice == "1":
+            new_item = input(f"Enter item to add to {field_name}: ")
+            if new_item:
+                item_list.append(new_item)
+                print(f"{new_item} added to {field_name}.")
+        
+        elif choice == "2":
+            remove_item = input(f"Enter item to remove from {field_name}: ").strip()
+            if remove_item in item_list:
+                item_list.remove(remove_item)
+                print(f"{remove_item} removed from {field_name}.")
+            else:
+                print("Item not found.")
+
+        elif choice == "3":
+            break
+
+        else:
+            print("Invalid choice. Try again.")
+
 # Updating a patient's information as needed 
 def update_pt_information (patients):
 
@@ -255,11 +286,11 @@ def update_pt_information (patients):
             print("Level of intervention updated successfully.")
 
         elif choice == 6:
-            patient.past_hx = input("Enter the updated past medical history: ")
+            update_list_field(patient.past_hx, "Past medical history")
             print("Past medical history updated successfully.")
 
         elif choice == 7:
-            patient.allergies = input("Enter the updated allergies: ")
+            update_list_field(patient.allergies, "Allergies")
             print("Allergies updated successfully.")
 
         elif choice == 8:
@@ -267,7 +298,7 @@ def update_pt_information (patients):
             print("Type of surgery updated successfully.")
 
         elif choice == 9:
-            patient.procedures = input("Enter the updated procedures: ")
+            update_list_field(patient.procedures, "Procedures")
             print("Procedures updated successfully.")
 
         elif choice == 10:
@@ -283,7 +314,7 @@ def update_pt_information (patients):
             print("IV accesses updated successfully.")
 
         elif choice == 13:
-            patient.nutrition = input("Enter the updated nutrition status: ")
+            update_list_field(patient.nutrition, "Nutrition")
             print("Nutrition updated successfully.")
 
         elif choice == 14:
@@ -299,15 +330,15 @@ def update_pt_information (patients):
             print("Mobility updated successfully.")
 
         elif choice == 17:
-            patient.labs = input("Enter the updated labs: ")
+            update_list_field(patient.labs, "Labs")
             print("Labs updated successfully.")
 
         elif choice == 18:
-            patient.medications = input("Enter the updated medications: ")
+            update_list_field(patient.medications, "Medications")
             print("Medications updated successfully.")
 
         elif choice == 19:
-            patient.issues = input("Enter the updated issues: ")
+            update_list_field(patient.issues, "Issues")
             print("Issues updated successfully.")
 
         elif choice == 20:
@@ -315,7 +346,7 @@ def update_pt_information (patients):
             print("Plans updated successfully.")
 
         elif choice == 21:
-            patient.pros_involved = input("Enter the updated interdisciplinary team involved: ")
+            update_list_field(patient.pros_involved, "Professionals Involved")
             print("Interdisciplinary team updated successfully.")
 
         elif choice == 22:
@@ -329,6 +360,9 @@ def update_pt_information (patients):
         elif choice == 24:
             print("Returning to main menu.")
             break
+
+
+
 
 # Viewing all the patient's on the unit
 def view_all_patients (patients):
