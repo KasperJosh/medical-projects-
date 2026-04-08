@@ -58,7 +58,7 @@ def pt_update_menu():
     print("24. Exit")
     choice = int(input("Please select your choice: ")) 
     
-    if choice >=1 and choice <=24:
+    if 1<= choice <=24:
         return choice
     else:
         print("Please try again")
@@ -174,6 +174,107 @@ def update_pt_information (patients):
 
     patient = patients[mrn]
 
+    while True:
+
+        choice = pt_update_menu()
+        
+        if choice == 1:
+            patient.room = input("Enter the new room:")
+            print("Room updated successfully.")
+
+        elif choice == 2:
+            patient.team_doctor = input("Enter the new doctor/team: ")
+            print("Doctor updated successfully.")
+
+        elif choice == 3:
+            patient.diagnosis = input("Enter the new diagnosis: ")
+            print("Diagnosis updated successfully.")
+
+        elif choice == 4:
+            patient.isolation = input("Enter the new isolation status: ")
+            print("Isolation status updated successfully.")
+
+        elif choice == 5:
+            patient.level_intervention = input("Enter the new level of intervention: ")
+            print("Level of intervention updated successfully.")
+
+        elif choice == 6:
+            patient.past_hx = input("Enter the updated past medical history: ")
+            print("Past medical history updated successfully.")
+
+        elif choice == 7:
+            patient.allergies = input("Enter the updated allergies: ")
+            print("Allergies updated successfully.")
+
+        elif choice == 8:
+            patient.type_sx = input("Enter the updated type of surgery: ")
+            print("Type of surgery updated successfully.")
+
+        elif choice == 9:
+            patient.procedures = input("Enter the updated procedures: ")
+            print("Procedures updated successfully.")
+
+        elif choice == 10:
+            patient.rhythm = input("Enter the updated rhythm: ")
+            print("Rhythm updated successfully.")
+
+        elif choice == 11:
+            patient.ventilation = input("Enter the updated ventilation status: ")
+            print("Ventilation updated successfully.")
+
+        elif choice == 12:
+            patient.iv_access = input("Enter the updated IV accesses: ")
+            print("IV accesses updated successfully.")
+
+        elif choice == 13:
+            patient.nutrition = input("Enter the updated nutrition status: ")
+            print("Nutrition updated successfully.")
+
+        elif choice == 14:
+            patient.dressings = input("Enter the updated dressings: ")
+            print("Dressings updated successfully.")
+
+        elif choice == 15:
+            patient.elimination = input("Enter the updated elimination status: ")
+            print("Elimination updated successfully.")
+
+        elif choice == 16:
+            patient.mobility = input("Enter the updated mobility status: ")
+            print("Mobility updated successfully.")
+
+        elif choice == 17:
+            patient.labs = input("Enter the updated labs: ")
+            print("Labs updated successfully.")
+
+        elif choice == 18:
+            patient.medications = input("Enter the updated medications: ")
+            print("Medications updated successfully.")
+
+        elif choice == 19:
+            patient.issues = input("Enter the updated issues: ")
+            print("Issues updated successfully.")
+
+        elif choice == 20:
+            patient.plans = input("Enter the updated plans: ")
+            print("Plans updated successfully.")
+
+        elif choice == 21:
+            patient.pros_involved = input("Enter the updated interdisciplinary team involved: ")
+            print("Interdisciplinary team updated successfully.")
+
+        elif choice == 22:
+            patient.home_screen = input("Enter the updated home situation: ")
+            print("Home situation updated successfully.")
+
+        elif choice == 23:
+            patient.possible_dc = input("Enter the updated possible discharge date: ")
+            print("Possible discharge date updated successfully.")
+
+        elif choice == 24:
+            print("Returning to main menu.")
+            break
+        
+
 
 class Hospital_Driver:
     
@@ -196,21 +297,21 @@ class Hospital_Driver:
                 print("Admit a patient")
                 admit_patient(patients)
                 
-                
-
             # Discharging patient from unit
             case 2:
                 print("Discharging a patient")
                 discharge_patient(patients)
                 print(patients)
-                
-
+            
             # Transferring a patient to another unit
             case 3:
                 print("Transferring a patient to another unit")
-                
+                transfer_patient(patients)
+                print(patients)
+
             case 4:
                 print("Updating patient information")
+
                 
             case 5:
                 print("Viewing all the patients")
