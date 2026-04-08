@@ -7,10 +7,16 @@
 import patient_info
 
 # Creating a dictionary to store the patients in each unit
-cardiology_units = {"CVICU": {}, "CVU": {}}
+cardiology_units = {
+    "CVICU": {}, 
+    "CVU": {}
+    }
 
 # Setting the unit capacity in both CVICU and CVU 
-unit_capacities = {"CVICU": 14, "CVU": 37}
+unit_capacities = {
+    "CVICU": 14, 
+    "CVU": 37
+    }
 
 #Welcome Banner to the Hospital 
 def welcome():
