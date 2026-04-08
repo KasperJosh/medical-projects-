@@ -18,6 +18,24 @@ unit_capacities = {
     "CVU": 37
     }
 
+valid_rooms = {
+    "CVICU": {
+        "K0263", "K0264", "K0265", "K0266", "K0267", "K0268", "K0269","K0270", 
+        "K0272", "K0273", 
+        "K0274", "K0275", "K0276", "K0277",
+    },
+
+    "Cardiac Step Down": {
+        "K0210", "K0211", "K0212",
+        "K0214", "K0215", "K0216", "K0217",
+        "K0220", "K0221", "K0222", "K0223", "K0224", "K0225", "K0226",
+        "K0230", "K0231", "K0232", "K0233", "K0234", "K0235", "K0236",
+        "K0240", "K0241", "K0242", "K0243", "K0244", "K0245", "K0246",
+        "K0250", "K0251", "K0252", "K0253", "K0254", "K0255", "K0256", "K0257",
+        "K0271"
+    }
+}
+
 #Welcome Banner to the Hospital 
 def welcome():
         print('+++++++++++++++++++++++++++++++++++++++++++')
@@ -91,22 +109,22 @@ def admit_patient(patients):
     diagnosis = input("Please enter the diagnosis: ")
     isolation = input("Please enter the isolation status: ")
     level_intervention = input("Please enter the level of intervention: ")
-    past_hx = input("Please enter the Past Medical History: ")
-    allergies = input("Please enter the allergies: ")
+    past_hx = [item.strip() for item in input("Please enter the Past Medical History (comma separated): ").split(",")]
+    allergies = [item.strip() for item in input("Please enter the allergies: ").split(",")]
     type_sx = input("Please enter the type of surgery: ")
-    procedures =input("Please enter the procedures done: ")
+    procedures = [item.strip() for item in input("Please enter the procedures done: ")]
     rhythm= input("Please enter the cardiac rhythm: ")
     ventilation= input("Please enter the ventilation status: ")
-    iv_access= input("Please enter the IV accesses: ")
-    nutrition= input("Please enter the nutrition status: ")
-    dressings= input("Please enter the dressings present: ")
+    iv_access= [item.strip() for item in input("Please enter the IV accesses: ").split(",")]
+    nutrition= [item.strip() for item in input("Please enter the nutrition status: ").split(",")]
+    dressings= [item.strip() for item in input("Please enter the dressings present: ").split(",")]
     elimination= input("Please enter the elimination status: ")
     mobility= input("Please enter the mobility status: ")
-    labs = input("Please enter the critical labs: ")
-    medications = input("Please enter the medication list: ")
-    issues= input("Please enter the current issues: ")
+    labs = [item.strip() for item in input("Please enter the critical labs: ").split(",")]
+    medications = [item.strip() for item in input("Please enter the medication list: ").split(",")]
+    issues= [item.strip() for item in input("Please enter the current issues: ").split(",")]
     plans= input("Please enter the plan: ")
-    pros_involved= input("Please enter the pros involved: ")
+    pros_involved= [item.strip() for item in input("Please enter the pros involved: ").split(",")]
     home_screen= input("Please enter the home situation: ")
     possible_dc= input("Please enter the possible D/C date: ")
 
