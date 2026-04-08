@@ -109,22 +109,46 @@ def admit_patient(patients):
     diagnosis = input("Please enter the diagnosis: ")
     isolation = input("Please enter the isolation status: ")
     level_intervention = input("Please enter the level of intervention: ")
-    past_hx = [item.strip() for item in input("Please enter the Past Medical History (comma separated): ").split(",")]
-    allergies = [item.strip() for item in input("Please enter the allergies: ").split(",")]
+    
+    past_hx_input = input("Please enter ast medical history (comma separated): ")
+    past_hx = [item.strip() for item in past_hx_input.split(",") if item.strip()]
+    
+    allergies_input = input("Please enter the allergies (comma separated): ") 
+    allergies = [item.strip() for item in allergies_input.split(",") if item.strip()]
+
     type_sx = input("Please enter the type of surgery: ")
-    procedures = [item.strip() for item in input("Please enter the procedures done: ")]
+
+    procedures_input = input("Please enter the procedures done (comma separated): ")
+    procedures = [item.strip() for item in procedures_input.split(",") if item.strip()]
+
     rhythm= input("Please enter the cardiac rhythm: ")
     ventilation= input("Please enter the ventilation status: ")
-    iv_access= [item.strip() for item in input("Please enter the IV accesses: ").split(",")]
-    nutrition= [item.strip() for item in input("Please enter the nutrition status: ").split(",")]
-    dressings= [item.strip() for item in input("Please enter the dressings present: ").split(",")]
+
+    iv_access_input = input("Please enter the IV accesses (comma separated): ")
+    iv_access= [item.strip() for item in iv_access_input.split(",") if item.strip()]
+
+    nutrition_input = input("Please enter the nutrition status (comma separated): ")
+    nutrition= [item.strip() for item in nutrition_input.split(",") if item.strip()]
+
+    dressings_input = input("Please enter the dressings present (comma separted): ")
+    dressings= [item.strip() for item in dressings_input.split(",") if item.strip()]
+    
     elimination= input("Please enter the elimination status: ")
     mobility= input("Please enter the mobility status: ")
-    labs = [item.strip() for item in input("Please enter the critical labs: ").split(",")]
-    medications = [item.strip() for item in input("Please enter the medication list: ").split(",")]
-    issues= [item.strip() for item in input("Please enter the current issues: ").split(",")]
+    
+    #Can fix so that we could input valid labs (Like Na, K, etc)
+    labs_input = input("Please enter the critical labs (comma separated): ")
+    labs = [item.strip() for item in labs_input.split(",") if item.strip()]
+
+    medications_input = input("Please enter the medication list (comma separated): ")
+    medications = [item.strip() for item in medications_input.split(",") if item.strip()]
+
+    issues_input = input("Please enter the current issues (comma separated): ")
+    issues= [item.strip() for item in issues_input.split(",") if item.strip()]
     plans= input("Please enter the plan: ")
-    pros_involved= [item.strip() for item in input("Please enter the pros involved: ").split(",")]
+
+    pros_involved_input = input("Please enter the pros involved (comma separated): ")
+    pros_involved= [item.strip() for item in pros_involved_input.split(",") if item.strip()]
     home_screen= input("Please enter the home situation: ")
     possible_dc= input("Please enter the possible D/C date: ")
 
