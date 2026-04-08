@@ -6,11 +6,19 @@
 #Importing the necessary modules
 import patient_info
 
+# Creating a dictionary to store the patients in each unit
+cardiology_units = {"CVICU": {}, "CVU": {}}
+
+# Setting the unit capacity in both CVICU and CVU 
+unit_capacities = {"CVICU": 14, "CVU": 37}
+
+#Welcome Banner to the Hospital 
 def welcome():
         print('+++++++++++++++++++++++++++++++++++++++++++')
         print('Welcome to the K2 CVU/CVICU Unit Simulator!')
         print('+++++++++++++++++++++++++++++++++++++++++++')
 
+# Main Menu of the Hospital Program
 def menu():
           
         print("Select what you would like to do")
@@ -19,16 +27,17 @@ def menu():
         print("3. Transfer patient to another unit")
         print("4. Update patient information")
         print("5. View all patients")
-        print("6. View one patient")
-        print("7. Exit")
+        print("6. View all patients with their information")
+        print("7. View one patient")
+        print("8. Exit")
         choice = int(input("Please select your choice: ")) 
         
-        if choice >=1 and choice <=7:
+        if choice >=1 and choice <=8:
             return choice
         else:
             print("Please try again")
 
-
+# Creating the sub menu to update patient information
 def pt_update_menu():
     
     print("Select what you would like to do")
@@ -133,7 +142,6 @@ def admit_patient(patients):
     print(patients)
     print("---------------------------------------")
 
-
 # Discharging a patient from the unit 
 def discharge_patient(patients):
 
@@ -148,7 +156,6 @@ def discharge_patient(patients):
         print("\nNo patient found with that MRN.")
 
 # Transferring a patient to another unit
-
 def transfer_patient(patients):
 
     patient_mrn = int(input("Enter the MRN of the patient you want to transfer: "))
@@ -166,7 +173,7 @@ def transfer_patient(patients):
 # Updating a patient's information as needed 
 def update_pt_information (patients):
 
-    mrn = input("Enter the MRN of the patient to update: ")
+    mrn = int(input("Enter the MRN of the patient to update: "))
 
     if mrn not in patients:
         print("Patient not found.")
@@ -174,12 +181,13 @@ def update_pt_information (patients):
 
     patient = patients[mrn]
 
+    #Some of the fields, it's better to put it as a list
     while True:
 
         choice = pt_update_menu()
         
         if choice == 1:
-            patient.room = input("Enter the new room:")
+            patient.room = input("Enter the new room: ")
             print("Room updated successfully.")
 
         elif choice == 2:
@@ -273,9 +281,45 @@ def update_pt_information (patients):
         elif choice == 24:
             print("Returning to main menu.")
             break
-        
 
+# Viewing all the patient's on the unit
+def view_all_patients (patients):
+    
+    if not patients:
+        print("\nThere are no patients currently on the unit.")
+        return
+    print("\n--All Patients on the Unit--")
+    for patient in patients.values():
+        print(f"Room: {patient.room} | Name: {patient.name} | MRN: {patient.mrn} | Diagnosis: {patient.diagnosis}")
+    print("-" * 40)
 
+# Viewing all the patient's added to the unit so far with their information 
+def view_all_patients_with_info(patients):
+    
+    if not patients:
+        print("\nThere are no patients currently on the unit.")
+        return
+    print("\n--All Patients on the Unit with Information--")
+    for patient in patients.values():
+        patient.display_info()
+        print("-" * 40)
+
+# Viewing all of the information of one patient
+def view_one_patient_info(patients):
+    
+    if not patients:
+        print("\nThere are no patients currently on the unit.")
+        return
+    mrn = int(input("Enter the MRN of the patient to update: "))
+
+    if mrn not in patients:
+        print("Patient not found.")
+        return
+
+    patient = patients[mrn]
+    patient.display_info()
+
+# Main Driver Class
 class Hospital_Driver:
     
     #Creating a dictionary that will store all the patients
@@ -296,30 +340,44 @@ class Hospital_Driver:
             case 1:  
                 print("Admit a patient")
                 admit_patient(patients)
-                
+                print("*" * 40)
+
             # Discharging patient from unit
             case 2:
                 print("Discharging a patient")
                 discharge_patient(patients)
                 print(patients)
+                print("*" * 40)
             
             # Transferring a patient to another unit
             case 3:
                 print("Transferring a patient to another unit")
                 transfer_patient(patients)
                 print(patients)
+                print("*" * 40)
 
             case 4:
                 print("Updating patient information")
+                update_pt_information(patients)
+                print(patients)
+                print("*" * 40)
 
-                
             case 5:
                 print("Viewing all the patients")
-                
+                view_all_patients(patients)
+                print("*" * 40)
+
             case 6:
-                print("Viewing one patient")
-                
+                print("Viewing all the patients with information")
+                view_all_patients_with_info(patients)
+                print("*" * 40)
+
             case 7:
+                print("Viewing one patient")
+                view_one_patient_info(patients)
+                print("*" * 40)
+
+            case 8:
                 print("Exiting")
                 break
             case _:
