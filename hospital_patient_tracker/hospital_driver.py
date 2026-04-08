@@ -13,7 +13,6 @@ def welcome():
 
 def menu():
           
-        
         print("Select what you would like to do")
         print("1. Admit a patient to the unit")
         print("2. Discharge patient from the unit")
@@ -28,6 +27,41 @@ def menu():
             return choice
         else:
             print("Please try again")
+
+
+def pt_update_menu():
+    
+    print("Select what you would like to do")
+    print("1. Update patient's room")
+    print("2. Update patient's doctor")
+    print("3. Update diagnosis")
+    print("4. Update isolation status")
+    print("5. Update level of intervention")
+    print("6. Update past medical history")
+    print("7. Update allergies")
+    print("8. Update the type of surgery")
+    print("9. Update the procedures")
+    print("10. Update the rhythm")
+    print("11. Update the ventilation status")
+    print("12. Update the IV accesses")
+    print("13. Update the nutrition status")
+    print("14. Update the dressings")
+    print("15. Update the elimination status")
+    print("16. Update the mobility status")
+    print("17. Update the labs")
+    print("18. Update the medications")
+    print("19. Update the issues")
+    print("20. Update the plans")
+    print("21. Update the interdisciplinary team involved")
+    print("22. Update the home situation")
+    print("23. Update the possible discharge date")
+    print("24. Exit")
+    choice = int(input("Please select your choice: ")) 
+    
+    if choice >=1 and choice <=24:
+        return choice
+    else:
+        print("Please try again")
               
 # Adding a patient to the unit method
 def admit_patient(patients):
@@ -128,6 +162,17 @@ def transfer_patient(patients):
     
     else:
         print("\nNo patient found with that MRN.")
+
+# Updating a patient's information as needed 
+def update_pt_information (patients):
+
+    mrn = input("Enter the MRN of the patient to update: ")
+
+    if mrn not in patients:
+        print("Patient not found.")
+        return
+
+    patient = patients[mrn]
 
 
 class Hospital_Driver:
