@@ -5,6 +5,7 @@ class Patient:
     
     def __init__(
         self,
+        unit,
         room,
         name,
         mrn,
@@ -35,6 +36,7 @@ class Patient:
         possible_dc="N/A",
         vital_signs = None
     ):
+        self.unit = unit # CVU or CVICU
         self.room = room    #K0210
         self.name = name    #Joshua Visario
         self.mrn = mrn      #05091999

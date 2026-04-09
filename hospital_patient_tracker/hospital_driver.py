@@ -18,6 +18,7 @@ unit_capacities = {
     "CVU": 37
     }
 
+# Getting all he valid rooms in the unit
 valid_rooms = {
     "CVICU": {
         "K0263", "K0264", "K0265", "K0266", "K0267", "K0268", "K0269","K0270", 
@@ -25,7 +26,7 @@ valid_rooms = {
         "K0274", "K0275", "K0276", "K0277",
     },
 
-    "Cardiac Step Down": {
+    "CVU": {
         "K0210", "K0211", "K0212",
         "K0214", "K0215", "K0216", "K0217",
         "K0220", "K0221", "K0222", "K0223", "K0224", "K0225", "K0226",
@@ -100,10 +101,37 @@ def pt_update_menu():
               
 # Adding a patient to the unit method
 def admit_patient(patients):
-        
-    room = input("Please enter the admitting room: ")
-    name = input("Please enter the patient's name: ")
+
+    unit = input("Please enter the unit the patient is going to be admited (CVICU or CVU): ").strip()
+
+    if unit not in cardiology_units:
+        print("Invalid unit.")
+        return
+    if len(cardiology_units[unit]) >= unit_capacities[unit]:
+        print(f"{unit} is full. Cannot admit more patients.")
+        return
+
+    #Asking for the room the patient is going to be admitted to
+    room = input("Please enter the admitting room: ").strip().upper
+    
+    if room not in valid_rooms[unit]:
+        print(f"{room} is not a valid room in {unit}.")
+        return
+
+    for existing_patient in cardiology_units[unit].values():
+        if existing_patient.room == room:
+            print(f"Room {room} is already occupied.")
+            return
+    
+    #Asking for the MRN of the patient
     mrn = int(input("Please enter the patient's MRN: "))
+    
+    if mrn in cardiology_units[unit]:
+        print("A patient with this MRN already exists in this unit")
+        return 
+    
+
+    name = input("Please enter the patient's name: ")
     age = int(input("Please enter the patient's age: "))
     gender = input("Please enter the patient's gender: ")
     admission_date = input("Please enter the admitting date: ")
