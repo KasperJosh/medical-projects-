@@ -474,16 +474,25 @@ def view_all_patients (patients):
         print(f"Room: {patient.room} | Name: {patient.name} | MRN: {patient.mrn} | Diagnosis: {patient.diagnosis}")
     print("-" * 40)
 
-# Viewing all the patient's added to the unit so far with their information 
-def view_all_patients_with_info(patients):
-    
-    if not patients:
-        print("\nThere are no patients currently on the unit.")
-        return
-    print("\n--All Patients on the Unit with Information--")
-    for patient in patients.values():
-        patient.display_info()
-        print("-" * 40)
+# Viewing all the patients with full information by unit
+def view_all_patients_with_info(cardiology_units):
+
+    has_patients = False
+
+    for unit, patients in cardiology_units.items():
+
+        print(f"\n--- {unit} ---")
+
+        if not patients:
+            print("No patients in this unit.")
+        else:
+            has_patients = True
+            for patient in patients.values():
+                patient.display_info()
+                print("-" * 40)
+
+    if not has_patients:
+        print("\nThere are no patients currently in any unit.")
 
 # Viewing all of the information of one patient
 def view_one_patient_info(patients):
