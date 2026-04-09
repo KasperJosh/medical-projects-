@@ -141,7 +141,7 @@ def admit_patient(cardiology_units, unit_capacities, valid_rooms):
     isolation = input("Please enter the isolation status: ")
     level_intervention = input("Please enter the level of intervention: ")
     
-    past_hx_input = input("Please enter ast medical history (comma separated): ")
+    past_hx_input = input("Please enter past medical history (comma separated): ")
     past_hx = [item.strip() for item in past_hx_input.split(",") if item.strip()]
     
     allergies_input = input("Please enter the allergies (comma separated): ") 
@@ -276,8 +276,6 @@ def transfer_patient(cardiology_units, unit_capacities, valid_rooms):
     print(f"\nAvailable rooms in {destination_unit}:")
     for room in sorted(available_rooms):
         print(room)
-
-    new_room = input("Enter the new room: ").strip().upper()
 
     new_room = input("Enter the new room: ").strip().upper()
 
@@ -469,7 +467,7 @@ def view_all_patients (cardiology_units):
     has_patients = False
     
     for unit, patients in cardiology_units.items():
-        print(f"\n--- {unit} ---")
+        print(f"\n---             {unit}                  ---")
         print(f"---{unit} current has ({len(patients)}) patients --- ")
 
         if not patients:
@@ -548,9 +546,9 @@ def update_vital_signs(cardiology_units):
             patients[mrn].vital_signs = latest_vitals
             print("Vital signs updated successfully.")  
     
-    print("\nPatient not found")
+        print("\nPatient not found")
 
-def view_latest_vital_signs(patients):
+def view_latest_vital_signs(cardiology_units):
     
     mrn = int(input("Enter the patient's MRN: "))
 

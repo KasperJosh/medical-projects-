@@ -1,0 +1,147 @@
+
+isolation status = LRC,MRC,HRC,CDiff, MDRO, Bedbugs, MRSA
+
+level of intervention = A,B,C,D
+
+PMHx: DM2, DLP, HLP, 
+
+Labs = Na,K,Hgb,etc
+
+Rhythm = NSR,SB,ST,FAfib,Afib,Junctional, 1AVB,2AVB1,2AVB2,3AVB, NSVT,VT,VFib, PAC,PVC
+
+Ventilation = RA,NP,BIPAP,CPAP
+
+IV access = PIV,CVAD,PICC
+
+Nutrition = Cardiac, DM-øCBGM,DM-CBGM, FR1L,FR1.5L,FR2L, 
+
+Elimination = Foley, Diaper, 
+
+Unspecified fields
+Diagnostic = 
+Allergies = 
+Issues = 
+Plans = 
+
+--------------------------------------------------
+
+Acuiting Score System
+
+Things to think about: Nurses experience, Proximity of the rooms
+
+Hemodynamic Status:
+    Stable:
+    - No vasopressors, MAP >65, No active bleeding → Score: 0-1
+    Moderate Instability
+    - Single vasopressor (low dose)/ Occasional fluid bolus → Score: 2
+    Unstable
+    - Multiple pressors OR Titration, IABP/Impella → Score 3-4
+----------------------------------------
+Cardiac Status:
+- Stable Rhythm
+    NSR / Controlled Afib/ SB(Asymptomatic 45-60) → Score: 0
+- Arrhythmia Risk
+    AF with RVR, Frequent PVCs, Frequent NSVT
+High Risk
+    VT,VF history, TVP(Temporary Pacemaker) → Score: 3
+-------------------------------------------
+Respiratory Status
+- Room Air/ Low O2 requirement
+    Nasal Prongs <= 4L → Score: 0
+Moderate Support
+    HFNC/CPAP/BIPAP → Score: 2
+Critical
+    Mechanical Ventilation, Intubated/ ARDS → Score: 3- 4
+-------------------------------------------
+Neurological Status:
+    A&O x 3 → Score: 0
+    Altered/ Confused/ Delirium → Score: 1-2
+    Critical/ Sedated/GCS < 8 → Score: 3
+------------------------------------------
+Medication Complexity
+- Minimal   
+    PO meds only → Score: 0
+- Moderate
+    IV meds/ Insulin Drip → Score: 1-2
+- High Complexity
+    Multiple Titratable drips → Score: 3-4
+--------------------------------------------
+Lines/Devices
+- Basic
+    No IV/Devices → Score: 0
+- Moderate
+    Central line/ Arterial line → Score: 1-2
+Complex
+    IABP/ CRRT/ ECMO → Score: 3-4
+---------------------------------------------
+Lab Monitoring/Instability
+- Routine
+    Daily Labs → Score: 0
+- Frequent Monitoring 
+    Electrolyte Replacement → Score: 1-2
+- Critical
+    ABGs,Unstable Labs → Score: 3
+-----------------------------------------------
+Mobility Status:
+    - Indep → Score :0
+    - Ax1 → Score: 1
+    - AX2 → Score: 2
+    - T&Pq2hrs/ Broda → 4
+------------------------------------------------
+Nutrition Status
+    - Non dysphagic → Score: 0
+    - NGT/OGT/PEG → Score: 2
+
+------------------------------------------------
+Elimination Status
+    - No issues → Score: 0
+    - Diaper/Foley → Score: 1
+    - Diarrhea → Score: 2
+
+
+
+-----------------------------------------------
+Nursing Workload
+- Low
+    Minimal interventions → Score: 0
+- Moderate
+    Frequent meds/ assessments → Score: 2
+- High
+    Constant Monitoring/ Procedures → Score: 3-4
+    Angiography today
+    Pacemaker today
+    CABG First Case
+    CABG Second Case
+    TAVI First Case
+    TAVI Second Case
+    TAVI Third Case
+    Cardioversion
+    TEE
+
+----------------------------------
+Procedures/Test Today
+    - CXR/TTE/Appointments etc → Score : 1
+    - Hemodialysis → Score : 2 
+
+--------------------------
+Miscellaneous Nursing Things
+    - Simple Dressing Change → Score: 1
+    - Difficult Dressing Change → Score: 2
+    - Trach care → Score: 3 
+    - Cardiac Surgery Dressings (Acrylic + Sumps) → Score: 3
+--------------------
+Special Considerations
+- Isolation Status
+    Contact (MRSA,CRO,VRE, Scabies/Draining Wounds) → Score: 1
+    COVID/ Droplet → Score: 2
+    TB → Score: 3
+- Behavioural/Agitation
+    Score: 1-2
+- End-of-Life/ Family Support Heavy
+    Score: 2
+- Discharge Today → Score: 2
+- 
+
+
+Nursing Experience****
+
