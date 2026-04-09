@@ -5,6 +5,12 @@
 
 #Importing the necessary modules
 import patient_info, vital_signs
+from input_helpers import (
+    get_nonempty_input,
+    get_list_input,
+    get_valid_standard_single,
+    get_valid_standard_multi
+)
 
 #Global variables 
 # Creating a dictionary to store the patients in each unit
@@ -132,56 +138,92 @@ def admit_patient(cardiology_units, unit_capacities, valid_rooms):
         return 
     
 
-    name = input("Please enter the patient's name: ")
-    age = int(input("Please enter the patient's age: "))
-    gender = input("Please enter the patient's gender: ")
-    admission_date = input("Please enter the admitting date: ")
-    team_doctor = input("Please enter the team of doctor: ")
-    diagnosis = input("Please enter the diagnosis: ")
-    isolation = input("Please enter the isolation status: ")
-    level_intervention = input("Please enter the level of intervention: ")
-    
-    past_hx_input = input("Please enter past medical history (comma separated): ")
-    past_hx = [item.strip() for item in past_hx_input.split(",") if item.strip()]
-    
-    allergies_input = input("Please enter the allergies (comma separated): ") 
-    allergies = [item.strip() for item in allergies_input.split(",") if item.strip()]
+    name = get_nonempty_input("Please enter the patient's name: ")
+    age = get_nonempty_input("Please enter the patient's age: ")
+    gender = get_nonempty_input("Please enter the patient's gender: ")
+    admission_date = get_nonempty_input("Please enter the admitting date: ")
+    team_doctor = get_nonempty_input("Please enter the team doctor: ")
+    diagnosis = get_nonempty_input("Please enter the diagnosis: ")
 
-    type_sx = input("Please enter the type of surgery: ")
+    isolation = get_valid_standard_single(
+        "isolation",
+        "Please enter the isolation status: "
+    )
 
-    procedures_input = input("Please enter the procedures done (comma separated): ")
-    procedures = [item.strip() for item in procedures_input.split(",") if item.strip()]
+    level_intervention = get_valid_standard_single(
+        "level_of_intervention",
+        "Please enter the level of intervention: "
+    )
 
-    rhythm= input("Please enter the cardiac rhythm: ")
-    ventilation= input("Please enter the ventilation status: ")
+    past_hx = get_valid_standard_multi(
+        "pmhx",
+        "Please enter past medical history (comma separated): "
+    )
 
-    iv_access_input = input("Please enter the IV accesses (comma separated): ")
-    iv_access= [item.strip() for item in iv_access_input.split(",") if item.strip()]
+    allergies = get_list_input(
+        "Please enter the allergies (comma separated): "
+    )
 
-    nutrition_input = input("Please enter the nutrition status (comma separated): ")
-    nutrition= [item.strip() for item in nutrition_input.split(",") if item.strip()]
+    type_sx = input("Please enter the type of surgery: ").strip()
 
-    dressings_input = input("Please enter the dressings present (comma separated): ")
-    dressings= [item.strip() for item in dressings_input.split(",") if item.strip()]
-    
-    elimination= input("Please enter the elimination status: ")
-    mobility= input("Please enter the mobility status: ")
-    
-    #Can fix so that we could input valid labs (Like Na, K, etc)
-    labs_input = input("Please enter the critical labs (comma separated): ")
-    labs = [item.strip() for item in labs_input.split(",") if item.strip()]
+    procedures = get_list_input(
+        "Please enter the procedures done (comma separated): "
+    )
 
-    medications_input = input("Please enter the medication list (comma separated): ")
-    medications = [item.strip() for item in medications_input.split(",") if item.strip()]
+    rhythm = get_valid_standard_single(
+        "rhythm",
+        "Please enter the cardiac rhythm: "
+    )
 
-    issues_input = input("Please enter the current issues (comma separated): ")
-    issues= [item.strip() for item in issues_input.split(",") if item.strip()]
-    plans= input("Please enter the plan: ")
+    ventilation = get_valid_standard_single(
+        "ventilation",
+        "Please enter the ventilation status: "
+    )
 
-    pros_involved_input = input("Please enter the pros involved (comma separated): ")
-    pros_involved= [item.strip() for item in pros_involved_input.split(",") if item.strip()]
-    home_screen= input("Please enter the home situation: ")
-    possible_dc= input("Please enter the possible D/C date: ")
+    iv_access = get_valid_standard_multi(
+        "iv_access",
+        "Please enter the IV accesses (comma separated): "
+    )
+
+    nutrition = get_valid_standard_multi(
+        "nutrition",
+        "Please enter the nutrition status (comma separated): "
+    )
+
+    dressings = get_list_input(
+        "Please enter the dressings present (comma separated): "
+    )
+
+    elimination = get_valid_standard_single(
+        "elimination",
+        "Please enter the elimination status: "
+    )
+
+    mobility = get_valid_standard_single(
+        "mobility",
+        "Please enter the mobility status: ")
+
+    labs = get_valid_standard_multi(
+        "labs",
+        "Please enter the critical labs (comma separated): "
+    )
+
+    medications = get_list_input(
+        "Please enter the medication list (comma separated): "
+    )
+
+    issues = get_list_input(
+        "Please enter the current issues (comma separated): "
+    )
+
+    plans = input("Please enter the plan: ").strip()
+
+    pros_involved = get_list_input(
+        "Please enter the pros involved (comma separated): "
+    )
+
+    home_screen = input("Please enter the home situation: ").strip()
+    possible_dc = input("Please enter the possible D/C date: ").strip()
 
     patient = patient_info.Patient(
         unit,
@@ -193,7 +235,7 @@ def admit_patient(cardiology_units, unit_capacities, valid_rooms):
         admission_date,
         team_doctor,
         diagnosis,
-        isolation ,
+        isolation,
         level_intervention,
         past_hx,
         allergies,
@@ -214,9 +256,9 @@ def admit_patient(cardiology_units, unit_capacities, valid_rooms):
         home_screen,
         possible_dc
     )
-    
+
     cardiology_units[unit][mrn] = patient
-    #To test
+
     patient.display_info()
     print(f"\nPatient {mrn}: {name} successfully admitted to {unit} in room {room}.")
     print("---------------------------------------")
@@ -501,7 +543,7 @@ def view_all_patients_with_info(cardiology_units):
 # Viewing all of the information of one patient
 def view_one_patient_info(cardiology_units):
     
-    mrn = int(input("Enter the MRN of the patient to update: "))
+    mrn = int(input("Enter the MRN of the patient you want to view: "))
     
     for unit, patients in cardiology_units.items():
 
