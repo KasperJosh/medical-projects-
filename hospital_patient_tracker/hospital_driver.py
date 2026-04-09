@@ -4,7 +4,7 @@
 
 
 #Importing the necessary modules
-import patient_info
+import patient_info, vital_signs
 
 # Creating a dictionary to store the patients in each unit
 cardiology_units = {
@@ -52,11 +52,13 @@ def menu():
         print("4. Update patient information")
         print("5. View all patients")
         print("6. View all patients with their information")
-        print("7. View one patient")
-        print("8. Exit")
+        print("7. View one patient's information")
+        print("8. Update one patient's vital signs")
+        print("9. View one patient's vital signs")
+        print("10. Exit")
         choice = int(input("Please select your choice: ")) 
         
-        if choice >=1 and choice <=8:
+        if choice >=1 and choice <=10:
             return choice
         else:
             print("Please try again")
@@ -130,7 +132,7 @@ def admit_patient(patients):
     nutrition_input = input("Please enter the nutrition status (comma separated): ")
     nutrition= [item.strip() for item in nutrition_input.split(",") if item.strip()]
 
-    dressings_input = input("Please enter the dressings present (comma separted): ")
+    dressings_input = input("Please enter the dressings present (comma separated): ")
     dressings= [item.strip() for item in dressings_input.split(",") if item.strip()]
     
     elimination= input("Please enter the elimination status: ")
@@ -227,7 +229,7 @@ def update_list_field(item_list, field_name):
         print(f"2. Remove from {field_name}")
         print("3. Return")
 
-        choice = input("select an option")
+        choice = input("Select an option: ")
 
         if choice == "1":
             new_item = input(f"Enter item to add to {field_name}: ")
@@ -361,9 +363,6 @@ def update_pt_information (patients):
             print("Returning to main menu.")
             break
 
-
-
-
 # Viewing all the patient's on the unit
 def view_all_patients (patients):
     
@@ -400,6 +399,51 @@ def view_one_patient_info(patients):
 
     patient = patients[mrn]
     patient.display_info()
+
+def update_vital_signs(patients):
+
+    mrn = int(input("Enter the patient's MRN: "))
+
+    if mrn not in patients:
+        print("Patient not found.")
+        return
+
+    systolic_bp = int(input("Enter systolic BP: "))
+    diastolic_bp = int(input("Enter diastolic BP: "))
+    heart_rate = int(input("Enter heart rate: "))
+    respiratory_rate = int(input("Enter respiratory rate: "))
+    oxygen_saturation = int(input("Enter oxygen saturation: "))
+    temperature = float(input("Enter temperature: "))
+
+    latest_vitals = vital_signs.VitalSigns(
+        systolic_bp,
+        diastolic_bp,
+        heart_rate,
+        respiratory_rate,
+        oxygen_saturation,
+        temperature
+    )
+
+    patients[mrn].vital_signs = latest_vitals
+    print("Vital signs updated successfully.")  
+
+def view_latest_vital_signs(patients):
+    
+    mrn = int(input("Enter the patient's MRN: "))
+
+    if mrn not in patients:
+        print("Patient not found.")
+        return
+
+    patient = patients[mrn]
+
+    if patient.vital_signs is None:
+        print("No vital signs recorded yet.")
+        return
+
+    print(f"\nLatest vital signs for {patient.room} {patient.name} {patient.mrn}:")
+    patient.vital_signs.display_vitals()
+
 
 # Main Driver Class
 class Hospital_Driver:
@@ -460,6 +504,15 @@ class Hospital_Driver:
                 print("*" * 40)
 
             case 8:
+                print("Update one patient's vital_signs")
+                update_vital_signs(patients)
+                print("*" * 40)
+            case 9:
+                print("View one patient's vital_signs")
+                view_latest_vital_signs(patients)
+                print("*" * 40)
+
+            case 10:
                 print("Exiting")
                 break
             case _:

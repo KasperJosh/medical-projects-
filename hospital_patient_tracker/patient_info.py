@@ -32,7 +32,8 @@ class Patient:
         plans="N/A",
         pros_involved=None,
         home_screen="N/A",
-        possible_dc="N/A"
+        possible_dc="N/A",
+        vital_signs = None
     ):
         self.room = room    #K0210
         self.name = name    #Joshua Visario
@@ -63,7 +64,7 @@ class Patient:
         self.pros_involved = pros_involved if pros_involved else []  #['SW','PT','OT]
         self.home_screen = home_screen #Lives alone
         self.possible_dc = possible_dc #2026-04-10
-
+        self.vital_signs = vital_signs 
 
     def display_info(self):
         print(f"\n--- Patient {self.mrn} ---")
