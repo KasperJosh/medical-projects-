@@ -62,9 +62,9 @@ def menu():
         print("5. View all patients")
         print("6. View all patients with their information")
         print("7. View one patient's information")
-        print("8. Update one patient's vital signs")
-        print("9. View one patient's vital signs")
-        print("10. View CVU/CVICU Bedflow")
+        print("8. Update one patient's Vital Signs")
+        print("9. View one patient's Vital Vigns")
+        print("10. View CVU/CVICU Bedflow Status")
         print("11. Exit")
         choice = int(input("Please select your choice: ")) 
         
@@ -619,7 +619,7 @@ def view_latest_vital_signs(cardiology_units):
                 print("No vital signs recorded yet.")
                 return
 
-            print(f"\nLatest vital signs for {patient.room} {patient.name} {patient.mrn}:")
+            print(f"\nLatest vital signs for {patient.room} {patient.name}, MRN: {patient.mrn}:")
             patient.vital_signs.display_vitals()
     
     print("\nPatient not found")
