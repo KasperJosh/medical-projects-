@@ -218,21 +218,24 @@ def admit_patient(cardiology_units, unit_capacities, valid_rooms):
     cardiology_units[unit][mrn] = patient
     #To test
     patient.display_info()
-    print(f"\nPatient {name} successfully admitted to {unit} in room {room}.")
+    print(f"\nPatient {mrn}: {name} successfully admitted to {unit} in room {room}.")
     print("---------------------------------------")
 
 # Discharging a patient from the unit 
-def discharge_patient(patients):
+def discharge_patient(cardiology_units):
 
     patient_mrn = int(input("Enter the MRN of the patient you want to discharge: "))
 
-    if patient_mrn in patients:
-        discharged_patient = patients [patient_mrn]
-        del patients[patient_mrn]
-        print(f"\nPatient {discharged_patient.name} has been discharged successfully.")
-    
-    else:
-        print("\nNo patient found with that MRN.")
+    for unit, patients in cardiology_units.items():  #Key: CVU, Values: Patients technically
+
+        if patient_mrn in patients:
+            discharged_patient = patients[patient_mrn]
+            del patients[patient_mrn]
+
+            print(f"\nPatient {discharged_patient.mrn} {discharged_patient.name} has been discharged from {unit} successfully.")
+            return
+
+    print("\nNo patient found with that MRN.")
 
 # Transferring a patient to another unit
 def transfer_patient(patients):
@@ -500,7 +503,7 @@ class Hospital_Driver:
             # Discharging patient from unit
             case 2:
                 print("Discharging a patient")
-                discharge_patient(patients)
+                discharge_patient(cardiology_units)
                 print(patients)
                 print("*" * 40)
             
