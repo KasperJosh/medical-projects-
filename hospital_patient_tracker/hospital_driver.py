@@ -464,15 +464,20 @@ def update_pt_information (cardiology_units):
             break
 
 # Viewing all the patient's on the unit
-def view_all_patients (patients):
+def view_all_patients (cardiology_units):
     
-    if not patients:
-        print("\nThere are no patients currently on the unit.")
-        return
-    print("\n--All Patients on the Unit--")
-    for patient in patients.values():
-        print(f"Room: {patient.room} | Name: {patient.name} | MRN: {patient.mrn} | Diagnosis: {patient.diagnosis}")
-    print("-" * 40)
+    has_patients = False
+    
+    for unit, patients in cardiology_units.items():
+        print(f"\n--- {unit} ---")
+        print(f"---{unit} current has ({len(patients)}) patients --- ")
+
+        if not patients:
+            print("\nThere are no patients currently on the unit.")
+        else:
+            for patient in patients.values():
+                print(f"Room: {patient.room} | Name: {patient.name} | MRN: {patient.mrn} | Diagnosis: {patient.diagnosis}")
+            print("-" * 40)
 
 # Viewing all the patients with full information by unit
 def view_all_patients_with_info(cardiology_units):
@@ -481,7 +486,8 @@ def view_all_patients_with_info(cardiology_units):
 
     for unit, patients in cardiology_units.items():
 
-        print(f"\n--- {unit} ---")
+        print(f"\n---                 {unit}                      ---")
+        print(f"---{unit} current has ({len(patients)}) patients --- ")
 
         if not patients:
             print("No patients in this unit.")
@@ -495,63 +501,75 @@ def view_all_patients_with_info(cardiology_units):
         print("\nThere are no patients currently in any unit.")
 
 # Viewing all of the information of one patient
-def view_one_patient_info(patients):
+def view_one_patient_info(cardiology_units):
     
-    if not patients:
-        print("\nThere are no patients currently on the unit.")
-        return
     mrn = int(input("Enter the MRN of the patient to update: "))
+    
+    for unit, patients in cardiology_units.items():
 
-    if mrn not in patients:
-        print("Patient not found.")
-        return
+        if mrn in patients:
+            
+            patient = patients[mrn]
+            print(f"\n--Patient found in {unit} ---")
+            patient.display_info()
+            return
+        
+    print("\nPatient not found.")
 
-    patient = patients[mrn]
-    patient.display_info()
 
-def update_vital_signs(patients):
+def update_vital_signs(cardiology_units):
 
     mrn = int(input("Enter the patient's MRN: "))
 
-    if mrn not in patients:
-        print("Patient not found.")
-        return
+    for unit, patients in cardiology_units.items():
 
-    systolic_bp = int(input("Enter systolic BP: "))
-    diastolic_bp = int(input("Enter diastolic BP: "))
-    heart_rate = int(input("Enter heart rate: "))
-    respiratory_rate = int(input("Enter respiratory rate: "))
-    oxygen_saturation = int(input("Enter oxygen saturation: "))
-    temperature = float(input("Enter temperature: "))
+        if mrn in patients:
+            
+            patient = patients[mrn]
+            print(f"\n--Patient found in {unit} ---")
+            print(f"Name: {patient.name} | Room: {patient.room}")
+            
+            systolic_bp = int(input("Enter systolic BP: "))
+            diastolic_bp = int(input("Enter diastolic BP: "))
+            heart_rate = int(input("Enter heart rate: "))
+            respiratory_rate = int(input("Enter respiratory rate: "))
+            oxygen_saturation = int(input("Enter oxygen saturation: "))
+            temperature = float(input("Enter temperature: "))
 
-    latest_vitals = vital_signs.VitalSigns(
-        systolic_bp,
-        diastolic_bp,
-        heart_rate,
-        respiratory_rate,
-        oxygen_saturation,
-        temperature
-    )
+            latest_vitals = vital_signs.VitalSigns(
+                systolic_bp,
+                diastolic_bp,
+                heart_rate,
+                respiratory_rate,
+                oxygen_saturation,
+                temperature
+            )
 
-    patients[mrn].vital_signs = latest_vitals
-    print("Vital signs updated successfully.")  
+            patients[mrn].vital_signs = latest_vitals
+            print("Vital signs updated successfully.")  
+    
+    print("\nPatient not found")
 
 def view_latest_vital_signs(patients):
     
     mrn = int(input("Enter the patient's MRN: "))
 
-    if mrn not in patients:
-        print("Patient not found.")
-        return
+    for unit, patients in cardiology_units.items():
 
-    patient = patients[mrn]
+        if mrn in patients:
 
-    if patient.vital_signs is None:
-        print("No vital signs recorded yet.")
-        return
+            patient = patients[mrn]
+            print(f"\n--Patient found in {unit} ---")
+            print(f"Name: {patient.name} | Room: {patient.room}")
 
-    print(f"\nLatest vital signs for {patient.room} {patient.name} {patient.mrn}:")
-    patient.vital_signs.display_vitals()
+            if patient.vital_signs is None:
+                print("No vital signs recorded yet.")
+                return
+
+            print(f"\nLatest vital signs for {patient.room} {patient.name} {patient.mrn}:")
+            patient.vital_signs.display_vitals()
+    
+    print("\nPatient not found")
 
 
 # Main Driver Class
@@ -599,26 +617,26 @@ class Hospital_Driver:
 
             case 5:
                 print("Viewing all the patients")
-                view_all_patients(patients)
+                view_all_patients(cardiology_units)
                 print("*" * 40)
 
             case 6:
                 print("Viewing all the patients with information")
-                view_all_patients_with_info(patients)
+                view_all_patients_with_info(cardiology_units)
                 print("*" * 40)
 
             case 7:
                 print("Viewing one patient")
-                view_one_patient_info(patients)
+                view_one_patient_info(cardiology_units)
                 print("*" * 40)
 
             case 8:
                 print("Update one patient's vital_signs")
-                update_vital_signs(patients)
+                update_vital_signs(cardiology_units)
                 print("*" * 40)
             case 9:
                 print("View one patient's vital_signs")
-                view_latest_vital_signs(patients)
+                view_latest_vital_signs(cardiology_units)
                 print("*" * 40)
 
             case 10:
