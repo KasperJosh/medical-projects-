@@ -20,6 +20,7 @@ class Patient:
         allergies = None,
         type_sx ="N/A",
         procedures =None,
+        neuro = "N/A",
         rhythm= "N/A",
         ventilation="N/A",
         iv_access="N/A",
@@ -52,6 +53,7 @@ class Patient:
         self.allergies = allergies if allergies else [] #['PNC','Vancomycin']
         self.type_sx = type_sx #CABGx4
         self.procedures = procedures if procedures else []# ['CXR:___, 'Cardiac Echo:___']
+        self.neuro = neuro #AOx3
         self.rhythm = rhythm #'SR'
         self.ventilation = ventilation #RA
         self.iv_access = iv_access #L PIV
@@ -84,6 +86,7 @@ class Patient:
         print(f"Allergies: {self.allergies}")
         print(f"Surgery Type: {self.type_sx}")
         print(f"Procedures: {self.procedures}")
+        print(f"Neuro: {self.neuro}")
         print(f"Rhythm: {self.rhythm}")
         print(f"Ventilation: {self.ventilation}")
         print(f"IV Access: {self.iv_access}")
@@ -105,7 +108,7 @@ class Patient:
 
 
 patient1 = Patient( 'K0210', 'Joshua Visario', 5091999, 26, 'M', '2026-04-05', 'Team 1 Cardiology','MVD', 'MRC', 'A', ['DM2', 'HTN', 'DLP'],
-        ['PNC','Vancomycin'], 'CABGx4', ['CXR:___', 'Cardiac Echo:___'], 'SR', 'RA', 'L PIV',['Cardiac', 'Diabetic'],['Sternum'], None,  
+        ['PNC','Vancomycin'], 'CABGx4', ['CXR:___', 'Cardiac Echo:___'], 'AOX3', 'SR', 'RA', 'L PIV',['Cardiac', 'Diabetic'],['Sternum'], None,  
         'Indep', ['K:__', 'Na+:__'], ['Lasix','ASA','Metoprolol'],None, 'DC Soon', ['SW','PT','OT'], 'Lives alone', '2026-04-10')
 
 patient1.display_info()

@@ -18,6 +18,8 @@ STANDARD_FIELDS = {
         "DM2", "DLP", "HTN", "HLP", "CAD", "CHF", "COPD", "CKD", "AFIB", "CVA", "CANCER", "OP", "PH"
     },
 
+    "neuro": { "AOX3", "AOX2", "AOX1", "CONFUSED", "DELIRIUM", "AGITATED"
+    },
     "rhythm": {
         "NSR", "SB", "ST", "AFLUTTER", "AFIB", "JUNCTIONAL",
         "1AVB", "2AVB1", "2AVB2", "3AVB",

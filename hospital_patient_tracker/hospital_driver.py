@@ -64,10 +64,11 @@ def menu():
         print("7. View one patient's information")
         print("8. Update one patient's vital signs")
         print("9. View one patient's vital signs")
-        print("10. Exit")
+        print("10. View CVU/CVICU Bedflow")
+        print("11. Exit")
         choice = int(input("Please select your choice: ")) 
         
-        if choice >=1 and choice <=10:
+        if choice >=1 and choice <=11:
             return choice
         else:
             print("Please try again")
@@ -85,24 +86,25 @@ def pt_update_menu():
     print("6. Update allergies")
     print("7. Update the type of surgery")
     print("8. Update the procedures")
-    print("9. Update the rhythm")
-    print("10. Update the ventilation status")
-    print("11. Update the IV accesses")
-    print("12. Update the nutrition status")
-    print("13. Update the dressings")
-    print("14. Update the elimination status")
-    print("15. Update the mobility status")
-    print("16. Update the labs")
-    print("17. Update the medications")
-    print("18. Update the issues")
-    print("19. Update the plans")
-    print("20. Update the interdisciplinary team involved")
-    print("21. Update the home situation")
-    print("22. Update the possible discharge date")
-    print("23. Exit")
+    print("9. Update neuro status")
+    print("10. Update the rhythm")
+    print("11. Update the ventilation status")
+    print("12. Update the IV accesses")
+    print("13. Update the nutrition status")
+    print("14. Update the dressings")
+    print("15. Update the elimination status")
+    print("16. Update the mobility status")
+    print("17. Update the labs")
+    print("18. Update the medications")
+    print("19. Update the issues")
+    print("20. Update the plans")
+    print("21. Update the interdisciplinary team involved")
+    print("22. Update the home situation")
+    print("23. Update the possible discharge date")
+    print("24. Exit")
     choice = int(input("Please select your choice: ")) 
     
-    if 1<= choice <=23:
+    if 1<= choice <=24:
         return choice
     else:
         print("Please try again")
@@ -173,7 +175,7 @@ def admit_patient(cardiology_units, unit_capacities, valid_rooms):
 
     neuro = get_valid_standard_single (
         "neuro", 
-        "Please enter the neurological status")
+        "Please enter the neurological status: ")
     
     rhythm = get_valid_standard_single(
         "rhythm",
@@ -566,7 +568,7 @@ def view_one_patient_info(cardiology_units):
         
     print("\nPatient not found.")
 
-
+# Updating the vital signs of a patient in the unit
 def update_vital_signs(cardiology_units):
 
     mrn = int(input("Enter the patient's MRN: "))
@@ -600,6 +602,7 @@ def update_vital_signs(cardiology_units):
     
         print("\nPatient not found")
 
+# Viewing the lastest vital_signs of a patient in the unit
 def view_latest_vital_signs(cardiology_units):
     
     mrn = int(input("Enter the patient's MRN: "))
@@ -621,6 +624,37 @@ def view_latest_vital_signs(cardiology_units):
     
     print("\nPatient not found")
 
+# Checking if the room is occupied:
+def is_room_occupied(unit_patients, room):
+    for patient in unit_patients.values():
+        if patient.room == room:
+            return True
+    return False
+
+# Checking if a room is available
+def check_available_rooms(cardiology_units, valid_rooms):
+    print("\n--- ROOM STATUS ---")
+
+    for unit in ["CVICU", "CVU"]:
+        print(f"\n{unit}:")
+
+        room_to_patient = {}
+        for patient in cardiology_units[unit].values():
+            room_to_patient[patient.room] = patient.name
+
+        available_rooms = []
+        full_rooms = []
+
+        for room in sorted(valid_rooms[unit]):
+            if room in room_to_patient:
+                full_rooms.append(f"{room} ({room_to_patient[room]})")
+            else:
+                available_rooms.append(room)
+
+        print(f"Available rooms: {', '.join(available_rooms) if available_rooms else 'None'}")
+        print(f"Full rooms: {', '.join(full_rooms) if full_rooms else 'None'}")
+        print(f"Total available: {len(available_rooms)}")
+        print(f"Total full: {len(full_rooms)}")
 
 # Main Driver Class
 class Hospital_Driver:
@@ -688,8 +722,12 @@ class Hospital_Driver:
                 print("View one patient's vital_signs")
                 view_latest_vital_signs(cardiology_units)
                 print("*" * 40)
-
             case 10:
+                print("Viewing CVU/CVICU Bedflow")
+                check_available_rooms(cardiology_units, valid_rooms)
+                print("*" * 40)
+
+            case 11:
                 print("Exiting")
                 break
             case _:

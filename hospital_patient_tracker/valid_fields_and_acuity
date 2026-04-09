@@ -1,5 +1,5 @@
 
-isolation status = LRC,MRC,HRC,CDiff, MDRO, Bedbugs, MRSA
+isolation status = LRC, MRC, HRC, CDiff, MDRO, MRSA
 
 level of intervention = A,B,C,D
 
@@ -7,13 +7,13 @@ PMHx: DM2, DLP, HLP,
 
 Labs = Na,K,Hgb,etc
 
-Rhythm = NSR,SB,ST,FAfib,Afib,Junctional, 1AVB,2AVB1,2AVB2,3AVB, NSVT,VT,VFib, PAC,PVC
+Rhythm = NSR,SB,ST,FAfib,Afib, Junctional, 1AVB,2AVB1,2AVB2,3AVB, NSVT,VT,VFib, PAC,PVC
 
 Ventilation = RA,NP,BIPAP,CPAP
 
 IV access = PIV,CVAD,PICC
 
-Nutrition = Cardiac, DM-øCBGM,DM-CBGM, FR1L,FR1.5L,FR2L, 
+Nutrition = Cardiac, DM-øCBGM,DM-CBGM, FR1L,FR1.5L,FR2L, Feeding Assistance 
 
 Elimination = Foley, Diaper, 
 
@@ -86,7 +86,7 @@ Mobility Status:
     - Indep → Score :0
     - Ax1 → Score: 1
     - AX2 → Score: 2
-    - T&Pq2hrs/ Broda → 4
+    - T&Pq2hrs/Broda → 4
 ------------------------------------------------
 Nutrition Status
     - Non dysphagic → Score: 0
@@ -106,11 +106,11 @@ Nursing Workload
     Constant Monitoring/ Procedures → Score: 3-4
     Angiography today
     Pacemaker today
-    CABG First Case
-    CABG Second Case
-    TAVI First Case
-    TAVI Second Case
-    TAVI Third Case
+    CABG 1st Case
+    CABG 2nd Case
+    TAVI 1st Case
+    TAVI 2nd Case
+    TAVI 3rd Case
     Cardioversion
     TEE
 - High
