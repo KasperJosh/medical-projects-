@@ -6,6 +6,7 @@
 #Importing the necessary modules
 import patient_info, vital_signs
 
+#Global variables 
 # Creating a dictionary to store the patients in each unit
 cardiology_units = {
     "CVICU": {}, 
@@ -100,7 +101,7 @@ def pt_update_menu():
         print("Please try again")
               
 # Adding a patient to the unit method
-def admit_patient(patients):
+def admit_patient(cardiology_units, unit_capacities, valid_rooms):
 
     unit = input("Please enter the unit the patient is going to be admited (CVICU or CVU): ").strip()
 
@@ -112,7 +113,7 @@ def admit_patient(patients):
         return
 
     #Asking for the room the patient is going to be admitted to
-    room = input("Please enter the admitting room: ").strip().upper
+    room = input("Please enter the admitting room: ").strip().upper()
     
     if room not in valid_rooms[unit]:
         print(f"{room} is not a valid room in {unit}.")
@@ -183,6 +184,7 @@ def admit_patient(patients):
     possible_dc= input("Please enter the possible D/C date: ")
 
     patient = patient_info.Patient(
+        unit,
         room,
         name,
         mrn,
@@ -213,11 +215,10 @@ def admit_patient(patients):
         possible_dc
     )
     
-    patients[mrn] = patient
+    cardiology_units[unit][mrn] = patient
     #To test
     patient.display_info()
-    print("Patient successfully added!")
-    print(patients)
+    print(f"\nPatient {name} successfully admitted to {unit} in room {room}.")
     print("---------------------------------------")
 
 # Discharging a patient from the unit 
@@ -493,7 +494,7 @@ class Hospital_Driver:
             # Adding a patient to the unit
             case 1:  
                 print("Admit a patient")
-                admit_patient(patients)
+                admit_patient(cardiology_units, unit_capacities, valid_rooms)
                 print("*" * 40)
 
             # Discharging patient from unit
