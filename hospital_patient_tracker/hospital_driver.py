@@ -69,33 +69,33 @@ def menu():
 def pt_update_menu():
     
     print("Select what you would like to do")
-    print("1. Update patient's room")
-    print("2. Update patient's doctor")
-    print("3. Update diagnosis")
-    print("4. Update isolation status")
-    print("5. Update level of intervention")
-    print("6. Update past medical history")
-    print("7. Update allergies")
-    print("8. Update the type of surgery")
-    print("9. Update the procedures")
-    print("10. Update the rhythm")
-    print("11. Update the ventilation status")
-    print("12. Update the IV accesses")
-    print("13. Update the nutrition status")
-    print("14. Update the dressings")
-    print("15. Update the elimination status")
-    print("16. Update the mobility status")
-    print("17. Update the labs")
-    print("18. Update the medications")
-    print("19. Update the issues")
-    print("20. Update the plans")
-    print("21. Update the interdisciplinary team involved")
-    print("22. Update the home situation")
-    print("23. Update the possible discharge date")
-    print("24. Exit")
+    #print("1. Update patient's room")
+    print("1. Update patient's doctor")
+    print("2. Update diagnosis")
+    print("3. Update isolation status")
+    print("4. Update level of intervention")
+    print("5. Update past medical history")
+    print("6. Update allergies")
+    print("7. Update the type of surgery")
+    print("8. Update the procedures")
+    print("9. Update the rhythm")
+    print("10. Update the ventilation status")
+    print("11. Update the IV accesses")
+    print("12. Update the nutrition status")
+    print("13. Update the dressings")
+    print("14. Update the elimination status")
+    print("15. Update the mobility status")
+    print("16. Update the labs")
+    print("17. Update the medications")
+    print("18. Update the issues")
+    print("19. Update the plans")
+    print("20. Update the interdisciplinary team involved")
+    print("21. Update the home situation")
+    print("22. Update the possible discharge date")
+    print("23. Exit")
     choice = int(input("Please select your choice: ")) 
     
-    if 1<= choice <=24:
+    if 1<= choice <=23:
         return choice
     else:
         print("Please try again")
@@ -260,6 +260,25 @@ def transfer_patient(cardiology_units, unit_capacities, valid_rooms):
         print("Invalid destination unit.")
         return
 
+    occupied_rooms = {
+        existing_patient.room for existing_patient in cardiology_units[destination_unit].values()
+    }
+
+    if destination_unit == current_unit:
+        occupied_rooms.discard(patient.room)
+
+    available_rooms = valid_rooms[destination_unit] - occupied_rooms
+
+    if not available_rooms:
+        print(f"No available rooms in {destination_unit}.")
+        return
+
+    print(f"\nAvailable rooms in {destination_unit}:")
+    for room in sorted(available_rooms):
+        print(room)
+
+    new_room = input("Enter the new room: ").strip().upper()
+
     new_room = input("Enter the new room: ").strip().upper()
 
     if new_room not in valid_rooms[destination_unit]:
@@ -348,99 +367,99 @@ def update_pt_information (cardiology_units):
 
         choice = pt_update_menu()
         
-        if choice == 1:
-            patient.room = input("Enter the new room: ")
-            print("Room updated successfully.")
+        #if choice == 1:
+            #patient.room = input("Enter the new room: ")
+            #print("Room updated successfully.")
 
-        elif choice == 2:
+        if choice == 1:
             patient.team_doctor = input("Enter the new doctor/team: ")
             print("Doctor updated successfully.")
 
-        elif choice == 3:
+        elif choice == 2:
             patient.diagnosis = input("Enter the new diagnosis: ")
             print("Diagnosis updated successfully.")
 
-        elif choice == 4:
+        elif choice == 3:
             patient.isolation = input("Enter the new isolation status: ")
             print("Isolation status updated successfully.")
 
-        elif choice == 5:
+        elif choice == 4:
             patient.level_intervention = input("Enter the new level of intervention: ")
             print("Level of intervention updated successfully.")
 
-        elif choice == 6:
+        elif choice == 5:
             update_list_field(patient.past_hx, "Past medical history")
             print("Past medical history updated successfully.")
 
-        elif choice == 7:
+        elif choice == 6:
             update_list_field(patient.allergies, "Allergies")
             print("Allergies updated successfully.")
 
-        elif choice == 8:
+        elif choice == 7:
             patient.type_sx = input("Enter the updated type of surgery: ")
             print("Type of surgery updated successfully.")
 
-        elif choice == 9:
+        elif choice == 8:
             update_list_field(patient.procedures, "Procedures")
             print("Procedures updated successfully.")
 
-        elif choice == 10:
+        elif choice == 9:
             patient.rhythm = input("Enter the updated rhythm: ")
             print("Rhythm updated successfully.")
 
-        elif choice == 11:
+        elif choice == 10:
             patient.ventilation = input("Enter the updated ventilation status: ")
             print("Ventilation updated successfully.")
 
-        elif choice == 12:
+        elif choice == 11:
             patient.iv_access = input("Enter the updated IV accesses: ")
             print("IV accesses updated successfully.")
 
-        elif choice == 13:
+        elif choice == 12:
             update_list_field(patient.nutrition, "Nutrition")
             print("Nutrition updated successfully.")
 
-        elif choice == 14:
+        elif choice == 13:
             patient.dressings = input("Enter the updated dressings: ")
             print("Dressings updated successfully.")
 
-        elif choice == 15:
+        elif choice == 14:
             patient.elimination = input("Enter the updated elimination status: ")
             print("Elimination updated successfully.")
 
-        elif choice == 16:
+        elif choice == 15:
             patient.mobility = input("Enter the updated mobility status: ")
             print("Mobility updated successfully.")
 
-        elif choice == 17:
+        elif choice == 16:
             update_list_field(patient.labs, "Labs")
             print("Labs updated successfully.")
 
-        elif choice == 18:
+        elif choice == 17:
             update_list_field(patient.medications, "Medications")
             print("Medications updated successfully.")
 
-        elif choice == 19:
+        elif choice == 18:
             update_list_field(patient.issues, "Issues")
             print("Issues updated successfully.")
 
-        elif choice == 20:
+        elif choice == 19:
             patient.plans = input("Enter the updated plans: ")
             print("Plans updated successfully.")
 
-        elif choice == 21:
+        elif choice == 20:
             update_list_field(patient.pros_involved, "Professionals Involved")
             print("Interdisciplinary team updated successfully.")
 
-        elif choice == 22:
+        elif choice == 21:
             patient.home_screen = input("Enter the updated home situation: ")
             print("Home situation updated successfully.")
 
-        elif choice == 23:
+        elif choice == 22:
             patient.possible_dc = input("Enter the updated possible discharge date: ")
             print("Possible discharge date updated successfully.")
 
-        elif choice == 24:
+        elif choice == 23:
             print("Returning to main menu.")
             break
 
@@ -565,8 +584,8 @@ class Hospital_Driver:
 
             case 4:
                 print("Updating patient information")
-                update_pt_information(patients)
-                print(patients)
+                update_pt_information(cardiology_units)
+                print(cardiology_units)
                 print("*" * 40)
 
             case 5:
