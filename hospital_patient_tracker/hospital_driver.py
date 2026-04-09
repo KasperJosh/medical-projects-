@@ -237,20 +237,64 @@ def discharge_patient(cardiology_units):
 
     print("\nNo patient found with that MRN.")
 
-# Transferring a patient to another unit
-def transfer_patient(patients):
+# Transferring a patient to another unit or changing rooms in the same unit
+def transfer_patient(cardiology_units, unit_capacities, valid_rooms):
+
+    current_unit = input("Enter the current unit (CVICU or CVU): ").strip().upper()
+
+    if current_unit not in cardiology_units:
+        print("Invalid current unit.")
+        return
 
     patient_mrn = int(input("Enter the MRN of the patient you want to transfer: "))
-    if patient_mrn in patients:
-        transferred_patient = patients [patient_mrn]
-        
-        transfer_location = input("Enter the location where you want to transfer the patient: ")
-        
-        del patients[patient_mrn] #To fix
-        print(f"\nPatient {transferred_patient.name} has been transferred successfully to {transfer_location}.")
-    
-    else:
-        print("\nNo patient found with that MRN.")
+
+    if patient_mrn not in cardiology_units[current_unit]:
+        print("No patient found with that MRN in this unit.")
+        return
+
+    patient = cardiology_units[current_unit][patient_mrn]
+
+    destination_unit = input("Enter the destination unit (CVICU or CVU): ").strip().upper()
+
+    if destination_unit not in cardiology_units:
+        print("Invalid destination unit.")
+        return
+
+    new_room = input("Enter the new room: ").strip().upper()
+
+    if new_room not in valid_rooms[destination_unit]:
+        print(f"{new_room} is not a valid room in {destination_unit}.")
+        return
+
+    if destination_unit == current_unit and new_room == patient.room:
+        print("Patient is already in that room.")
+        return
+
+    for existing_patient in cardiology_units[destination_unit].values():
+        if existing_patient.room == new_room:
+            print(f"Room {new_room} is already occupied.")
+            return
+
+    # Same unit = just room change
+    if destination_unit == current_unit:
+        old_room = patient.room
+        patient.room = new_room
+        print(f"\nPatient {patient.name} has been moved from room {old_room} to room {new_room} in {current_unit}.")
+        return
+
+    # Different unit = full transfer
+    if len(cardiology_units[destination_unit]) >= unit_capacities[destination_unit]:
+        print(f"{destination_unit} is full. Cannot transfer patient.")
+        return
+
+    del cardiology_units[current_unit][patient_mrn]
+
+    patient.unit = destination_unit
+    patient.room = new_room
+
+    cardiology_units[destination_unit][patient_mrn] = patient
+
+    print(f"\nPatient {patient.name} has been transferred from {current_unit} to {destination_unit} in room {new_room}.")
 
 # Helper Function to manage change the lists
 def update_list_field(item_list, field_name):
@@ -284,17 +328,22 @@ def update_list_field(item_list, field_name):
             print("Invalid choice. Try again.")
 
 # Updating a patient's information as needed 
-def update_pt_information (patients):
+def update_pt_information (cardiology_units):
 
-    mrn = int(input("Enter the MRN of the patient to update: "))
+    current_unit = input("Enter the current unit (CVICU or CVU): ").strip().upper()
 
-    if mrn not in patients:
-        print("Patient not found.")
+    if current_unit not in cardiology_units:
+        print("Invalid current unit.")
         return
 
-    patient = patients[mrn]
+    patient_mrn = int(input("Enter the MRN of the patient you want to transfer: "))
 
-    #Some of the fields, it's better to put it as a list
+    if patient_mrn not in cardiology_units[current_unit]:
+        print("No patient found with that MRN in this unit.")
+        return
+
+    patient = cardiology_units[current_unit][patient_mrn]
+
     while True:
 
         choice = pt_update_menu()
@@ -504,14 +553,14 @@ class Hospital_Driver:
             case 2:
                 print("Discharging a patient")
                 discharge_patient(cardiology_units)
-                print(patients)
+                print(cardiology_units)
                 print("*" * 40)
             
             # Transferring a patient to another unit
             case 3:
                 print("Transferring a patient to another unit")
-                transfer_patient(patients)
-                print(patients)
+                transfer_patient(cardiology_units, unit_capacities, valid_rooms)
+                print(cardiology_units)
                 print("*" * 40)
 
             case 4:
