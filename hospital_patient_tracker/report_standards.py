@@ -21,7 +21,7 @@ STANDARD_FIELDS = {
     "rhythm": {
         "NSR", "SB", "ST", "AFLUTTER", "AFIB", "JUNCTIONAL",
         "1AVB", "2AVB1", "2AVB2", "3AVB",
-        "NSVT", "VT", "VFIB", "PAC", "PVC"
+        "NSVT", "VT", "VFIB", "PAC", "PVC", "NONE"
     },
 
     "ventilation": {

@@ -12,6 +12,15 @@ def get_nonempty_input(prompt):
         print("Input cannot be empty.")
 
 
+def get_int_input(prompt):
+    while True:
+        value = input(prompt).strip()
+        try:
+            return int(value)
+        except ValueError:
+            print("Please enter a valid number.")
+
+
 def get_list_input(prompt):
     value = input(prompt).strip()
     if not value:

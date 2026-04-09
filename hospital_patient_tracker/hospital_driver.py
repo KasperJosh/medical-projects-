@@ -7,6 +7,7 @@
 import patient_info, vital_signs
 from input_helpers import (
     get_nonempty_input,
+    get_int_input,
     get_list_input,
     get_valid_standard_single,
     get_valid_standard_multi
@@ -131,7 +132,7 @@ def admit_patient(cardiology_units, unit_capacities, valid_rooms):
             return
     
     #Asking for the MRN of the patient
-    mrn = int(input("Please enter the patient's MRN: "))
+    mrn = get_int_input("Please enter the patient's MRN: ")
     
     if mrn in cardiology_units[unit]:
         print("A patient with this MRN already exists in this unit")
@@ -170,6 +171,10 @@ def admit_patient(cardiology_units, unit_capacities, valid_rooms):
         "Please enter the procedures done (comma separated): "
     )
 
+    neuro = get_valid_standard_single (
+        "neuro", 
+        "Please enter the neurological status")
+    
     rhythm = get_valid_standard_single(
         "rhythm",
         "Please enter the cardiac rhythm: "
@@ -241,6 +246,7 @@ def admit_patient(cardiology_units, unit_capacities, valid_rooms):
         allergies,
         type_sx,
         procedures,
+        neuro,
         rhythm,
         ventilation,
         iv_access,
@@ -442,64 +448,68 @@ def update_pt_information (cardiology_units):
         elif choice == 8:
             update_list_field(patient.procedures, "Procedures")
             print("Procedures updated successfully.")
-
+        
         elif choice == 9:
+            update_list_field(patient.neuro, "Enter the updated neuro status: ")
+            print("Neuro status updated successfully.")
+
+        elif choice == 10:
             patient.rhythm = input("Enter the updated rhythm: ")
             print("Rhythm updated successfully.")
 
-        elif choice == 10:
+        elif choice == 11:
             patient.ventilation = input("Enter the updated ventilation status: ")
             print("Ventilation updated successfully.")
 
-        elif choice == 11:
+        elif choice == 12:
             patient.iv_access = input("Enter the updated IV accesses: ")
             print("IV accesses updated successfully.")
 
-        elif choice == 12:
+        elif choice == 13:
             update_list_field(patient.nutrition, "Nutrition")
             print("Nutrition updated successfully.")
 
-        elif choice == 13:
+        elif choice == 14:
             patient.dressings = input("Enter the updated dressings: ")
             print("Dressings updated successfully.")
 
-        elif choice == 14:
+        elif choice == 15:
             patient.elimination = input("Enter the updated elimination status: ")
             print("Elimination updated successfully.")
 
-        elif choice == 15:
+        elif choice == 16:
             patient.mobility = input("Enter the updated mobility status: ")
             print("Mobility updated successfully.")
 
-        elif choice == 16:
+        elif choice == 17:
             update_list_field(patient.labs, "Labs")
             print("Labs updated successfully.")
 
-        elif choice == 17:
+        elif choice == 18:
             update_list_field(patient.medications, "Medications")
             print("Medications updated successfully.")
 
-        elif choice == 18:
+        elif choice == 19:
             update_list_field(patient.issues, "Issues")
             print("Issues updated successfully.")
 
-        elif choice == 19:
+        elif choice == 20:
             patient.plans = input("Enter the updated plans: ")
             print("Plans updated successfully.")
 
-        elif choice == 20:
+        elif choice == 21:
             update_list_field(patient.pros_involved, "Professionals Involved")
             print("Interdisciplinary team updated successfully.")
 
-        elif choice == 21:
+        elif choice == 22:
             patient.home_screen = input("Enter the updated home situation: ")
             print("Home situation updated successfully.")
 
-        elif choice == 22:
+        elif choice == 23:
             patient.possible_dc = input("Enter the updated possible discharge date: ")
             print("Possible discharge date updated successfully.")
 
-        elif choice == 23:
+        elif choice == 24:
             print("Returning to main menu.")
             break
 
