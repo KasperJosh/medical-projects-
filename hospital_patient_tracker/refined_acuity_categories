@@ -1,0 +1,176 @@
+A. Patient Acuity Categories
+
+#This part is still under works 
+Hemodynamic Status
+0 = "STABLE"
+1 = "SOFT_BP"
+2 = "SINGLE_PRESSOR"
+3 = "TITRATING_PRESSORS", 
+4 = "MULTIPLE_PRESSORS", "ACTIVE_BLEED","MECH_SUPPORT"
+
+Cardiac Status
+0 = NSR, NONE
+1 = SB, ST, PAC, PVC, 1AVB
+2 = AFLUTTER, AFIB, SVT, JUNCTIONAL, 2AVB1, NSVT
+3 = 2AVB2, 3AVB, CHB_PACED, VT
+4 = VFIB,ASYSTOLE
+#Consider adding Frequent PVC, NSVT runs, Afib RVR
+
+Respiratory Status
+0 = RA, NP, NC
+2 = CPAP, BIPAP, TRACH_MASK
+4 = VENTED
+#Consider adding modifiers: Frequent suctioning, Resp distress, Frequent ABGs, ARDS
+
+Neurological Status
+0 = AOx3
+1 = AOX2, CONFUSED
+2 = AOX1, DELIRIUM, AGITATED
+3 = LETHARGIC, SEDATED, OBTUNDED
+4 = UNRESPONSIVE
+
+Renal / Fluid Status
+0 = Stable
+1 = Mild overload / diuresis
+2 = Strict I&O / AKI / frequent output monitoring
+3 = Significant renal instability
+4 = CRRT or severe fluid/electrolyte instability
+
+Infection / Sepsis
+0 = None
+1 = Suspected infection / antibiotics
+2 = Confirmed infection needing close follow-up
+3 = Sepsis
+4 = Septic shock
+
+Lab Instability
+0 = Routine daily labs
+1 = Mild abnormal labs, occasional replacement
+2 = Frequent electrolyte replacement or repeated labs
+3 = ABGs / unstable critical labs / q6h or more frequent checks
+4 = Severe lab instability requiring constant correction
+
+Safety Risk
+0 = NONE
+1 = FALL_RISK
+2 = HIGH_FALL_RISK, IMPULSIVE, 
+3 = WANDERING, PULLING_LINES, CONFUSED_UNSAFE
+4 = RESTRAINTS, SITTER, VIOLENT
+
+------------------------------------------------------
+B. Nursing Workload Categories
+
+Medication Complexity
+0 = PO_ONLY
+1 = IV_SIMPLE
+2 = IV_MULTIPLE, INSULIN_INFUSION
+3 = TRITRATABLE_DRIP, VASOPRESSOR, SEDATION_DRIP, ANTIARRHYTHMIC_DRIP
+4 = MULTIPLE_TITRATABLE_DRIPS
+
+Monitoring Frequency
+
+0 = Routine q4h
+1 = q2–4h plus some extra checks
+2 = q2h structured monitoring
+3 = q1h monitoring
+4 = Continuous / near-constant reassessment
+
+IV Access
+0 = NONE
+1 = PIV, MIDLINE
+2 = PICC, CVAD
+3=  ARTLINE, PA_LINE, HD_LINE
+
+
+Mobility
+0 = INDEP, AMB
+1 = SUPERVISION, CANE, WALKER
+2 = AX1, WC, BEDBOUND
+3 = Ax2, BRODA
+4 = TOTAL_CARE, LIFT
+
+Nutrition
+0 = REGULAR, CARDIAC, DM_NO_CBGM
+1 = DM_CBGM, FR1L, FR1_5L, FR2L, SETUP, NPO
+2 = FEED_ASSIST, ASP_PRECAUTIONS
+3 = NGT_FEEDS, OGT_FEEDS, PEG_FEEDS
+4 = TPN
+
+Elimination
+0 = NONE, TOILET, COMMODE, URINAL
+1 = FOLEY, DIAPER
+2 = INCONTINENT, DIARRHEA
+3 = HIGH_OUTPUT_STOOL, SKIN_BREAKDOWN_RISK, BOWEL_CARE
+
+Procedures / Tests Today
+0 = NONE
+1 = CXR, TTE, CT, MRI, 
+2 = TEE, HEMODIALYSIS, BRONCHOSCOPY, THORACENTESIS, LINE_INSERTION
+3 = ANGIOGRAPHY, PACEMAKER, CARDIOVERSION, PCI, TEMP_PACER_INSERTION
+4 = CABG_1ST_CASE, CABG_2ND_CASE, TAVI_1ST_CASE, TAVI_2ND_CASE, TAVI_3RD_CASE, FRESH_POST_OP
+
+Wounds / Dressings / Other Nursing Tasks
+
+0 = None/minimal
+1 = Simple dressing
+2 = Difficult dressing / multiple wound care tasks
+3 = Trach care / cardiac surgery dressings / chest drain burden
+4 = Extensive complex wound/device care
+
+Pain / Comfort Management
+0 = Controlled
+1 = Occasional PRNs
+2 = Frequent PRNs / repeated reassessment
+3 = PCA / difficult pain control
+4 = Severe uncontrolled pain demanding ongoing intervention
+
+Communication Complexity
+0 = No barrier
+1 = Mild barrier
+2 = Language/hearing/vision barrier affecting care
+3 = Requires family translation or repeated alternate communication
+4 = Severe communication barrier significantly delaying care
+
+Family / Social Complexity
+0 = Minimal
+1 = Some support/education needed
+2 = Frequent updates or emotional support burden
+3 = High-demand family / conflict / goals-of-care intensity
+4 = Extreme family/social burden dominating nursing time
+
+Behaviour / Cooperation
+
+I would keep this, but tighten it:
+
+0 = Cooperative
+1 = Mildly anxious / repetitive / reassurance needed
+2 = Demanding / poor compliance / emotionally labile
+3 = Frequent refusal, verbal aggression, constant calling, delays care
+4 = Physically aggressive / restraints / staff safety issue
+
+-----------------------------------------------------
+C. Assignment Modifiers
+
+Isolation Status
+
+0 = None
+1 = (CONTACT/LOWER BURDEN): CONTACT, LRC, MRSA, VRE, MDRO, CRO, BEDBUGS, SCABIES
+2 = (HIGHER PPE/ ENV BURDEN): MRC, HRC, CDIFF, CDIFF_R_O, DROPLET, COVID, R_O_COVID
+3 = (AIRBORNE/ VERY HIGH BURDEN): TB_R_O, AIRBORNE
+
+Turnover Risk
+0 = No expected move
+1 = Possible transfer
+2 = Discharge or transfer today
+3 = New admission today
+4 = Admission + procedural + likely multiple transitions
+Special Flags
+
+Instead of burying them in random places, create a simple additive flag section:
+
+Blood transfusion +1
+Frequent caller +1
+1:1 observation +2
+Bariatric heavy care +1
+End-of-life comfort +1 or +2
+Post-op fresh arrival +2

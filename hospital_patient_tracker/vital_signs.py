@@ -109,8 +109,8 @@ class VitalSigns:
 
 
 
-vitals1 = VitalSigns(110,70, 65, 18, 95, 36.5 )
-vitals1.display_vitals()
-print(vitals1.interpret_bp())
-print(vitals1.overall_status())
-print(vitals1.calculate_mean_arterial_pressure())
+#vitals1 = VitalSigns(110,70, 65, 18, 95, 36.5 )
+#vitals1.display_vitals()
+#print(vitals1.interpret_bp())
+#print(vitals1.overall_status())
+#print(vitals1.calculate_mean_arterial_pressure())

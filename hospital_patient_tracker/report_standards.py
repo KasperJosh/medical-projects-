@@ -3,7 +3,13 @@
 
 STANDARD_FIELDS = {
     "isolation": {
-        "LRC", "MRC", "HRC", "CDIFF", "CDIFF-R/O", "MDRO", "BEDBUGS", "MRSA", "NONE", "TB-R/O"
+        "NONE",
+        "CONTACT", "LRC", "MRC", "HRC",
+        "MRSA", "VRE", "MDRO", "CRO",
+        "CDIFF", "CDIFF_R_O",
+        "BEDBUGS", "SCABIES",
+        "DROPLET", "COVID", "R_O_COVID",
+        "TB_R_O", "AIRBORNE"
     },
 
     "level_of_intervention": {
@@ -18,33 +24,54 @@ STANDARD_FIELDS = {
         "DM2", "DLP", "HTN", "HLP", "CAD", "CHF", "COPD", "CKD", "AFIB", "CVA", "CANCER", "OP", "PH"
     },
 
-    "neuro": { "AOX3", "AOX2", "AOX1", "CONFUSED", "DELIRIUM", "AGITATED"
+    "neuro": { "AOX3", "AOX2", "AOX1", "CONFUSED", "DELIRIUM", "AGITATED", "LETHARGIC", "OBTUNDED", "SEDATED", "UNRESPONSIVE"
     },
+
+    "procedure": {
+        "NONE", "CXR", "TTE", "XRAY", "CT", "MRI",
+        "TEE", "HEMODIALYSIS", "BRONCHOSCOPY","THORACENTESIS", "LINE_INSERTION",
+        "ANGIOGRAPHY", "PACEMAKER", "CARDIOVERSION", "PCI", "TEMP_PACER_INSERTION",
+        "CABG_1ST_CASE", "CABG_2ND_CASE", "TAVI_1ST_CASE", "TAVI_2ND_CASE", "TAVI_3RD_CASE",
+        "FRESH_POST_OP"
+        },
     "rhythm": {
         "NSR", "SB", "ST", "AFLUTTER", "AFIB", "JUNCTIONAL",
         "1AVB", "2AVB1", "2AVB2", "3AVB",
-        "NSVT", "VT", "VFIB", "PAC", "PVC", "NONE"
+        "NSVT", "VT", "VFIB", "PAC", "PVC", "NONE",
+        "SVT", "V_PACED", "A_PACED", "AV_PACED" ,"CHB_PACED", "ASYSTOLE" 
     },
 
     "ventilation": {
-        "RA", "NP", "BIPAP", "CPAP", "NC", "VENTED"
+        "RA", "NP", "NC", "HFNC", "BIPAP", "CPAP", "TRACH_MASK", "VENTED"
     },
 
     "iv_access": {
-        "PIV", "CVAD", "PICC", "ARTLINE", "PA LINE", "NONE"
+        "NONE", "PIV", "MIDLINE", "PICC", "CVAD", "ARTLINE", "PA_LINE"
     },
 
     "nutrition": {
-        "CARDIAC", "DM-No-CBGM", "DM-CBGM", "FR1L", "FR1.5L", "FR2L", "NPO", "REGULAR"
+        "REGULAR", "CARDIAC", "RENAL", "DM_NO_CBGM", "DM_CBGM", "FR1L", 
+        "FR1_5L", "FR2L", "SETUP", "NPO", "FEED_ASSIST", "ASP_PRECAUTIONS",
+        "NGT_FEEDS", "OGT_FEEDS", "PEG_FEEDS", "TPN"
+    },
+
+    "drains_drsgs_integ":{
+        "NONE", "SIMPLE_DRESSING", "ACRYLLIC_STERNUM", "PRIMAPORE_STERNUM", "PRIMAPORE_PERI",
+        "TRACH_CARE", "CHEST_TUBE_CARE", "VAC_DRESSING", "COMPLEX_DRESSING"
     },
 
     "elimination": {
-        "FOLEY", "DIAPER", "URINAL", "TOILET", "COMMODE", "NONE"
+        "NONE", "TOILET", "COMMODE", "URINAL", "FOLEY", "DIAPER", "INCONTINENT", "DIARRHEA",
+        "HIGH_OUTPUT_STOOL", "SKIN_BREAKDOWN_RISK", "BOWEL_CARE"
     },
 
     "mobility": {
-        "INDEP", "AX1", "AX2", "WALKER", "CANE", "LIFT", "AMB" , "WC", "SUP"
-    },
+        "INDEP", "SUPERVISION",
+        "AMB", "CANE", "WALKER",
+        "AX1", "AX2",
+        "WC", "BEDBOUND",
+        "LIFT", "BRODA", "TOTAL_CARE"
+        },
     
     "labs": {
         "NA", "K", "HGB", "WBC", "PLT", "CR", "UREA", "INR", "PTT", "MG", "CA", "TROP"
@@ -53,8 +80,22 @@ STANDARD_FIELDS = {
     "pro_involved":{
         "PT", "OT", "SW", "CARDIO", "NEPHRO", "DERM", "THROMBO", "NEURO", "URO", "ID", "GERI", 
         "DIET", "PULM", "RHEUM", "HEME", "DCPN", 
+    },
+
+    "safety": {
+        "NONE", "FALL_RISK", "HIGH_FALL_RISK", "IMPULSIVE", "WANDERING", "PULLING_LINES", "CONFUSED_UNSAFE",
+        "RESTRAINTS", "SITTER", "VIOLENT"
+    },
+
+    "medications": {"PO_ONLY", "IV_SIMPLE","IV_MULTIPLE","INSULIN_INFUSION",
+
+        "TITRATABLE_DRIP", "MULTIPLE_TITRATABLE_DRIPS", "VASOPRESSOR","SEDATION_DRIP",
+        "ANTIARRHYTHMIC_DRIP"
     }
 }
+
+#CONSIDER ADDING MODIFIERS
+
 
 #Transforms all value in upper case
 def normalize_term(value):

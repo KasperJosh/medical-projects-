@@ -36,6 +36,8 @@ class Patient:
         home_screen="N/A",
         possible_dc="N/A",
         vital_signs = None
+    
+
     ):
         self.unit = unit # CVU or CVICU
         self.room = room    #K0210
@@ -69,6 +71,11 @@ class Patient:
         self.home_screen = home_screen #Lives alone
         self.possible_dc = possible_dc #2026-04-10
         self.vital_signs = vital_signs 
+
+        # New section for acuity level
+        self.acuity_score = 0
+        self.acuity_level = "Not scored"
+        self.acuity_breakdown ={}
 
     def display_info(self):
         print(f"\n--- Patient {self.mrn} ---")
@@ -107,8 +114,8 @@ class Patient:
     #def update_room(self):
 
 
-patient1 = Patient( 'K0210', 'Joshua Visario', 5091999, 26, 'M', '2026-04-05', 'Team 1 Cardiology','MVD', 'MRC', 'A', ['DM2', 'HTN', 'DLP'],
-        ['PNC','Vancomycin'], 'CABGx4', ['CXR:___', 'Cardiac Echo:___'], 'AOX3', 'SR', 'RA', 'L PIV',['Cardiac', 'Diabetic'],['Sternum'], None,  
-        'Indep', ['K:__', 'Na+:__'], ['Lasix','ASA','Metoprolol'],None, 'DC Soon', ['SW','PT','OT'], 'Lives alone', '2026-04-10')
+#patient1 = Patient( 'K0210', 'Joshua Visario', 5091999, 26, 'M', '2026-04-05', 'Team 1 Cardiology','MVD', 'MRC', 'A', ['DM2', 'HTN', 'DLP'],
+#       ['PNC','Vancomycin'], 'CABGx4', ['CXR:___', 'Cardiac Echo:___'], 'AOX3', 'SR', 'RA', 'L PIV',['Cardiac', 'Diabetic'],['Sternum'], None,  
+#       'Indep', ['K:__', 'Na+:__'], ['Lasix','ASA','Metoprolol'],None, 'DC Soon', ['SW','PT','OT'], 'Lives alone', '2026-04-10')
 
-patient1.display_info()
+#patient1.display_info()

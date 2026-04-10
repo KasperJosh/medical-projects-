@@ -140,14 +140,108 @@ Special Considerations
     Score: 2
 - Discharge Today → Score: 2
 
------------------------------------
-Patient Behaviour /Cooperation
-- Fully Cooperative (Calm,Respectful, No redirection) → Score: 0
-- Mildly challenging (Ocassionally anxious/demanding/ needs reassurance/education/impatient) → Score: 0
-- Moderately Difficult (Frequent complaints/ demanding behaviour/ poor compliance/ emotionally labile)
-- Highly difficult/ disruptive (Aggressive/rude/verbally abusive/confused/delirious/constant calling/unsafe behaviour)
-- Extreme/Unsafe (Physically aggressive/ Requires restraints)
+--------------------------------------
+Monitoring Frequency
 
+VS q1hr vs q4hr = HUGE difference
+Neuro checks q1hr vs q4hr
+Blood sugars AC/HS vs Insulin drip q1hr
+
+- Routine V/S → Score: 0
+- Frequent (q2hr) → Score: 1
+Intensive (q1hr or continious) → 2-3
+--------------------------------------
+
+Time-based workload (shift killers)
+
+Total care bariatric Patient
+Family constantly at bedside
+Language barrier 
+
+----------------------------------------
+Infection / Sepsis Risk 
+
+Infection Status:
+- No infection → Score : 0
+- Suspected infection ( On Antibiotics) → Score: 1
+- Sepsis → Score: 2
+- Septic Shock → Score: 3-4 
+------------------------------------------
+
+Fluid Status / Renal
+
+- Stable → Score: 0
+- Diuresis / Mild overload → Score : 1
+- AKI / Strict I&O → Score : 2
+- CRRT / Severe instability → Score: 3-4
+
+-------------------------------------------
+Pain / Comfort Management
+
+Pain Management:
+- Controlled → Score: 0
+- PRN Frequent Meds → Score: 1
+- PCA / Difficult Control → Score: 2
+- Severe Pain/ Constant Reassessment → Score: 3
+
+---------------------------------------------
+Communication Barriers
+
+Communication Complexity:
+- No barrier → 0
+- Language barrier → 1
+- Hearing/visual impairment → 1
+- Family translator required → 2
+
+--------------------------------------------
+Family/Social Complexity:
+- Minimal → 0
+- Occasional support needed → 1
+- High-demand family → 2
+- Conflict / end-of-life / constant presence → 3
+---------------------------------------------
+
+Turnover Risk:
+- Stable → 0
+- Possible transfer → 1
+- Discharge/transfer today → 2
+- Admission today → 3
+
+---------------------------------------------
+Safety Risk:
+- None → 0
+- Fall risk → 1
+- High fall risk / impulsive → 2
+- Requires sitter/restraints → 3-4
+
+----------------------------------------------
+
+Patient Behaviour / Cooperation:
+
+- Fully Cooperative
+  Calm, respectful, follows instructions, no redirection
+  → Score: 0
+
+- Mildly Challenging
+  Occasional anxiety, repetitive questions, needs reassurance
+  → Score: 1
+
+- Moderately Difficult
+  Frequent complaints, demanding, poor compliance,
+  emotionally labile, delays care
+  → Score: 2
+
+- Highly Difficult / Disruptive
+  Verbal aggression, refusal of care, confusion/delirium,
+  constant calling, unsafe behaviour (pulling lines)
+  → Score: 3
+
+- Extreme / Unsafe
+  Physical aggression, requires restraints or sitter,
+  actively endangering staff/self
+  → Score: 4
+
+--------------------------------------
 ------------------------------------
 Nursing Experience****
 
