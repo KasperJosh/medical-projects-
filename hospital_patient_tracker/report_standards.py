@@ -21,7 +21,41 @@ STANDARD_FIELDS = {
     },
 
     "pmhx": {
-        "DM2", "DLP", "HTN", "HLP", "CAD", "CHF", "COPD", "CKD", "AFIB", "CVA", "CANCER", "OP", "PH"
+        # --- Cardiac ---
+        "CAD", "CHF", "AFIB", "VALVE_DZ", "CARDIOMYOPATHY", "MI",
+
+        # --- Respiratory ---
+        "COPD", "ASTHMA", "OSA",
+
+        # --- Renal ---
+        "CKD", "ESRD",
+
+        # --- Endocrine ---
+        "DM2", "DM1", "HYPOTHYROID", "HYPERTHYROID",
+
+        # --- Neuro ---
+        "CVA", "TIA", "DEMENTIA", "PARKINSONS", "SEIZURE_DX",
+
+        # --- Vascular ---
+        "HTN", "DLP", "HLP", "PAD", "DVT", "PE",
+
+        # --- GI / Liver ---
+        "GERD", "LIVER_DZ", "CIRRHOSIS", "GI_BLEED",
+
+        # --- Hematology / Oncology ---
+        "CANCER", "ANEMIA", "COAGULOPATHY",
+
+        # --- Pulmonary vascular ---
+        "PH",
+
+        # --- Infectious / Immune ---
+        "HIV", "IMMUNOSUPPRESSED", "TRANSPLANT",
+
+        # --- MSK / Frailty ---
+        "OP", "ARTHRITIS", "FRAILTY",
+
+        # --- Social ---
+        "SMOKER", "ETOH", "SUBSTANCE_USE"
     },
 
     "neuro": { "AOX3", "AOX2", "AOX1", "CONFUSED", "DELIRIUM", "AGITATED", "LETHARGIC", "OBTUNDED", "SEDATED", "UNRESPONSIVE"
@@ -30,7 +64,7 @@ STANDARD_FIELDS = {
     "procedure": {
         "NONE", "CXR", "TTE", "XRAY", "CT", "MRI",
         "TEE", "HEMODIALYSIS", "BRONCHOSCOPY","THORACENTESIS", "LINE_INSERTION",
-        "ANGIOGRAPHY", "PACEMAKER", "CARDIOVERSION", "PCI", "TEMP_PACER_INSERTION",
+        "PRE_ANGIOGRAPHY", "PRE_PACEMAKER", "POST_ANGIOGRAPHY", "POST_PACEMAKER", "CARDIOVERSION", "PCI", "TEMP_PACER_INSERTION",
         "CABG_1ST_CASE", "CABG_2ND_CASE", "TAVI_1ST_CASE", "TAVI_2ND_CASE", "TAVI_3RD_CASE",
         "FRESH_POST_OP"
         },
@@ -63,7 +97,7 @@ STANDARD_FIELDS = {
 
     "elimination": {
         "NONE", "TOILET", "COMMODE", "URINAL", "FOLEY", "DIAPER", "INCONTINENT", "DIARRHEA",
-        "HIGH_OUTPUT_STOOL", "SKIN_BREAKDOWN_RISK", "BOWEL_CARE"
+        "HIGH_OUTPUT_STOOL", "SKIN_BREAKDOWN_RISK", "BOWEL_CARE", "COLOSTOMY"
     },
 
     "mobility": {
@@ -75,7 +109,8 @@ STANDARD_FIELDS = {
         },
     
     "labs": {
-        "NA", "K", "HGB", "WBC", "PLT", "CR", "UREA", "INR", "PTT", "MG", "CA", "TROP"
+        "ROUTINE", "K_ABNORMAL", "NA_ABNORMAL", "MG_ABNORMAL", "CA_ABNORMAL", "HGB_LOW", "PLT_LOW", "CREATININE_ABNORMAL", "WBC_ABNORMAL", "INR_ABNORMAL",
+        "REPEAT_LABS", "FREQUENT_LABS", "ABG_MONITORING", "LACTATE_ELEVATED", "CRITICAL_LABS", "CONTINUOUS_CORRECTION"
     },
 
     "pro_involved":{
@@ -88,10 +123,13 @@ STANDARD_FIELDS = {
         "RESTRAINTS", "SITTER", "VIOLENT"
     },
 
-    "medications": {"PO_ONLY", "IV_SIMPLE","IV_MULTIPLE","INSULIN_INFUSION",
-
+    "medications": {
+        "PO_ONLY", "IV_SIMPLE","IV_MULTIPLE","INSULIN_INFUSION",
         "TITRATABLE_DRIP", "MULTIPLE_TITRATABLE_DRIPS", "VASOPRESSOR","SEDATION_DRIP",
         "ANTIARRHYTHMIC_DRIP"
+    },
+    "turnover_update": {
+        "STABLE", "POSSIBLE_TRANSFER", "TRANSFER_TODAY", "DISCHARGE_TODAY", "NEW_ADMISSION", "MULTIPLE_TURNOVER"
     }
 }
 

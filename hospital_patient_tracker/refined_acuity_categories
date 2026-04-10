@@ -44,11 +44,11 @@ Infection / Sepsis #Might not need
 4 = Septic shock
 
 Lab Instability
-0 = Routine daily labs
-1 = Mild abnormal labs, occasional replacement
-2 = Frequent electrolyte replacement or repeated labs
-3 = ABGs / unstable critical labs / q6h or more frequent checks
-4 = Severe lab instability requiring constant correction
+0 = ROUTINE
+1 = K_ABNORMAL, NA_ABNORMAL, MG_ABNORMAL, CA_ABNORMAL, HGB_LOW, PLT_LOW, CREATININE_ABNORMAL, WBC_ABNORMAL, INR_ABNORMAL
+2 = REPEAT_LABS, FREQUENT_LABS
+3 = ABG_MONITORING, LACTATE_ELEVATED, CRITICAL_LABS
+4 = CONTINUOUS_CORRECTION
 
 Safety Risk
 0 = NONE
@@ -100,14 +100,14 @@ Elimination
 0 = NONE, TOILET, COMMODE, URINAL
 1 = FOLEY, DIAPER
 2 = INCONTINENT, DIARRHEA
-3 = HIGH_OUTPUT_STOOL, SKIN_BREAKDOWN_RISK, BOWEL_CARE
+3 = HIGH_OUTPUT_STOOL, SKIN_BREAKDOWN_RISK, BOWEL_CARE, COLOSTOMY
 
 Procedures / Tests Today
 0 = NONE
 1 = CXR, TTE, CT, MRI, 
 2 = TEE, HEMODIALYSIS, BRONCHOSCOPY, THORACENTESIS, LINE_INSERTION
-3 = ANGIOGRAPHY, PACEMAKER, CARDIOVERSION, PCI, TEMP_PACER_INSERTION
-4 = CABG_1ST_CASE, CABG_2ND_CASE, TAVI_1ST_CASE, TAVI_2ND_CASE, TAVI_3RD_CASE, FRESH_POST_OP
+3 = PRE_ANGIOGRAPHY, PRE_PACEMAKER, POST_ANGIOGRAPHY, POST_PACEMAKER,CARDIOVERSION, PRE_PCI, TEMP_PACER_INSERTION
+4 = PRE_CABG_1ST_CASE, PRE_CABG_2ND_CASE, PRE_TAVI_1ST_CASE, PRE_TAVI_2ND_CASE, PRE_TAVI_3RD_CASE, FRESH_POST_OP
 
 Wounds / Dressings / Other Nursing Tasks
 
@@ -158,12 +158,13 @@ Isolation Status
 2 = (HIGHER PPE/ ENV BURDEN): MRC, HRC, CDIFF, CDIFF_R_O, DROPLET, COVID, R_O_COVID
 3 = (AIRBORNE/ VERY HIGH BURDEN): TB_R_O, AIRBORNE
 
-Turnover Risk
-0 = No expected move
-1 = Possible transfer
-2 = Discharge or transfer today
-3 = New admission today
-4 = Admission + procedural + likely multiple transitions
+Turnover Update
+0 = STABLE
+1 = POSSIBLE_TRANSFER
+2 = TRANSFER_TODAY, DISCHARGE_TODAY
+3 = NEW_ADMISSION
+4 = MULTIPLE_TURNOVER
+
 Special Flags
 
 Instead of burying them in random places, create a simple additive flag section:
