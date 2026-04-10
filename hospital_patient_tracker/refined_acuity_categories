@@ -29,14 +29,14 @@ Neurological Status
 3 = LETHARGIC, SEDATED, OBTUNDED
 4 = UNRESPONSIVE
 
-Renal / Fluid Status
+Renal / Fluid Status #Might not need
 0 = Stable
 1 = Mild overload / diuresis
 2 = Strict I&O / AKI / frequent output monitoring
 3 = Significant renal instability
 4 = CRRT or severe fluid/electrolyte instability
 
-Infection / Sepsis
+Infection / Sepsis #Might not need
 0 = None
 1 = Suspected infection / antibiotics
 2 = Confirmed infection needing close follow-up
