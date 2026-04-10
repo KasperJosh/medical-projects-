@@ -111,11 +111,11 @@ Procedures / Tests Today
 
 Wounds / Dressings / Other Nursing Tasks
 
-0 = None/minimal
-1 = Simple dressing
-2 = Difficult dressing / multiple wound care tasks
-3 = Trach care / cardiac surgery dressings / chest drain burden
-4 = Extensive complex wound/device care
+0 = NONE
+1 = SIMPLE_DRESSING, SKIN_TEARS
+2 = STERNAL_DRESSING, MULTIPLE_DRESSINGS, DIFFICULT_DRESSINGS
+3 = TRACH_CARE, CHEST_TUBE_CARE, DRAIN_CARE, PPM_DRESSING
+4 = VAC_DRESSING, COMPLEX_WOUND, MULTIPLE_COMPLEX_WOUNDS, BLEEDING_WOUND, INFECTED_WOUND
 
 Pain / Comfort Management
 0 = Controlled
