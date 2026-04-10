@@ -131,12 +131,12 @@ Communication Complexity
 3 = Requires family translation or repeated alternate communication
 4 = Severe communication barrier significantly delaying care
 
-Family / Social Complexity
-0 = Minimal
-1 = Some support/education needed
-2 = Frequent updates or emotional support burden
-3 = High-demand family / conflict / goals-of-care intensity
-4 = Extreme family/social burden dominating nursing time
+Family / Social Complexity  # Might not need it 
+0 = INDEP   Minimal involvement
+1 = EDUCATION  Routine teaching/updates
+2 = SUPPORT Frequent updates / emotional support 
+3 = COMPLEX Conflict / high-demand / GOC discussion
+4 = EXTREME Dominates nursing time
 
 Behaviour / Cooperation
 
