@@ -1,4 +1,4 @@
-from report_standards import (
+from hospital_patient_tracker.report_standard import (
     validate_single_value,
     validate_multi_value,
     get_allowed_values
