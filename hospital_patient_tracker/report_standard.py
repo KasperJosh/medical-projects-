@@ -304,6 +304,7 @@ def is_valid_field(field_name):
     """Return True if the field exists in the standardized system."""
     return field_name in STANDARD_FIELDS
 
+# is_valid_field ("hemodynamic_status")
 
 def is_valid_value(field_name, value):
     """Return True if value is valid for the given field."""
@@ -311,7 +312,7 @@ def is_valid_value(field_name, value):
         return False
     return value in STANDARD_FIELDS[field_name]
 
-print(is_valid_value("hemodynamic_status", "BANANA"))
+#is_valid_value("hemodynamic_status", "BANANA")
 
 def validate_single_value(field_name, value):
     """
