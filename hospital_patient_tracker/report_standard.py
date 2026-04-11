@@ -1,7 +1,7 @@
 #report_standards.py is a file so that I have standardized values in the report
 
-# Fix this for NON_SCORING FIELDS
-NON_SCORING__FIELDS = {
+# Fields that are standardized but do not directly score
+NON_SCORING_FIELDS = {
     
     "level_of_intervention": {
         "A", "B", "C", "D"
@@ -58,7 +58,8 @@ NON_SCORING__FIELDS = {
 
 
 #SCORING FIELDS----------------------------------------------------------------------
-SCORING__FIELDS = {
+#Fields that contribute to acuity / workload scoring
+SCORING_FIELDS = {
 
     "hemodynamic_status": {
         0: {"STABLE"},
@@ -256,44 +257,126 @@ SCORING__FIELDS = {
 
 #_________________________________________________________
 
+# Optional additive modifiers
 
-#CONSIDER ADDING MODIFIERS
+SPECIAL_FLAGS = {
+    "BLOOD_TRANSFUSION": 1,
+    "FREQUENT_CALLER": 1,
+    "ONE_TO_ONE_OBSERVATION": 2,
+    "BARIATRIC_HEAVY_CARE": 1,
+    "END_OF_LIFE_COMFORT" : 1,
+    "POST_OP_FRESH_ARRIVAL": 2
+}
 
 
-#Transforms all value in upper case
-def normalize_term(value):
-    return value.strip().upper()
 
-# Validates if the field exists actually and then normalizes the term 
+# =========================================================
+# BUILD MASTER STANDARD_FIELDS AUTOMATICALLY
+# =========================================================
+
+def build_standard_fields():
+    standard_fields = {}
+
+    # Flatten scoring fields into standard validation fields
+    for field_name, score_map in SCORING_FIELDS.items():
+        allowed_values = set()
+
+        for values in score_map.values():
+            allowed_values.update(values)
+
+        standard_fields[field_name] = allowed_values
+
+    # Add non-scoring fields
+    for field_name, allowed_values in NON_SCORING_FIELDS.items():
+        standard_fields[field_name] = set(allowed_values)
+
+    return standard_fields
+
+
+STANDARD_FIELDS = build_standard_fields()
+
+
+# =========================================================
+# 5. HELPER FUNCTIONS
+# =========================================================
+
+def is_valid_field(field_name):
+    """Return True if the field exists in the standardized system."""
+    return field_name in STANDARD_FIELDS
+
+
+def is_valid_value(field_name, value):
+    """Return True if value is valid for the given field."""
+    if field_name not in STANDARD_FIELDS:
+        return False
+    return value in STANDARD_FIELDS[field_name]
+
+print(is_valid_value("hemodynamic_status", "BANANA"))
+
 def validate_single_value(field_name, value):
-    if field_name not in STANDARD_FIELDS:
-        return True, value   # unspecified/free-text fields allowed
+    """
+    Validate a single-value field.
+    Returns: (True, cleaned_value) or (False, error_message)
+    """
+    if not is_valid_field(field_name):
+        return False, f"Invalid field: {field_name}"
 
-    normalized = normalize_term(value)
+    cleaned_value = value.strip().upper()
 
-    if normalized in STANDARD_FIELDS[field_name]:
-        return True, normalized
+    if not is_valid_value(field_name, cleaned_value):
+        return False, f"Invalid value '{value}' for field '{field_name}'"
 
-    return False, None
+    return True, cleaned_value
 
-#Validates the fields with multiple values
-def validate_multi_value(field_name, value):
-    if field_name not in STANDARD_FIELDS:
-        return True, value
 
-    items = [normalize_term(item) for item in value.split(",") if item.strip()]
-    invalid_items = []
+def validate_multi_value(field_name, values):
+    """
+    Validate a list of values for fields like pmhx or pro_involved.
+    Returns: (True, cleaned_values_list) or (False, error_message)
+    """
+    if not is_valid_field(field_name):
+        return False, f"Invalid field: {field_name}"
 
-    for item in items:
-        if item not in STANDARD_FIELDS[field_name]:
-            invalid_items.append(item)
+    cleaned_values = []
+    invalid_values = []
 
-    if invalid_items:
-        return False, invalid_items
+    for value in values:
+        cleaned_value = value.strip().upper()
+        if is_valid_value(field_name, cleaned_value):
+            cleaned_values.append(cleaned_value)
+        else:
+            invalid_values.append(value)
 
-    return True, items
+    if invalid_values:
+        return False, f"Invalid values for '{field_name}': {', '.join(invalid_values)}"
+
+    return True, cleaned_values
+
+
+def get_score(field_name, value):
+    """
+    Return the acuity/workload score for a valid scoring field value.
+    Non-scoring fields return 0.
+    """
+    if field_name not in SCORING_FIELDS:
+        return 0
+
+    cleaned_value = value.strip().upper()
+
+    for score, values in SCORING_FIELDS[field_name].items():
+        if cleaned_value in values:
+            return score
+
+    return 0
+
 
 def get_allowed_values(field_name):
-    if field_name in STANDARD_FIELDS:
-        return sorted(STANDARD_FIELDS[field_name])
-    return []
+    """Return sorted allowed values for a field."""
+    if field_name not in STANDARD_FIELDS:
+        return []
+    return sorted(STANDARD_FIELDS[field_name])
+
+
+def get_all_field_names():
+    """Return all standardized field names."""
+    return sorted(STANDARD_FIELDS.keys())
