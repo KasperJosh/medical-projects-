@@ -1,17 +1,8 @@
 #report_standards.py is a file so that I have standardized values in the report
 
-
-STANDARD_FIELDS = {
-    "isolation" : {
-        "NONE",
-        "CONTACT", "LRC", "MRC", "HRC",
-        "MRSA", "VRE", "MDRO", "CRO",
-        "CDIFF", "CDIFF_R_O",
-        "BEDBUGS", "SCABIES",
-        "DROPLET", "COVID", "R_O_COVID",
-        "TB_R_O", "AIRBORNE"
-    },
-
+# Fix this for NON_SCORING FIELDS
+NON_SCORING__FIELDS = {
+    
     "level_of_intervention": {
         "A", "B", "C", "D"
     },
@@ -58,284 +49,210 @@ STANDARD_FIELDS = {
         "SMOKER", "ETOH", "SUBSTANCE_USE"
     },
 
-    "neuro": { "AOX3", "AOX2", "AOX1", "CONFUSED", "DELIRIUM", "AGITATED", "LETHARGIC", "OBTUNDED", "SEDATED", "UNRESPONSIVE"
-    },
-
-    "procedure": {
-        "NONE", "CXR", "TTE", "XRAY", "CT", "MRI",
-        "TEE", "HEMODIALYSIS", "BRONCHOSCOPY","THORACENTESIS", "LINE_INSERTION",
-        "PRE_ANGIOGRAPHY", "PRE_PACEMAKER", "POST_ANGIOGRAPHY", "POST_PACEMAKER", "CARDIOVERSION", "PCI", "TEMP_PACER_INSERTION",
-        "CABG_1ST_CASE", "CABG_2ND_CASE", "TAVI_1ST_CASE", "TAVI_2ND_CASE", "TAVI_3RD_CASE",
-        "FRESH_POST_OP"
-        },
-    "rhythm": {
-        "NSR", "SB", "ST", "AFLUTTER", "AFIB", "JUNCTIONAL",
-        "1AVB", "2AVB1", "2AVB2", "3AVB",
-        "NSVT", "VT", "VFIB", "PAC", "PVC", "NONE",
-        "SVT", "V_PACED", "A_PACED", "AV_PACED" ,"CHB_PACED", "ASYSTOLE" 
-    },
-
-    "ventilation": {
-        "RA", "NP", "NC", "HFNC", "BIPAP", "CPAP", "TRACH_MASK", "VENTED"
-    },
-
-    "iv_access": {
-        "NONE", "PIV", "MIDLINE", "PICC", "CVAD", "ARTLINE", "PA_LINE"
-    },
-
-    "nutrition": {
-        "REGULAR", "CARDIAC", "RENAL", "DM_NO_CBGM", "DM_CBGM", "FR1L", 
-        "FR1_5L", "FR2L", "SETUP", "NPO", "FEED_ASSIST", "ASP_PRECAUTIONS",
-        "NGT_FEEDS", "OGT_FEEDS", "PEG_FEEDS", "TPN"
-    },
-
-    "drains_drsgs_integ":{
-        "NONE", "SIMPLE_DRESSING", "ABDO_DRESSING", "OSTOMY_CARE", "MULTIPLE_DRESSINGS", "DIFFFICULT_DRESSING"
-        "TRACH_CARE", "CHEST_TUBE_CARE", "VAC_DRESSING", "COMPLEX_WOUND", "PPM_DRESSING", "T&O", "DRAIN_CARE"
-        "SKIN_TEARS", "PPM_DRESSING", "MULTIPLE_COMPLEX_WOUNDS", "BLEEDING WOUND", "INFECTED_WOUND"
-    },
-
-    "elimination": {
-        "NONE", "TOILET", "COMMODE", "URINAL", "FOLEY", "DIAPER", "INCONTINENT", "DIARRHEA",
-        "HIGH_OUTPUT_STOOL", "SKIN_BREAKDOWN_RISK", "BOWEL_CARE", "COLOSTOMY"
-    },
-
-    "mobility": {
-        "INDEP", "SUPERVISION",
-        "AMB", "CANE", "WALKER",
-        "AX1", "AX2",
-        "WC", "BEDBOUND",
-        "LIFT", "BRODA", "TOTAL_CARE"
-        },
-    
-    "labs": {
-        "ROUTINE", "K_ABNORMAL", "NA_ABNORMAL", "MG_ABNORMAL", "CA_ABNORMAL", "HGB_LOW", "PLT_LOW", "CREATININE_ABNORMAL", "WBC_ABNORMAL", "INR_ABNORMAL",
-        "REPEAT_LABS", "FREQUENT_LABS", "ABG_MONITORING", "LACTATE_ELEVATED", "CRITICAL_LABS", "CONTINUOUS_CORRECTION"
-    },
-
     "pro_involved":{
         "PT", "OT", "SW", "CARDIO", "NEPHRO", "DERM", "THROMBO", "NEURO", "URO", "ID", "GERI", 
         "DIET", "PULM", "RHEUM", "HEME", "DCPN", 
     },
 
-    "safety": {
-        "NONE", "FALL_RISK", "HIGH_FALL_RISK", "IMPULSIVE", "WANDERING", "PULLING_LINES", "CONFUSED_UNSAFE",
-        "RESTRAINTS", "SITTER", "VIOLENT"
-    },
-
-    "medications": {
-        "PO_ONLY", "IV_SIMPLE","IV_MULTIPLE","INSULIN_INFUSION",
-        "TITRATABLE_DRIP", "MULTIPLE_TITRATABLE_DRIPS", "VASOPRESSOR","SEDATION_DRIP",
-        "ANTIARRHYTHMIC_DRIP"
-    },
-
-    "cbgm_frequency": {
-        "NONE", "ACHS", "Q1H"
-    },
-    "turnover_update": {
-        "STABLE", "POSSIBLE_TRANSFER", "TRANSFER_TODAY", "TRANSFER_TO_FLOOR", "DISCHARGE_TODAY", "NEW_ADMISSION", "MULTIPLE_TURNOVER"
-    }
 }
 
 
 #SCORING FIELDS----------------------------------------------------------------------
 SCORING__FIELDS = {
 
-
     "hemodynamic_status": {
-        0: ["STABLE"],
-        1: ["SOFT_BP"],
-        2: ["SINGLE_PRESSOR"],
-        3: ["TITRATING_PRESSORS"],
-        4: ["MULTIPLE_PRESSORS", "ACTIVE_BLEED", "MECH_SUPPORT"]
+        0: {"STABLE"},
+        1: {"SOFT_BP"},
+        2: {"SINGLE_PRESSOR"},
+        3: {"TITRATING_PRESSORS"},
+        4: {"MULTIPLE_PRESSORS", "ACTIVE_BLEED", "MECH_SUPPORT"},
     },
 
-
     "cardiac_status": {
-        0: ["NSR", "NONE"],
-        1: ["SB", "ST", "PAC", "PVC", "1AVB"],
-        2: ["AFLUTTER", "AFIB", "SVT", "JUNCTIONAL", "2AVB1", "NSVT"],
-        3: ["2AVB2", "3AVB", "CHB_PACED", "VT"],
-        4: ["VFIB", "ASYSTOLE"]
+        0: {"NSR", "NONE"},
+        1: {"SB", "ST", "PAC", "PVC", "1AVB"},
+        2: {"AFLUTTER", "AFIB", "SVT", "JUNCTIONAL", "2AVB1", "NSVT"},
+        3: {"2AVB2", "3AVB", "CHB_PACED", "VT"},
+        4: {"VFIB", "ASYSTOLE"},
     },
 
 
     "respiratory_status": {
-        0: ["RA", "NP", "NC"],
-        2: ["CPAP", "BIPAP", "TRACH_MASK"],
-        4: ["VENTED"]
+        0: {"RA", "NP", "NC"},
+        2: {"CPAP", "BIPAP", "TRACH_MASK"},
+        4: {"VENTED"},
     },
 
 
     "neurological_status": {
-        0: ["AOX3"],
-        1: ["AOX2", "CONFUSED"],
-        2: ["AOX1", "DELIRIUM", "AGITATED"],
-        3: ["LETHARGIC", "SEDATED", "OBTUNDED"],
-        4: ["UNRESPONSIVE"]
+        0: {"AOX3"},
+        1: {"AOX2", "CONFUSED"},
+        2: {"AOX1", "DELIRIUM", "AGITATED"},
+        3: {"LETHARGIC", "SEDATED", "OBTUNDED"},
+        4: {"UNRESPONSIVE"},
     },
 
 
     "lab_instability": {
-        0: ["ROUTINE"],
-        1: ["K_ABNORMAL", "NA_ABNORMAL", "MG_ABNORMAL", "CA_ABNORMAL",
-            "HGB_LOW", "PLT_LOW", "CREATININE_ABNORMAL", "WBC_ABNORMAL", "INR_ABNORMAL"],
-        2: ["REPEAT_LABS", "FREQUENT_LABS"],
-        3: ["ABG_MONITORING", "LACTATE_ELEVATED", "CRITICAL_LABS"],
-        4: ["CONTINUOUS_CORRECTION"]
+        0: {"ROUTINE"},
+        1: {
+            "K_ABNORMAL", "NA_ABNORMAL", "MG_ABNORMAL", "CA_ABNORMAL",
+            "HGB_LOW", "PLT_LOW", "CREATININE_ABNORMAL", "WBC_ABNORMAL", "INR_ABNORMAL"
+        },
+        2: {"REPEAT_LABS", "FREQUENT_LABS"},
+        3: {"ABG_MONITORING", "LACTATE_ELEVATED", "CRITICAL_LABS"},
+        4: {"CONTINUOUS_CORRECTION"},
     },
 
 
     "safety_risk": {
-        0: ["NONE"],
-        1: ["FALL_RISK"],
-        2: ["HIGH_FALL_RISK", "IMPULSIVE"],
-        3: ["WANDERING", "PULLING_LINES", "CONFUSED_UNSAFE"],
-        4: ["RESTRAINTS", "SITTER", "VIOLENT"]
+        0: {"NONE"},
+        1: {"FALL_RISK"},
+        2: {"HIGH_FALL_RISK", "IMPULSIVE"},
+        3: {"WANDERING", "PULLING_LINES", "CONFUSED_UNSAFE"},
+        4: {"RESTRAINTS", "SITTER", "VIOLENT"},
     },
 
 
     "behaviour_cooperation": {
-        0: ["COOPERATIVE"],
-        1: ["ANXIOUS"],
-        2: ["DEMANDING"],
-        3: ["DISRUPTIVE"],
-        4: ["AGGRESSIVE"]
+        0: {"COOPERATIVE"},
+        1: {"ANXIOUS"},
+        2: {"DEMANDING"},
+        3: {"DISRUPTIVE"},
+        4: {"AGGRESSIVE"},
     },
 
 
     "medication_complexity": {
-        0: ["PO_ONLY"],
-        1: ["IV_SIMPLE"],
-        2: ["IV_MULTIPLE", "INSULIN_INFUSION"],
-        3: ["TITRATABLE_DRIP", "VASOPRESSOR", "SEDATION_DRIP", "ANTIARRHYTHMIC_DRIP"],
-        4: ["MULTIPLE_TITRATABLE_DRIPS"]
+        0: {"PO_ONLY"},
+        1: {"IV_SIMPLE"},
+        2: {"IV_MULTIPLE", "INSULIN_INFUSION"},
+        3: {"TITRATABLE_DRIP", "VASOPRESSOR", "SEDATION_DRIP", "ANTIARRHYTHMIC_DRIP"},
+        4: {"MULTIPLE_TITRATABLE_DRIPS"},
     },
 
 
     "cbgm_frequency": {
-        0: ["NONE"],
-        1: ["ACHS"],
-        4: ["Q1H"]
+        0: {"NONE"},
+        1: {"ACHS"},
+        4: {"Q1H"},
     },
 
 
     "monitoring_frequency": {
-        0: ["ROUTINE"],
-        1: ["ENHANCED"],
-        2: ["Q2H"],
-        3: ["Q1H"],
-        4: ["CONTINUOUS"]
+        0: {"ROUTINE"},
+        1: {"ENHANCED"},
+        2: {"Q2H"},
+        3: {"Q1H"},
+        4: {"CONTINUOUS"},
     },
 
 
     "iv_access": {
-        0: ["NONE"],
-        1: ["PIV", "MIDLINE"],
-        2: ["PICC", "CVAD"],
-        3: ["ARTLINE", "PA_LINE", "HD_LINE"]
+        0: {"NONE"},
+        1: {"PIV", "MIDLINE"},
+        2: {"PICC", "CVAD"},
+        3: {"ARTLINE", "PA_LINE", "HD_LINE"},
     },
 
 
     "mobility": {
-        0: ["INDEP", "AMB"],
-        1: ["SUPERVISION", "CANE", "WALKER"],
-        2: ["AX1", "WC", "BEDBOUND"],
-        3: ["AX2", "BRODA"],
-        4: ["TOTAL_CARE", "LIFT", "BEDBOUND"]
+        0: {"INDEP", "AMB"},
+        1: {"SUPERVISION", "CANE", "WALKER"},
+        2: {"AX1", "WC", "BEDBOUND"},
+        3: {"AX2", "BRODA"},
+        4: {"TOTAL_CARE", "LIFT"},
     },
 
 
     "nutrition": {
-        0: ["REGULAR", "CARDIAC", "DM_NO_CBGM"],
-        1: ["DM_CBGM", "FR1L", "FR1_5L", "FR2L", "SETUP", "NPO"],
-        2: ["FEED_ASSIST", "ASP_PRECAUTIONS"],
-        3: ["NGT_FEEDS", "OGT_FEEDS", "PEG_FEEDS"],
-        4: ["TPN"]
+        0: {"REGULAR", "CARDIAC", "DM_NO_CBGM"},
+        1: {"DM_CBGM", "FR1L", "FR1_5L", "FR2L", "SETUP", "NPO"},
+        2: {"FEED_ASSIST", "ASP_PRECAUTIONS"},
+        3: {"NGT_FEEDS", "OGT_FEEDS", "PEG_FEEDS"},
+        4: {"TPN"},
     },
 
 
     "elimination": {
-        0: ["NONE", "TOILET", "COMMODE", "URINAL"],
-        1: ["FOLEY", "DIAPER"],
-        2: ["INCONTINENT", "DIARRHEA"],
-        3: ["HIGH_OUTPUT_STOOL", "SKIN_BREAKDOWN_RISK", "BOWEL_CARE", "COLOSTOMY"]
+        0: {"NONE", "TOILET", "COMMODE", "URINAL"},
+        1: {"FOLEY", "DIAPER"},
+        2: {"INCONTINENT", "DIARRHEA"},
+        3: {"HIGH_OUTPUT_STOOL", "SKIN_BREAKDOWN_RISK", "BOWEL_CARE", "COLOSTOMY"},
     },
 
-
     "procedures_tests": {
-        0: ["NONE"],
-        1: ["CXR", "TTE", "CT", "MRI"],
-        2: ["TEE", "HEMODIALYSIS", "BRONCHOSCOPY", "THORACENTESIS", "LINE_INSERTION"],
-        3: ["PRE_ANGIOGRAPHY", "PRE_PACEMAKER", "POST_ANGIOGRAPHY",
-            "POST_PACEMAKER", "CARDIOVERSION", "PRE_PCI", "TEMP_PACER_INSERTION"],
-        4: ["PRE_CABG", "PRE_TAVI", "FRESH_POST_OP"]
+        0: {"NONE"},
+        1: {"CXR", "TTE", "CT", "MRI"},
+        2: {"TEE", "HEMODIALYSIS", "BRONCHOSCOPY", "THORACENTESIS", "LINE_INSERTION"},
+        3: {
+            "PRE_ANGIOGRAPHY", "PRE_PACEMAKER", "POST_ANGIOGRAPHY",
+            "POST_PACEMAKER", "CARDIOVERSION", "PRE_PCI", "TEMP_PACER_INSERTION"
+        },
+        4: {"PRE_CABG", "PRE_TAVI", "FRESH_POST_OP"},
     },
 
 
     "wounds_dressings": {
-        0: ["NONE"],
-        1: ["SIMPLE_DRESSING", "SKIN_TEARS"],
-        2: ["STERNAL_DRESSING", "MULTIPLE_DRESSINGS", "DIFFICULT_DRESSINGS"],
-        3: ["TRACH_CARE", "CHEST_TUBE_CARE", "DRAIN_CARE", "PPM_DRESSING","OSTOMY_CARE"],
-        4: ["VAC_DRESSING", "COMPLEX_WOUND", "MULTIPLE_COMPLEX_WOUNDS",
-            "BLEEDING_WOUND", "INFECTED_WOUND"]
+        0: {"NONE"},
+        1: {"SIMPLE_DRESSING", "SKIN_TEARS"},
+        2: {"STERNAL_DRESSING", "MULTIPLE_DRESSINGS", "DIFFICULT_DRESSINGS"},
+        3: {"TRACH_CARE", "CHEST_TUBE_CARE", "DRAIN_CARE", "PPM_DRESSING"},
+        4: {"VAC_DRESSING", "COMPLEX_WOUND", "MULTIPLE_COMPLEX_WOUNDS", "BLEEDING_WOUND", "INFECTED_WOUND"},
     },
 
 
     "pain_management": {
-        0: ["CONTROLLED"],
-        1: ["PRN_OCCASIONAL"],
-        2: ["PRN_FREQUENT"],
-        3: ["PCA"],
-        4: ["UNCONTROLLED"]
+        0: {"CONTROLLED"},
+        1: {"PRN_OCCASIONAL"},
+        2: {"PRN_FREQUENT"},
+        3: {"PCA"},
+        4: {"UNCONTROLLED"},
     },
 
 
     "communication": {
-        0: ["NONE"],
-        1: ["MILD"],
-        2: ["BARRIER"],
-        3: ["FAMILY_REQUIRED"],
-        4: ["SEVERE"]
+        0: {"NONE"},
+        1: {"MILD"},
+        2: {"BARRIER"},
+        3: {"FAMILY_REQUIRED"},
+        4: {"SEVERE"},
     },
 
 
     "family_social": {
-        0: ["INDEP"],
-        1: ["EDUCATION"],
-        2: ["SUPPORT"],
-        3: ["COMPLEX"],
-        4: ["EXTREME"]
+        0: {"INDEP"},
+        1: {"EDUCATION"},
+        2: {"SUPPORT"},
+        3: {"COMPLEX"},
+        4: {"EXTREME"},
     },
 
 
     "blood_test_frequency": {
-        0: ["DAILY"],
-        1: ["ONE_REPEAT"],
-        2: ["Q12H", "Q8H"],
-        3: ["Q6H", "Q4H"],
-        4: ["Q2H", "Q1H", "URGENT_REPEAT"]
+        0: {"DAILY"},
+        1: {"ONE_REPEAT"},
+        2: {"Q12H", "Q8H"},
+        3: {"Q6H", "Q4H"},
+        4: {"Q2H", "Q1H", "URGENT_REPEAT"},
     },
 
 
     "isolation_status": {
-        0: ["NONE"],
-        1: ["CONTACT", "LRC", "MRSA", "VRE", "MDRO", "CRO", "BEDBUGS", "SCABIES"],
-        2: ["MRC", "HRC", "CDIFF", "DROPLET", "COVID"],
-        3: ["AIRBORNE", "TB"]
+        0: {"NONE"},
+        1: {"CONTACT", "LRC", "MRSA", "VRE", "MDRO", "CRO", "BEDBUGS", "SCABIES"},
+        2: {"MRC", "HRC", "CDIFF", "CDIFF_R_O", "DROPLET", "COVID", "R_O_COVID"},
+        3: {"TB_R_O", "AIRBORNE"},
     },
 
-
     "turnover": {
-        0: ["STABLE"],
-        1: ["POSSIBLE_TRANSFER"],
-        2: ["TRANSFER_TODAY", "DISCHARGE_TODAY"],
-        3: ["NEW_ADMISSION", "TRANSFER_TO_FLOOR"],
-        4: ["MULTIPLE_TURNOVER"]
-    }
+        0: {"STABLE"},
+        1: {"POSSIBLE_TRANSFER"},
+        2: {"TRANSFER_TODAY", "DISCHARGE_TODAY"},
+        3: {"NEW_ADMISSION", "TRANSFER_TO_FLOOR"},
+        4: {"MULTIPLE_TURNOVER"},
+    },
 }
-
 
 #_________________________________________________________
 
