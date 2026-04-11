@@ -2,11 +2,11 @@ A. Patient Acuity Categories
 
 #This part is still under works 
 Hemodynamic Status
-0 = "STABLE"
-1 = "SOFT_BP"
-2 = "SINGLE_PRESSOR"
-3 = "TITRATING_PRESSORS", 
-4 = "MULTIPLE_PRESSORS", "ACTIVE_BLEED","MECH_SUPPORT"
+0 = STABLE
+1 = SOFT_BP
+2 = SINGLE_PRESSOR
+3 = TITRATING_PRESSORS, 
+4 = MULTIPLE_PRESSORS, ACTIVE_BLEED, MECH_SUPPORT
 
 Cardiac Status
 0 = NSR, NONE
@@ -29,20 +29,6 @@ Neurological Status
 3 = LETHARGIC, SEDATED, OBTUNDED
 4 = UNRESPONSIVE
 
-Renal / Fluid Status #Might not need
-0 = Stable
-1 = Mild overload / diuresis
-2 = Strict I&O / AKI / frequent output monitoring
-3 = Significant renal instability
-4 = CRRT or severe fluid/electrolyte instability
-
-Infection / Sepsis #Might not need
-0 = None
-1 = Suspected infection / antibiotics
-2 = Confirmed infection needing close follow-up
-3 = Sepsis
-4 = Septic shock
-
 Lab Instability
 0 = ROUTINE
 1 = K_ABNORMAL, NA_ABNORMAL, MG_ABNORMAL, CA_ABNORMAL, HGB_LOW, PLT_LOW, CREATININE_ABNORMAL, WBC_ABNORMAL, INR_ABNORMAL
@@ -60,6 +46,14 @@ Safety Risk
 ------------------------------------------------------
 B. Nursing Workload Categories
 
+Behaviour / Cooperation
+
+0 = COOPERATIVE   # calm, follows instructions
+1 = ANXIOUS       # needs reassurance, repetitive questions
+2 = DEMANDING     # poor compliance, frequent requests
+3 = DISRUPTIVE    # refusal of care, verbal aggression, constant calling
+4 = AGGRESSIVE    # physical aggression, restraints, safety issue
+
 Medication Complexity
 0 = PO_ONLY
 1 = IV_SIMPLE
@@ -67,27 +61,30 @@ Medication Complexity
 3 = TRITRATABLE_DRIP, VASOPRESSOR, SEDATION_DRIP, ANTIARRHYTHMIC_DRIP
 4 = MULTIPLE_TITRATABLE_DRIPS
 
+CBGM Frequency
+0 = "NONE"
+1 = "ACHS"    #Before meals + bedtime
+4 = "Q1H"     #Insulin drip. very high workload 
+
 Monitoring Frequency
+0 = "ROUTINE"    #q4 vitals, standard care
+1 = "ENHANCED"   #q2-4 + occaional extra checks
+2 = "Q2H"        # Structured q2h monitoring
+3 = "Q1H"        # Hourly Monitoring
+4 = "CONTINUOUS" #Near-constant reassessment 
 
-0 = Routine q4h
-1 = q2–4h plus some extra checks
-2 = q2h structured monitoring
-3 = q1h monitoring
-4 = Continuous / near-constant reassessment
-
-IV Access
+IV Access Lines
 0 = NONE
 1 = PIV, MIDLINE
 2 = PICC, CVAD
 3=  ARTLINE, PA_LINE, HD_LINE
-
 
 Mobility
 0 = INDEP, AMB
 1 = SUPERVISION, CANE, WALKER
 2 = AX1, WC, BEDBOUND
 3 = Ax2, BRODA
-4 = TOTAL_CARE, LIFT
+4 = TOTAL_CARE, LIFT, BEDBOUND,
 
 Nutrition
 0 = REGULAR, CARDIAC, DM_NO_CBGM
@@ -132,21 +129,19 @@ Communication Complexity
 4 = Severe communication barrier significantly delaying care
 
 Family / Social Complexity  # Might not need it 
-0 = INDEP   Minimal involvement
-1 = EDUCATION  Routine teaching/updates
-2 = SUPPORT Frequent updates / emotional support 
-3 = COMPLEX Conflict / high-demand / GOC discussion
-4 = EXTREME Dominates nursing time
+0 = INDEP                    Minimal involvement
+1 = EDUCATION                Routine teaching/updates
+2 = SUPPORT                  Frequent updates / emotional support 
+3 = COMPLEX                  Conflict / high-demand / GOC discussion
+4 = EXTREME                  Dominates nursing time
 
-Behaviour / Cooperation
+Blood Test Frequency
 
-I would keep this, but tighten it:
-
-0 = Cooperative
-1 = Mildly anxious / repetitive / reassurance needed
-2 = Demanding / poor compliance / emotionally labile
-3 = Frequent refusal, verbal aggression, constant calling, delays care
-4 = Physically aggressive / restraints / staff safety issue
+0 = DAILY
+1 = ONE_REPEAT
+2 = Q12H, Q8H, 
+3 = Q6H, Q4H
+4 = Q2H, Q1H, URGENT_REPEAT
 
 -----------------------------------------------------
 C. Assignment Modifiers
@@ -162,8 +157,12 @@ Turnover Update
 0 = STABLE
 1 = POSSIBLE_TRANSFER
 2 = TRANSFER_TODAY, DISCHARGE_TODAY
-3 = NEW_ADMISSION
+3 = NEW_ADMISSION, TRANSFER_TO_FLOOR
 4 = MULTIPLE_TURNOVER
+
+Nurse Factors
+
+
 
 Special Flags
 
