@@ -278,10 +278,10 @@ def build_standard_fields():
     standard_fields = {}
 
     # Flatten scoring fields into standard validation fields
-    for field_name, score_map in SCORING_FIELDS.items():
+    for field_name, score_map in SCORING_FIELDS.items():   #hemodynamic_status, 0
         allowed_values = set()
 
-        for values in score_map.values():
+        for values in score_map.values():  #"STABLE"
             allowed_values.update(values)
 
         standard_fields[field_name] = allowed_values
@@ -295,6 +295,7 @@ def build_standard_fields():
 
 STANDARD_FIELDS = build_standard_fields()
 
+#print(STANDARD_FIELDS)
 
 # =========================================================
 # 5. HELPER FUNCTIONS
@@ -304,7 +305,7 @@ def is_valid_field(field_name):
     """Return True if the field exists in the standardized system."""
     return field_name in STANDARD_FIELDS
 
-# is_valid_field ("hemodynamic_status")
+print(is_valid_field ("hemodynamic_status"))
 
 def is_valid_value(field_name, value):
     """Return True if value is valid for the given field."""
@@ -312,7 +313,7 @@ def is_valid_value(field_name, value):
         return False
     return value in STANDARD_FIELDS[field_name]
 
-#is_valid_value("hemodynamic_status", "BANANA")
+print(is_valid_value("hemodynamic_status", "STABLE"))
 
 def validate_single_value(field_name, value):
     """
@@ -329,7 +330,9 @@ def validate_single_value(field_name, value):
 
     return True, cleaned_value
 
+print(validate_single_value("hemodynamic_status", "STABLE"))
 
+# ["CKD", "DM2", "CAD"] Is this valid? Needed for Multi aspects inside the field 
 def validate_multi_value(field_name, values):
     """
     Validate a list of values for fields like pmhx or pro_involved.
@@ -370,6 +373,7 @@ def get_score(field_name, value):
 
     return 0
 
+print(get_score("hemodynamic_status", "STABLE"))
 
 def get_allowed_values(field_name):
     """Return sorted allowed values for a field."""
@@ -377,7 +381,10 @@ def get_allowed_values(field_name):
         return []
     return sorted(STANDARD_FIELDS[field_name])
 
+print(get_allowed_values("hemodynamic_status"))
 
 def get_all_field_names():
     """Return all standardized field names."""
     return sorted(STANDARD_FIELDS.keys())
+
+print(get_all_field_names())
