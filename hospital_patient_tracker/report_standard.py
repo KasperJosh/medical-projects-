@@ -8,7 +8,7 @@ NON_SCORING_FIELDS = {
     },
 
     "diagnosis" : {
-        "NSTEMI", "STEMI", "ACS", "AS", "CHF", "CHFE" "SYNCOPE", "FAF", "BVHF", "PNA", "UTI", "E.CABG", "CABG", "ADHF", "PH"
+        "NSTEMI", "STEMI", "ACS", "AS", "CHF", "CHFE", "SYNCOPE", "FAF", "BVHF", "PNA", "UTI", "E_CABG", "CABG", "ADHF", "PH"
     },
 
     "pmhx": {
@@ -122,7 +122,6 @@ SCORING_FIELDS = {
         3: {"DISRUPTIVE"},
         4: {"AGGRESSIVE"},
     },
-
 
     "medication_complexity": {
         0: {"PO_ONLY"},
@@ -387,4 +386,63 @@ def get_all_field_names():
     """Return all standardized field names."""
     return sorted(STANDARD_FIELDS.keys())
 
-print(get_all_field_names())
+#print(get_all_field_names())
+
+#---------------------------
+#print("\n--- SPECIAL FLAGS TEST ---")
+
+#print(SPECIAL_FLAGS.get("BLOOD_TRANSFUSION", 0))  # 1
+#print(SPECIAL_FLAGS.get("FREQUENT_CALLER", 0))    # 1
+#print(SPECIAL_FLAGS.get("UNKNOWN_FLAG", 0))       # 0
+
+#_________________________________________________________
+
+#Here is a mini report simulation 
+
+print("\n--- MINI REPORT SIMULATION ---")
+
+patient_report = {
+    "level_of_intervention": "A",
+    "diagnosis": "nstemi",
+    "pmhx": ["HYPOTHYROID", "DM2", "OP"],
+    "hemodynamic_status": "stable",
+    "cardiac_status" : "afib",
+    "respiratory_status" : "NP",
+    "neurological_status" : "AOX3",
+    "lab_instability": "ROUTINE",
+    "safety_risk" : "FALL_RISK",
+    "behaviour_cooperation": "ANXIOUS",
+    "medication_complexity": "IV_SIMPLE",
+    "cbgm_frequency": "ACHS",
+    "monitoring_frequency": "ENHANCED",
+    "iv_access": "PIV",
+    "mobility": "SUPERVISION",
+    "nutrition": "DM_CBGM",
+    "elimination": "FOLEY",
+    "procedures_tests" : ["CXR", "TTE"],
+    "wounds_dressings" : "NONE",
+    "pain_management" : "CONTROLLED",
+    "communication" : "NONE",
+    "family_social" : "INDEP",
+    "blood_test_frequency": "DAILY",
+    "isolation_status": "CONTACT",
+    "turnover": "POSSIBLE_TURNOVER",
+    "pro_involved": ["PT", "OT", "SW"]
+}
+
+total_score = 0
+
+for field, value in patient_report.items():
+    if isinstance(value, list):
+        valid, cleaned = validate_multi_value(field, value)
+        print(field, "->", valid, cleaned)
+        if valid:
+            for item in cleaned:
+                total_score += get_score(field, item)
+    else:
+        valid, cleaned = validate_single_value(field, value)
+        print(field, "->", valid, cleaned)
+        if valid:
+            total_score += get_score(field, cleaned)
+
+print("Total score:", total_score)
