@@ -85,7 +85,7 @@ FIELD_WEIGHTS = {
     "nutrition": 1.0,
     "elimination": 1.25,
     "procedures_tests": 1.25,
-    "wounds_dressings": 1.25,
+    "wounds_dressings": 1.5,
     "pain_management": 1.0,
     "communication": 0.75,
     "family_social": 0.75,
@@ -94,7 +94,7 @@ FIELD_WEIGHTS = {
     # -------- MODIFIERS --------
     "isolation_status": 1.0,
     "turnover": 1.5,
-    "behaviour_cooperation": 1.25,
+    "behaviour_cooperation": 1.5,
 }
 
 
@@ -102,7 +102,7 @@ FIELD_WEIGHTS = {
 # 3. HELPER FUNCTIONS
 # =========================================================
 
-# Checks the the value of the field is valid
+# Safely fetches a field value from the patient object
 def safe_get_patient_value(patient, field_name):
     """
     Safely get a field value from the patient object.
@@ -130,6 +130,7 @@ def calculate_fields_total(patient, field_list):
         value = safe_get_patient_value(patient, field_name)
 
         if value is None:
+            print(f"[WARNING] Field '{field_name}' not found in patient object.")
             continue
 
         total += get_total_field_score(field_name, value)
@@ -147,6 +148,7 @@ def calculate_weighted_fields_total(patient, field_list):
         value = safe_get_patient_value(patient, field_name)
 
         if value is None:
+            print(f"[WARNING] Field '{field_name}' not found in patient object.")
             continue
 
         raw_score = get_total_field_score(field_name, value)
@@ -238,6 +240,7 @@ def calculate_modifiers_weighted(patient):
 # 6. FINAL SUMMARY FUNCTIONS
 # =========================================================
 
+# Getting the patient_assignment_score but not printing
 def get_patient_assignment_score(patient):
     """
     Return both raw and weighted score breakdown.
@@ -270,7 +273,7 @@ def get_patient_assignment_score(patient):
         "total_weighted": round(total_weighted, 2),
     }
 
-
+#Printing the score breakdown using get_patient_assignment_score
 def print_score_breakdown(patient):
     """
     Print a simple summary of raw and weighted scores.
@@ -286,8 +289,8 @@ def print_score_breakdown(patient):
     print()
 
     print(f"Weighted Acuity Score:  {scores['acuity_weighted']}")
-    print(f"Weighted Workload Score:{scores['workload_weighted']}")
-    print(f"Weighted Modifier Score:{scores['modifiers_weighted']}")
+    print(f"Weighted Workload Score: {scores['workload_weighted']}")
+    print(f"Weighted Modifier Score: {scores['modifiers_weighted']}")
     print(f"Weighted Total Score:   {scores['total_weighted']}")
 
 
@@ -295,6 +298,7 @@ def print_score_breakdown(patient):
 # 7. DETAILED BREAKDOWN
 # =========================================================
 
+#Getting the detailed_score_breakdown to understand where the point are allocated
 def get_detailed_score_breakdown(patient):
     """
     Return a detailed breakdown for each field:
@@ -375,7 +379,7 @@ def get_detailed_score_breakdown(patient):
 
     return breakdown
 
-
+# Printing the full details for the patient score breakdown using breakdown and 
 def print_detailed_score_breakdown(patient):
     """
     Print a detailed breakdown field by field.

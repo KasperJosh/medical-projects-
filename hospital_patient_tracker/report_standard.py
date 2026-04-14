@@ -12,7 +12,7 @@ NON_SCORING_FIELDS = {
     },
 
     "diagnosis" : {
-        "NSTEMI", "STEMI", "ACS", "AS", "CHF", "CHFE", "SYNCOPE", "FAF", "BVHF", "PNA", "UTI", "E_CABG", "CABG", "ADHF", "PH"
+        "NSTEMI", "STEMI", "ACS", "AS", "CHF", "CHFE", "SYNCOPE", "FAF", "BVHF", "PNA", "UTI", "E_CABG", "CABG", "ADHF", "PH", "MVD"
     },
 
     "pmhx": {
@@ -53,7 +53,7 @@ NON_SCORING_FIELDS = {
         "SMOKER", "ETOH", "SUBSTANCE_USE"
     },
 
-    "pro_involved":{
+    "pros_involved":{
         "PT", "OT", "SW", "CARDIO", "NEPHRO", "DERM", "THROMBO", "NEURO", "URO", "ID", "GERI", 
         "DIET", "PULM", "RHEUM", "HEME", "DCPN", 
     },
