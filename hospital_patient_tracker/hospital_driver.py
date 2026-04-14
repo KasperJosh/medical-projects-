@@ -13,6 +13,10 @@ from input_helpers import (
     get_valid_standard_multi
 )
 
+from patient_acuity_score import get_patient_assignment_score
+# scores = get_patient_assignment_score(patient)
+#print(scores)
+
 #Global variables 
 # Creating a dictionary to store the patients in each unit
 cardiology_units = {

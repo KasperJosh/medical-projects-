@@ -1,6 +1,10 @@
 #report_standards.py is a file so that I have standardized values in the report
 
 # Fields that are standardized but do not directly score
+"""
+Creating a standardized system for a Kardex Template
+"""
+
 NON_SCORING_FIELDS = {
     
     "level_of_intervention": {
@@ -313,7 +317,7 @@ def is_valid_field(field_name):
     """Return True if the field exists in the standardized system."""
     return field_name in STANDARD_FIELDS
 
-print(is_valid_field ("hemodynamic_status"))
+#print(is_valid_field ("hemodynamic_status"))
 
 def is_valid_value(field_name, value):
     """Return True if value is valid for the given field."""
@@ -321,7 +325,7 @@ def is_valid_value(field_name, value):
         return False
     return value in STANDARD_FIELDS[field_name]
 
-print(is_valid_value("hemodynamic_status", "STABLE"))
+#print(is_valid_value("hemodynamic_status", "STABLE"))
 
 def validate_single_value(field_name, value):
     """
@@ -338,7 +342,7 @@ def validate_single_value(field_name, value):
 
     return True, cleaned_value
 
-print(validate_single_value("hemodynamic_status", "STABLE"))
+#print(validate_single_value("hemodynamic_status", "STABLE"))
 
 # ["CKD", "DM2", "CAD"] Is this valid? Needed for Multi aspects inside the field 
 def validate_multi_value(field_name, values):
@@ -381,7 +385,7 @@ def get_score(field_name, value):
 
     return 0
 
-print(get_score("hemodynamic_status", "STABLE"))
+#print(get_score("hemodynamic_status", "STABLE"))
 
 def get_allowed_values(field_name):
     """Return sorted allowed values for a field."""
@@ -389,7 +393,7 @@ def get_allowed_values(field_name):
         return []
     return sorted(STANDARD_FIELDS[field_name])
 
-print(get_allowed_values("hemodynamic_status"))
+#print(get_allowed_values("hemodynamic_status"))
 
 def get_all_field_names():
     """Return all standardized field names."""
@@ -397,7 +401,7 @@ def get_all_field_names():
 
 #print(get_all_field_names())
 
-#Helper function that allows to check sum_cap_4
+# Gets the score of the specific field 
 def get_total_field_score(field_name, value):
     if field_name not in SCORING_FIELDS:
         return 0
@@ -428,48 +432,48 @@ def get_total_field_score(field_name, value):
 
 #Here is a mini report simulation 
 
-print("\n--- MINI REPORT SIMULATION ---")
+#print("\n--- MINI REPORT SIMULATION ---")
 
-patient_report = {
-    "level_of_intervention": "A",
-    "diagnosis": "nstemi",
-    "pmhx": ["HYPOTHYROID", "DM2", "OP"],
-    "hemodynamic_status": "stable",
-    "cardiac_status" : "afib",
-    "respiratory_status" : "NP",
-    "neurological_status" : "AOX3",
-    "lab_instability": "ROUTINE",
-    "safety_risk" : "FALL_RISK",
-    "behaviour_cooperation": "ANXIOUS",
-    "medication_complexity": "IV_SIMPLE",
-    "cbgm_frequency": "ACHS",
-    "monitoring_frequency": "ENHANCED",
-    "iv_access": "PIV",
-    "mobility": "SUPERVISION",
-    "nutrition": "DM_CBGM",
-    "elimination": "FOLEY",
-    "procedures_tests" : ["CXR", "TTE"],
-    "wounds_dressings" : "NONE",
-    "pain_management" : "CONTROLLED",
-    "communication" : "NONE",
-    "family_social" : "INDEP",
-    "blood_test_frequency": "DAILY",
-    "isolation_status": "CONTACT",
-    "turnover": "POSSIBLE_TRANSFER",
-    "pro_involved": ["PT", "OT", "SW"]
-}
+#patient_report = {
+#    "level_of_intervention": "A",
+#    "diagnosis": "nstemi",
+#    "pmhx": ["HYPOTHYROID", "DM2", "OP"],
+#    "hemodynamic_status": "stable",
+#    "cardiac_status" : "afib",
+#    "respiratory_status" : "NP",
+#    "neurological_status" : "AOX3",
+#    "lab_instability": "ROUTINE",
+#    "safety_risk" : "FALL_RISK",
+#    "behaviour_cooperation": "ANXIOUS",
+#    "medication_complexity": "IV_SIMPLE",
+#    "cbgm_frequency": "ACHS",
+#    "monitoring_frequency": "ENHANCED",
+#    "iv_access": "PIV",
+#    "mobility": "SUPERVISION",
+#    "nutrition": "DM_CBGM",
+#    "elimination": "FOLEY",
+#    "procedures_tests" : ["CXR", "TTE"],
+#    "wounds_dressings" : "NONE",
+#    "pain_management" : "CONTROLLED",
+#    "communication" : "NONE",
+#    "family_social" : "INDEP",
+#    "blood_test_frequency": "DAILY",
+#    "isolation_status": "CONTACT",
+#    "turnover": "POSSIBLE_TRANSFER",
+#    "pro_involved": ["PT", "OT", "SW"]
+#}
 
-total_score = 0
+#total_score = 0
 
-for field, value in patient_report.items():
-    if isinstance(value, list):
-        valid, cleaned = validate_multi_value(field, value)
-    else:
-        valid, cleaned = validate_single_value(field, value)
+#for field, value in patient_report.items():
+#    if isinstance(value, list):
+#        valid, cleaned = validate_multi_value(field, value)
+#    else:
+#        valid, cleaned = validate_single_value(field, value)
 
-    print(field, "->", valid, cleaned)
+#    print(field, "->", valid, cleaned)
 
-    if valid:
-        total_score += get_total_field_score(field, cleaned)
+#    if valid:
+#        total_score += get_total_field_score(field, cleaned)
 
-print("Total score:", total_score)
+#print("Total score:", total_score)
