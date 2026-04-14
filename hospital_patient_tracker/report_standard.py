@@ -127,7 +127,7 @@ SCORING_FIELDS = {
         0: {"PO_ONLY"},
         1: {"IV_SIMPLE"},
         2: {"IV_MULTIPLE", "INSULIN_INFUSION"},
-        3: {"TITRATABLE_DRIP", "VASOPRESSOR", "SEDATION_DRIP", "ANTIARRHYTHMIC_DRIP"},
+        3: {"TITRATABLE_DRIP", "VASOPRESSOR", "SEDATION_DRIP", "ANTIARRHYTHMIC_DRIP", "CHEMO"},
         4: {"MULTIPLE_TITRATABLE_DRIPS"},
     },
 
@@ -187,9 +187,9 @@ SCORING_FIELDS = {
         2: {"TEE", "HEMODIALYSIS", "BRONCHOSCOPY", "THORACENTESIS", "LINE_INSERTION"},
         3: {
             "PRE_ANGIOGRAPHY", "PRE_PACEMAKER", "POST_ANGIOGRAPHY",
-            "POST_PACEMAKER", "CARDIOVERSION", "PRE_PCI", "TEMP_PACER_INSERTION"
+            "POST_PACEMAKER", "CARDIOVERSION", "PRE_PCI", "TEMP_PACER_INSERTION",
         },
-        4: {"PRE_CABG", "PRE_TAVI", "FRESH_POST_OP"},
+        4: {"PRE_CABG", "PRE_TAVI", "FRESH_POST_OP", "CRRT"},
     },
 
 
@@ -259,7 +259,7 @@ SCORING_FIELDS = {
 # Optional additive modifiers
 
 SPECIAL_FLAGS = {
-    "BLOOD_TRANSFUSION": 1,
+    "BLOOD_TRANSFUSION": 2,
     "FREQUENT_CALLER": 1,
     "ONE_TO_ONE_OBSERVATION": 2,
     "BARIATRIC_HEAVY_CARE": 1,
@@ -268,6 +268,15 @@ SPECIAL_FLAGS = {
 }
 
 
+MULTI_VALUE_SCORING_FIELDS = {
+    "procedures_tests",
+    "wounds_dressings"
+}
+
+FIELD_SCORING_RULES = {
+    "procedures_tests": "sum_cap_4",
+    "wounds_dressings": "sum_cap_4"
+}
 
 # =========================================================
 # BUILD MASTER STANDARD_FIELDS AUTOMATICALLY
@@ -387,6 +396,26 @@ def get_all_field_names():
     return sorted(STANDARD_FIELDS.keys())
 
 #print(get_all_field_names())
+
+
+def get_total_field_score(field_name, value):
+    if field_name not in SCORING_FIELDS:
+        return 0
+
+    if field_name in MULTI_VALUE_SCORING_FIELDS:
+        if not isinstance(value, list):
+            value = [value]
+
+        scores = [get_score(field_name, item) for item in value]
+
+        rule = FIELD_SCORING_RULES.get(field_name, "sum")
+
+        if rule == "sum_cap_4":
+            return min(sum(scores), 4)
+
+        return sum(scores)
+
+    return get_score(field_name, value)
 
 #---------------------------
 #print("\n--- SPECIAL FLAGS TEST ---")
