@@ -36,7 +36,7 @@ class Patient:
         home_screen="N/A",
         possible_dc="N/A",
         vital_signs = None
-    
+        #special_flags***
 
     ):
         self.unit = unit # CVU or CVICU

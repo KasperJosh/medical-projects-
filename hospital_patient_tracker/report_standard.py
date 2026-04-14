@@ -397,7 +397,7 @@ def get_all_field_names():
 
 #print(get_all_field_names())
 
-
+#Helper function that allows to check sum_cap_4
 def get_total_field_score(field_name, value):
     if field_name not in SCORING_FIELDS:
         return 0
@@ -455,7 +455,7 @@ patient_report = {
     "family_social" : "INDEP",
     "blood_test_frequency": "DAILY",
     "isolation_status": "CONTACT",
-    "turnover": "POSSIBLE_TURNOVER",
+    "turnover": "POSSIBLE_TRANSFER",
     "pro_involved": ["PT", "OT", "SW"]
 }
 
@@ -464,14 +464,12 @@ total_score = 0
 for field, value in patient_report.items():
     if isinstance(value, list):
         valid, cleaned = validate_multi_value(field, value)
-        print(field, "->", valid, cleaned)
-        if valid:
-            for item in cleaned:
-                total_score += get_score(field, item)
     else:
         valid, cleaned = validate_single_value(field, value)
-        print(field, "->", valid, cleaned)
-        if valid:
-            total_score += get_score(field, cleaned)
+
+    print(field, "->", valid, cleaned)
+
+    if valid:
+        total_score += get_total_field_score(field, cleaned)
 
 print("Total score:", total_score)
