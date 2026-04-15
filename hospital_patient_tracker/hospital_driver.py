@@ -57,25 +57,32 @@ def welcome():
 
 # Main Menu of the Hospital Program
 def menu():
-          
-        print("Select what you would like to do")
-        print("1. Admit a patient to the unit")
-        print("2. Discharge patient from the unit")
-        print("3. Transfer patient to another unit")
-        print("4. Update patient information")
-        print("5. View all patients")
-        print("6. View all patients with their information")
-        print("7. View one patient's information")
-        print("8. Update one patient's Vital Signs")
-        print("9. View one patient's Vital Vigns")
-        print("10. View CVU/CVICU Bedflow Status")
-        print("11. Exit")
-        choice = int(input("Please select your choice: ")) 
-        
-        if choice >=1 and choice <=11:
+    
+    print("Select what you would like to do")
+    print("1. Admit a patient to the unit")
+    print("2. Discharge patient from the unit")
+    print("3. Transfer patient to another unit")
+    print("4. Update patient information")
+    print("5. View all patients")
+    print("6. View all patients with their information")
+    print("7. View one patient's information")
+    print("8. Update one patient's Vital Signs")
+    print("9. View one patient's Vital Signs")
+    print("10. View CVU/CVICU Bedflow Status")
+    print("11. View patients ranked by acuity")
+    print("12. View patients ranked by total weighted score")
+    print("13. Exit")
+
+    try:
+        choice = int(input("Please select your choice: "))
+        if 1 <= choice <= 13:
             return choice
         else:
             print("Please try again")
+            return None
+    except ValueError:
+        print("Please enter a valid number.")
+        return None
 
 # Creating the sub menu to update patient information
 def pt_update_menu():
@@ -899,7 +906,8 @@ def update_vital_signs(cardiology_units):
             )
 
             patients[mrn].vital_signs = latest_vitals
-            print("Vital signs updated successfully.")  
+            print("Vital signs updated successfully.")
+            return  
     
     print("\nPatient not found")
 
@@ -958,8 +966,8 @@ def check_available_rooms(cardiology_units, valid_rooms):
         print(f"Total available: {len(available_rooms)}")
         print(f"Total full: {len(full_rooms)}")
 
-
 #___SCORING SECTION_____
+#Can use this to view patient_scores and refresh all patient scores when needed 
 def score_all_patients(cardiology_units):
     for unit, patients in cardiology_units.items():
         for patient in patients.values():
@@ -967,8 +975,34 @@ def score_all_patients(cardiology_units):
 
     print("All patients scored successfully.")
 
+# Viewing patients by acuity level
+def view_patients_by_acuity(cardiology_units):
 
-def view_patient_scores(cardiology_units):
+    all_patients = []
+
+    for unit, patients in cardiology_units.items():
+        for patient in patients.values():
+            all_patients.append((patient.acuity_score, unit, patient))
+
+    if not all_patients:
+        print("No patients found.")
+        return
+
+    all_patients.sort(reverse=True, key=lambda x: x[0])
+
+    print("\n--- PATIENTS SORTED BY ACUITY SCORE ---")
+
+    for score, unit, patient in all_patients:
+        print(
+            f"{patient.name} | {unit} | Room: {patient.room} | "
+            f"Acuity: {patient.acuity_score} | "
+            f"Workload: {patient.workload_score} | "
+            f"Modifier: {patient.modifier_score} | "
+            f"Total: {patient.total_weighted_score}"
+        )
+
+#Viewing patients by total heaviest assignment
+def view_patients_by_total_score(cardiology_units):
 
     all_patients = []
 
@@ -980,21 +1014,18 @@ def view_patient_scores(cardiology_units):
         print("No patients found.")
         return
 
-    # Sort highest → lowest
     all_patients.sort(reverse=True, key=lambda x: x[0])
 
-    print("\n--- PATIENTS SORTED BY TOTAL SCORE ---")
+    print("\n--- PATIENTS SORTED BY TOTAL WEIGHTED SCORE ---")
 
     for score, unit, patient in all_patients:
         print(
-            f"{patient.name} | {unit} | "
+            f"{patient.name} | {unit} | Room: {patient.room} | "
             f"Acuity: {patient.acuity_score} | "
             f"Workload: {patient.workload_score} | "
             f"Modifier: {patient.modifier_score} | "
-            f"Total: {score}"
+            f"Total: {patient.total_weighted_score}"
         )
-
-
 
 #___________________________________________________________
 #Main Driver
@@ -1003,6 +1034,9 @@ def main():
 
     while True:
         menu_choice = menu()
+
+        if menu_choice is None:
+            continue
 
         match menu_choice:
 
@@ -1057,6 +1091,16 @@ def main():
                 print("*" * 40)
 
             case 11:
+                print("Viewing patients ranked by acuity")
+                view_patients_by_acuity(cardiology_units)
+                print("*" * 40)
+
+            case 12:
+                print("Viewing patients ranked by total weighted score")
+                view_patients_by_total_score(cardiology_units)
+                print("*" * 40)
+
+            case 13:
                 print("Exiting")
                 break
 
