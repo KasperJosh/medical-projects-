@@ -53,7 +53,7 @@ NON_SCORING_FIELDS = {
         "SMOKER", "ETOH", "SUBSTANCE_USE"
     },
 
-    "pros_involved":{
+    "pro_involved":{
         "PT", "OT", "SW", "CARDIO", "NEPHRO", "DERM", "THROMBO", "NEURO", "URO", "ID", "GERI", 
         "DIET", "PULM", "RHEUM", "HEME", "DCPN", 
     },
