@@ -70,7 +70,8 @@ SCORING_FIELDS = {
         1: {"SOFT_BP"},
         2: {"SINGLE_PRESSOR"},
         3: {"TITRATING_PRESSORS"},
-        4: {"MULTIPLE_PRESSORS", "ACTIVE_BLEED", "MECH_SUPPORT"},
+        4: {"MULTIPLE_PRESSORS", "ACTIVE_BLEED", "MECH_SUPPORT", "HYPOVOLEMIC", 
+            "CARDIOGENIC", "DISTRIBUTIVE_SHOCK", "SEPTIC_SHOCK"},
     },
 
     "cardiac_status": {

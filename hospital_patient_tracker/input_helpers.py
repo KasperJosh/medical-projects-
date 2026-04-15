@@ -1,4 +1,4 @@
-from hospital_patient_tracker.report_standard import (
+from report_standard import (
     validate_single_value,
     validate_multi_value,
     get_allowed_values
@@ -43,7 +43,12 @@ def get_valid_standard_single(field_name, prompt):
 def get_valid_standard_multi(field_name, prompt):
     while True:
         value = input(prompt).strip()
-        valid, result = validate_multi_value(field_name, value)
+
+        if not value:
+            return []
+
+        values_list = [item.strip() for item in value.split(",") if item.strip()]
+        valid, result = validate_multi_value(field_name, values_list)
 
         if valid:
             return result

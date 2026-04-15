@@ -57,7 +57,17 @@ class Patient:
         home_screen="N/A",
         turnover="STABLE",
         vital_signs=None,
-        special_flags=None
+        special_flags=None,
+
+        acuity_score = 0,
+        workload_score = 0,
+        modifier_score = 0,
+        total_raw_score = 0,
+        total_weighted_score = 0,
+        score_breakdown = None,
+        acuity_level = "Not scored"
+
+
     ):
         self.unit = unit
         self.room = room
@@ -110,10 +120,15 @@ class Patient:
         self.vital_signs = vital_signs
         self.special_flags = special_flags if special_flags else []
 
-
-        self.acuity_score = 0
-        self.acuity_level = "Not scored"
-        self.acuity_breakdown = {}
+        #Scorings
+        self.acuity_score = acuity_score
+        self.workload_score = workload_score
+        self.modifier_score = modifier_score
+        self.total_raw_score = total_raw_score
+        self.total_weighted_score = total_weighted_score
+        self.score_breakdown = score_breakdown if score_breakdown is not None else {}
+        self.acuity_level = acuity_level
+        
 
 
     def display_info(self):
@@ -169,9 +184,12 @@ class Patient:
 
 
         print(f"Acuity Score: {self.acuity_score}")
+        print(f"Workload Score: {self.workload_score}")
+        print(f"Modifier Score: {self.modifier_score}")
+        print(f"Total Raw Score: {self.total_raw_score}")
+        print(f"Total Weighted Score: {self.total_weighted_score}")
+        print(f"Score Breakdown: {self.score_breakdown}")
         print(f"Acuity Level: {self.acuity_level}")
-        print(f"Acuity Breakdown: {self.acuity_breakdown}")
-
 
 #-------------------------
 #Methods that updates the required attributes

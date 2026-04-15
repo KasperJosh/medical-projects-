@@ -80,54 +80,76 @@ def menu():
 # Creating the sub menu to update patient information
 def pt_update_menu():
     
-    print("Select what you would like to do")
-    #print("1. Update patient's room")
-    print("1. Update patient's doctor")
+    print("\n--- UPDATE PATIENT INFORMATION ---")
+    print("Select what you would like to update:")
+
+    print("1. Update team doctor")
     print("2. Update diagnosis")
     print("3. Update isolation status")
     print("4. Update level of intervention")
     print("5. Update past medical history")
     print("6. Update allergies")
-    print("7. Update the type of surgery")
-    print("8. Update the procedures")
-    print("9. Update neuro status")
-    print("10. Update the rhythm")
-    print("11. Update the ventilation status")
-    print("12. Update the IV accesses")
-    print("13. Update the nutrition status")
-    print("14. Update the dressings")
-    print("15. Update the elimination status")
-    print("16. Update the mobility status")
-    print("17. Update the labs")
-    print("18. Update the medications")
-    print("19. Update the issues")
-    print("20. Update the plans")
-    print("21. Update the interdisciplinary team involved")
-    print("22. Update the home situation")
-    print("23. Update the possible discharge date")
-    print("24. Exit")
-    choice = int(input("Please select your choice: ")) 
-    
-    if 1<= choice <=24:
-        return choice
-    else:
-        print("Please try again")
+    print("7. Update type of surgery")
+    print("8. Update procedures/tests")
+
+    print("9. Update hemodynamic status")
+    print("10. Update cardiac status")
+    print("11. Update respiratory status")
+    print("12. Update neurological status")
+    print("13. Update lab instability")
+    print("14. Update safety risk")
+    print("15. Update behaviour/cooperation")
+    print("16. Update medication complexity")
+    print("17. Update CBGM frequency")
+    print("18. Update monitoring frequency")
+
+    print("19. Update IV access")
+    print("20. Update nutrition")
+    print("21. Update wounds/dressings")
+    print("22. Update elimination")
+    print("23. Update mobility")
+    print("24. Update pain management")
+    print("25. Update communication")
+    print("26. Update family/social")
+    print("27. Update blood test frequency")
+
+    print("28. Update medications")
+    print("29. Update issues")
+    print("30. Update plans")
+    print("31. Update professionals involved")
+    print("32. Update home situation")
+    print("33. Update turnover")
+    print("34. Update special flags")
+
+    print("35. Exit")
+
+    try:
+        choice = int(input("Please select your choice: "))
+        if 1 <= choice <= 35:
+            return choice
+        else:
+            print("Invalid choice. Please try again.")
+            return None
+    except ValueError:
+        print("Please enter a valid number.")
+        return None
               
 # Adding a patient to the unit method
 def admit_patient(cardiology_units, unit_capacities, valid_rooms):
 
-    unit = input("Please enter the unit the patient is going to be admited (CVICU or CVU): ").strip()
+    unit = input("Please enter the unit the patient is going to be admitted (CVICU or CVU): ").strip().upper()
 
     if unit not in cardiology_units:
         print("Invalid unit.")
         return
+
     if len(cardiology_units[unit]) >= unit_capacities[unit]:
         print(f"{unit} is full. Cannot admit more patients.")
         return
 
-    #Asking for the room the patient is going to be admitted to
+    #Asking the admitting room
     room = input("Please enter the admitting room: ").strip().upper()
-    
+
     if room not in valid_rooms[unit]:
         print(f"{room} is not a valid room in {unit}.")
         return
@@ -136,33 +158,35 @@ def admit_patient(cardiology_units, unit_capacities, valid_rooms):
         if existing_patient.room == room:
             print(f"Room {room} is already occupied.")
             return
-    
-    #Asking for the MRN of the patient
+
+    #Asking the user for the MRN
     mrn = get_int_input("Please enter the patient's MRN: ")
-    
+
     if mrn in cardiology_units[unit]:
-        print("A patient with this MRN already exists in this unit")
-        return 
-    
+        print("A patient with this MRN already exists in this unit.")
+        return
 
     name = get_nonempty_input("Please enter the patient's name: ")
-    age = get_nonempty_input("Please enter the patient's age: ")
-    gender = get_nonempty_input("Please enter the patient's gender: ")
+    age = get_int_input("Please enter the patient's age: ")
+    gender = get_nonempty_input("Please enter the patient's gender: ").strip().upper()
     admission_date = get_nonempty_input("Please enter the admitting date: ")
     team_doctor = get_nonempty_input("Please enter the team doctor: ")
-    diagnosis = get_nonempty_input("Please enter the diagnosis: ")
+    diagnosis = get_valid_standard_single(
+        "diagnosis",
+        "Please enter the diagnosis: "
+    )
 
-    isolation = get_valid_standard_single(
-        "isolation",
+    isolation_status = get_valid_standard_single(
+        "isolation_status",
         "Please enter the isolation status: "
     )
 
-    level_intervention = get_valid_standard_single(
+    level_of_intervention = get_valid_standard_single(
         "level_of_intervention",
         "Please enter the level of intervention: "
     )
 
-    past_hx = get_valid_standard_multi(
+    pmhx = get_valid_standard_multi(
         "pmhx",
         "Please enter past medical history (comma separated): "
     )
@@ -171,38 +195,76 @@ def admit_patient(cardiology_units, unit_capacities, valid_rooms):
         "Please enter the allergies (comma separated): "
     )
 
-    type_sx = input("Please enter the type of surgery: ").strip()
+    type_sx = get_nonempty_input("Please enter the type of surgery (or N/A): ").strip().upper()
 
-    procedures = get_list_input(
-        "Please enter the procedures done (comma separated): "
+    procedures_tests = get_valid_standard_multi(
+        "procedures_tests",
+        "Please enter the procedures/tests (comma separated): "
     )
 
-    neuro = get_valid_standard_single (
-        "neuro", 
-        "Please enter the neurological status: ")
-    
-    rhythm = get_valid_standard_single(
-        "rhythm",
-        "Please enter the cardiac rhythm: "
+    hemodynamic_status = get_valid_standard_single(
+        "hemodynamic_status",
+        "Please enter the hemodynamic status: "
     )
 
-    ventilation = get_valid_standard_single(
-        "ventilation",
-        "Please enter the ventilation status: "
+    cardiac_status = get_valid_standard_single(
+        "cardiac_status",
+        "Please enter the cardiac status: "
     )
 
-    iv_access = get_valid_standard_multi(
+    respiratory_status = get_valid_standard_single(
+        "respiratory_status",
+        "Please enter the respiratory status: "
+    )
+
+    neurological_status = get_valid_standard_single(
+        "neurological_status",
+        "Please enter the neurological status: "
+    )
+
+    lab_instability = get_valid_standard_single(
+        "lab_instability",
+        "Please enter the lab instability status: "
+    )
+
+    safety_risk = get_valid_standard_single(
+        "safety_risk",
+        "Please enter the safety risk: "
+    )
+
+    behaviour_cooperation = get_valid_standard_single(
+        "behaviour_cooperation",
+        "Please enter the behaviour/cooperation status: "
+    )
+
+    medication_complexity = get_valid_standard_single(
+        "medication_complexity",
+        "Please enter the medication complexity: "
+    )
+
+    cbgm_frequency = get_valid_standard_single(
+        "cbgm_frequency",
+        "Please enter the CBGM frequency: "
+    )
+
+    monitoring_frequency = get_valid_standard_single(
+        "monitoring_frequency",
+        "Please enter the monitoring frequency: "
+    )
+
+    iv_access = get_valid_standard_single(
         "iv_access",
-        "Please enter the IV accesses (comma separated): "
+        "Please enter the IV access: "
     )
 
-    nutrition = get_valid_standard_multi(
+    nutrition = get_valid_standard_single(
         "nutrition",
-        "Please enter the nutrition status (comma separated): "
+        "Please enter the nutrition status: "
     )
 
-    dressings = get_list_input(
-        "Please enter the dressings present (comma separated): "
+    wounds_dressings = get_valid_standard_single(
+        "wounds_dressings",
+        "Please enter the wounds/dressings status: "
     )
 
     elimination = get_valid_standard_single(
@@ -212,11 +274,27 @@ def admit_patient(cardiology_units, unit_capacities, valid_rooms):
 
     mobility = get_valid_standard_single(
         "mobility",
-        "Please enter the mobility status: ")
+        "Please enter the mobility status: "
+    )
 
-    labs = get_valid_standard_multi(
-        "labs",
-        "Please enter the critical labs (comma separated): "
+    pain_management = get_valid_standard_single(
+        "pain_management",
+        "Please enter the pain management status: "
+    )
+
+    communication = get_valid_standard_single(
+        "communication",
+        "Please enter the communication status: "
+    )
+
+    family_social = get_valid_standard_single(
+        "family_social",
+        "Please enter the family/social status: "
+    )
+
+    blood_test_frequency = get_valid_standard_single(
+        "blood_test_frequency",
+        "Please enter the blood test frequency: "
     )
 
     medications = get_list_input(
@@ -227,48 +305,91 @@ def admit_patient(cardiology_units, unit_capacities, valid_rooms):
         "Please enter the current issues (comma separated): "
     )
 
-    plans = input("Please enter the plan: ").strip()
+    plans = get_nonempty_input("Please enter the plan: ").strip().upper()
 
-    pros_involved = get_list_input(
-        "Please enter the pros involved (comma separated): "
+    pro_involved = get_valid_standard_multi(
+        "pro_involved",
+        "Please enter the professionals involved (comma separated): "
     )
 
-    home_screen = input("Please enter the home situation: ").strip()
-    possible_dc = input("Please enter the possible D/C date: ").strip()
+    home_screen = get_nonempty_input("Please enter the home situation: ").strip().upper()
+
+    turnover = get_valid_standard_single(
+        "turnover",
+        "Please enter the turnover status: "
+    )
+
+    special_flags = get_list_input(
+        "Please enter any special flags (comma separated, or press Enter for none): "
+    )
+    special_flags = [flag.strip().upper() for flag in special_flags]
 
     patient = patient_info.Patient(
-        unit,
-        room,
-        name,
-        mrn,
-        age,
-        gender,
-        admission_date,
-        team_doctor,
-        diagnosis,
-        isolation,
-        level_intervention,
-        past_hx,
-        allergies,
-        type_sx,
-        procedures,
-        neuro,
-        rhythm,
-        ventilation,
-        iv_access,
-        nutrition,
-        dressings,
-        elimination,
-        mobility,
-        labs,
-        medications,
-        issues,
-        plans,
-        pros_involved,
-        home_screen,
-        possible_dc
+        unit=unit,
+        room=room,
+        name=name,
+        mrn=mrn,
+        age=age,
+        gender=gender,
+        admission_date=admission_date,
+        team_doctor=team_doctor,
+        diagnosis=diagnosis,
+
+        isolation_status=isolation_status,
+        level_of_intervention=level_of_intervention,
+        pmhx=pmhx,
+        allergies=allergies,
+        type_sx=type_sx,
+        procedures_tests=procedures_tests,
+
+        hemodynamic_status=hemodynamic_status,
+        cardiac_status=cardiac_status,
+        respiratory_status=respiratory_status,
+        neurological_status=neurological_status,
+        lab_instability=lab_instability,
+        safety_risk=safety_risk,
+        behaviour_cooperation=behaviour_cooperation,
+        medication_complexity=medication_complexity,
+        cbgm_frequency=cbgm_frequency,
+        monitoring_frequency=monitoring_frequency,
+
+        iv_access=iv_access,
+        nutrition=nutrition,
+        wounds_dressings=wounds_dressings,
+        elimination=elimination,
+        mobility=mobility,
+        pain_management=pain_management,
+        communication=communication,
+        family_social=family_social,
+        blood_test_frequency=blood_test_frequency,
+
+        medications=medications,
+        issues=issues,
+        plans=plans,
+        pro_involved=pro_involved,
+        home_screen=home_screen,
+        turnover=turnover,
+        vital_signs=None,
+        special_flags=special_flags
     )
 
+    #Adding the Acuity Score to this patient 
+    scores = get_patient_assignment_score(patient)
+    patient.acuity_score = scores["acuity_weighted"]
+    patient.workload_score = scores["workload_weighted"]
+    patient.modifier_score = scores["modifiers_weighted"]
+    patient.total_raw_score = scores["total_raw"]
+    patient.total_weighted_score = scores["total_weighted"]
+    patient.score_breakdown = scores
+
+    #Printing this after getting a patient scored
+    print("\n--- PATIENT AUTOMATICALLY SCORED ---")
+    print(f"Acuity Raw: {scores['acuity_raw']}")
+    print(f"Workload Raw: {scores['workload_raw']}")
+    print(f"Modifiers Raw: {scores['modifiers_raw']}")
+    print(f"Total Weighted Score: {scores['total_weighted']}")
+
+    #Adding this patient on this unit
     cardiology_units[unit][mrn] = patient
 
     patient.display_info()
@@ -398,8 +519,21 @@ def update_list_field(item_list, field_name):
         else:
             print("Invalid choice. Try again.")
 
+# Refreshing the patient's score/ After updating the patient's information
+def refresh_patient_score(patient):
+    scores = get_patient_assignment_score(patient)
+
+    patient.acuity_score = scores["acuity_weighted"]
+    patient.workload_score = scores["workload_weighted"]
+    patient.modifier_score = scores["modifiers_weighted"]
+
+    patient.total_raw_score = scores["total_raw"]
+    patient.total_weighted_score = scores["total_weighted"]
+
+    patient.score_breakdown = scores
+
 # Updating a patient's information as needed 
-def update_pt_information (cardiology_units):
+def update_pt_information(cardiology_units):
 
     current_unit = input("Enter the current unit (CVICU or CVU): ").strip().upper()
 
@@ -407,7 +541,7 @@ def update_pt_information (cardiology_units):
         print("Invalid current unit.")
         return
 
-    patient_mrn = int(input("Enter the MRN of the patient you want to transfer: "))
+    patient_mrn = int(input("Enter the MRN of the patient you want to update: "))
 
     if patient_mrn not in cardiology_units[current_unit]:
         print("No patient found with that MRN in this unit.")
@@ -416,106 +550,269 @@ def update_pt_information (cardiology_units):
     patient = cardiology_units[current_unit][patient_mrn]
 
     while True:
-
         choice = pt_update_menu()
-        
-        #if choice == 1:
-            #patient.room = input("Enter the new room: ")
-            #print("Room updated successfully.")
+
+        if choice is None:
+            continue
 
         if choice == 1:
-            patient.team_doctor = input("Enter the new doctor/team: ")
+            patient.team_doctor = get_nonempty_input("Enter the new doctor/team: ").strip().upper()
             print("Doctor updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 2:
-            patient.diagnosis = input("Enter the new diagnosis: ")
+            patient.diagnosis = get_valid_standard_single(
+                "diagnosis",
+                "Enter the new diagnosis: "
+            )
             print("Diagnosis updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 3:
-            patient.isolation = input("Enter the new isolation status: ")
+            patient.isolation_status = get_valid_standard_single(
+                "isolation_status",
+                "Enter the new isolation status: "
+            )
             print("Isolation status updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 4:
-            patient.level_intervention = input("Enter the new level of intervention: ")
+            patient.level_of_intervention = get_valid_standard_single(
+                "level_of_intervention",
+                "Enter the new level of intervention: "
+            )
             print("Level of intervention updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 5:
-            update_list_field(patient.past_hx, "Past medical history")
+            patient.pmhx = get_valid_standard_multi(
+                "pmhx",
+                "Enter the updated past medical history (comma separated): "
+            )
             print("Past medical history updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 6:
-            update_list_field(patient.allergies, "Allergies")
+            patient.allergies = get_list_input(
+                "Enter the updated allergies (comma separated): "
+            )
             print("Allergies updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 7:
-            patient.type_sx = input("Enter the updated type of surgery: ")
+            patient.type_sx = get_nonempty_input("Enter the updated type of surgery: ").strip().upper()
             print("Type of surgery updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 8:
-            update_list_field(patient.procedures, "Procedures")
-            print("Procedures updated successfully.")
-        
+            patient.procedures_tests = get_valid_standard_multi(
+                "procedures_tests",
+                "Enter the updated procedures/tests (comma separated): "
+            )
+            print("Procedures/tests updated successfully.")
+            refresh_patient_score(patient)
+
         elif choice == 9:
-            update_list_field(patient.neuro, "Enter the updated neuro status: ")
-            print("Neuro status updated successfully.")
+            patient.hemodynamic_status = get_valid_standard_single(
+                "hemodynamic_status",
+                "Enter the updated hemodynamic status: "
+            )
+            print("Hemodynamic status updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 10:
-            patient.rhythm = input("Enter the updated rhythm: ")
-            print("Rhythm updated successfully.")
+            patient.cardiac_status = get_valid_standard_single(
+                "cardiac_status",
+                "Enter the updated cardiac status: "
+            )
+            print("Cardiac status updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 11:
-            patient.ventilation = input("Enter the updated ventilation status: ")
-            print("Ventilation updated successfully.")
+            patient.respiratory_status = get_valid_standard_single(
+                "respiratory_status",
+                "Enter the updated respiratory status: "
+            )
+            print("Respiratory status updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 12:
-            patient.iv_access = input("Enter the updated IV accesses: ")
-            print("IV accesses updated successfully.")
+            patient.neurological_status = get_valid_standard_single(
+                "neurological_status",
+                "Enter the updated neurological status: "
+            )
+            print("Neurological status updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 13:
-            update_list_field(patient.nutrition, "Nutrition")
-            print("Nutrition updated successfully.")
+            patient.lab_instability = get_valid_standard_single(
+                "lab_instability",
+                "Enter the updated lab instability: "
+            )
+            print("Lab instability updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 14:
-            patient.dressings = input("Enter the updated dressings: ")
-            print("Dressings updated successfully.")
+            patient.safety_risk = get_valid_standard_single(
+                "safety_risk",
+                "Enter the updated safety risk: "
+            )
+            print("Safety risk updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 15:
-            patient.elimination = input("Enter the updated elimination status: ")
-            print("Elimination updated successfully.")
+            patient.behaviour_cooperation = get_valid_standard_single(
+                "behaviour_cooperation",
+                "Enter the updated behaviour/cooperation: "
+            )
+            print("Behaviour/cooperation updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 16:
-            patient.mobility = input("Enter the updated mobility status: ")
-            print("Mobility updated successfully.")
+            patient.medication_complexity = get_valid_standard_single(
+                "medication_complexity",
+                "Enter the updated medication complexity: "
+            )
+            print("Medication complexity updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 17:
-            update_list_field(patient.labs, "Labs")
-            print("Labs updated successfully.")
+            patient.cbgm_frequency = get_valid_standard_single(
+                "cbgm_frequency",
+                "Enter the updated CBGM frequency: "
+            )
+            print("CBGM frequency updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 18:
-            update_list_field(patient.medications, "Medications")
-            print("Medications updated successfully.")
+            patient.monitoring_frequency = get_valid_standard_single(
+                "monitoring_frequency",
+                "Enter the updated monitoring frequency: "
+            )
+            print("Monitoring frequency updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 19:
-            update_list_field(patient.issues, "Issues")
-            print("Issues updated successfully.")
+            patient.iv_access = get_valid_standard_single(
+                "iv_access",
+                "Enter the updated IV access: "
+            )
+            print("IV access updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 20:
-            patient.plans = input("Enter the updated plans: ")
-            print("Plans updated successfully.")
+            patient.nutrition = get_valid_standard_single(
+                "nutrition",
+                "Enter the updated nutrition: "
+            )
+            print("Nutrition updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 21:
-            update_list_field(patient.pros_involved, "Professionals Involved")
-            print("Interdisciplinary team updated successfully.")
+            patient.wounds_dressings = get_valid_standard_single(
+                "wounds_dressings",
+                "Enter the updated wounds/dressings: "
+            )
+            print("Wounds/dressings updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 22:
-            patient.home_screen = input("Enter the updated home situation: ")
-            print("Home situation updated successfully.")
+            patient.elimination = get_valid_standard_single(
+                "elimination",
+                "Enter the updated elimination status: "
+            )
+            print("Elimination updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 23:
-            patient.possible_dc = input("Enter the updated possible discharge date: ")
-            print("Possible discharge date updated successfully.")
+            patient.mobility = get_valid_standard_single(
+                "mobility",
+                "Enter the updated mobility status: "
+            )
+            print("Mobility updated successfully.")
+            refresh_patient_score(patient)
 
         elif choice == 24:
+            patient.pain_management = get_valid_standard_single(
+                "pain_management",
+                "Enter the updated pain management: "
+            )
+            print("Pain management updated successfully.")
+            refresh_patient_score(patient)
+
+        elif choice == 25:
+            patient.communication = get_valid_standard_single(
+                "communication",
+                "Enter the updated communication status: "
+            )
+            print("Communication updated successfully.")
+            refresh_patient_score(patient)
+
+        elif choice == 26:
+            patient.family_social = get_valid_standard_single(
+                "family_social",
+                "Enter the updated family/social status: "
+            )
+            print("Family/social updated successfully.")
+            refresh_patient_score(patient)
+
+        elif choice == 27:
+            patient.blood_test_frequency = get_valid_standard_single(
+                "blood_test_frequency",
+                "Enter the updated blood test frequency: "
+            )
+            print("Blood test frequency updated successfully.")
+            refresh_patient_score(patient)
+
+        elif choice == 28:
+            patient.medications = get_list_input(
+                "Enter the updated medications (comma separated): "
+            )
+            print("Medications updated successfully.")
+            refresh_patient_score(patient)
+
+        elif choice == 29:
+            patient.issues = get_list_input(
+                "Enter the updated issues (comma separated): "
+            )
+            print("Issues updated successfully.")
+            refresh_patient_score(patient)
+
+        elif choice == 30:
+            patient.plans = get_nonempty_input("Enter the updated plans: ").strip().upper()
+            print("Plans updated successfully.")
+            refresh_patient_score(patient)
+
+        elif choice == 31:
+            patient.pro_involved = get_valid_standard_multi(
+                "pro_involved",
+                "Enter the updated professionals involved (comma separated): "
+            )
+            print("Professionals involved updated successfully.")
+            refresh_patient_score(patient)
+
+        elif choice == 32:
+            patient.home_screen = get_nonempty_input("Enter the updated home situation: ").strip().upper()
+            print("Home situation updated successfully.")
+            refresh_patient_score(patient)
+
+        elif choice == 33:
+            patient.turnover = get_valid_standard_single(
+                "turnover",
+                "Enter the updated turnover status: "
+            )
+            print("Turnover updated successfully.")
+            refresh_patient_score(patient)
+
+        elif choice == 34:
+            patient.special_flags = get_list_input(
+                "Enter the updated special flags (comma separated): "
+            )
+            patient.special_flags = [flag.strip().upper() for flag in patient.special_flags]
+            print("Special flags updated successfully.")
+            refresh_patient_score(patient)
+
+        elif choice == 35:
             print("Returning to main menu.")
             break
 
@@ -604,7 +901,7 @@ def update_vital_signs(cardiology_units):
             patients[mrn].vital_signs = latest_vitals
             print("Vital signs updated successfully.")  
     
-        print("\nPatient not found")
+    print("\nPatient not found")
 
 # Viewing the lastest vital_signs of a patient in the unit
 def view_latest_vital_signs(cardiology_units):
@@ -625,6 +922,7 @@ def view_latest_vital_signs(cardiology_units):
 
             print(f"\nLatest vital signs for {patient.room} {patient.name}, MRN: {patient.mrn}:")
             patient.vital_signs.display_vitals()
+            return
     
     print("\nPatient not found")
 
@@ -660,47 +958,72 @@ def check_available_rooms(cardiology_units, valid_rooms):
         print(f"Total available: {len(available_rooms)}")
         print(f"Total full: {len(full_rooms)}")
 
-# Main Driver Class
-class Hospital_Driver:
-    
-    #Creating a dictionary that will store all the patients
-    # key = MRN , value = Patient Object
-    patients ={}
 
-    # Display welcome banner
+#___SCORING SECTION_____
+def score_all_patients(cardiology_units):
+    for unit, patients in cardiology_units.items():
+        for patient in patients.values():
+            refresh_patient_score(patient)
+
+    print("All patients scored successfully.")
+
+
+def view_patient_scores(cardiology_units):
+
+    all_patients = []
+
+    for unit, patients in cardiology_units.items():
+        for patient in patients.values():
+            all_patients.append((patient.total_weighted_score, unit, patient))
+
+    if not all_patients:
+        print("No patients found.")
+        return
+
+    # Sort highest → lowest
+    all_patients.sort(reverse=True, key=lambda x: x[0])
+
+    print("\n--- PATIENTS SORTED BY TOTAL SCORE ---")
+
+    for score, unit, patient in all_patients:
+        print(
+            f"{patient.name} | {unit} | "
+            f"Acuity: {patient.acuity_score} | "
+            f"Workload: {patient.workload_score} | "
+            f"Modifier: {patient.modifier_score} | "
+            f"Total: {score}"
+        )
+
+
+
+#___________________________________________________________
+#Main Driver
+def main():
     welcome()
 
     while True:
-           
-        #Showing the menu and getting the input
         menu_choice = menu()
 
         match menu_choice:
 
-            # Adding a patient to the unit
-            case 1:  
+            case 1:
                 print("Admit a patient")
                 admit_patient(cardiology_units, unit_capacities, valid_rooms)
                 print("*" * 40)
 
-            # Discharging patient from unit
             case 2:
                 print("Discharging a patient")
                 discharge_patient(cardiology_units)
-                print(cardiology_units)
                 print("*" * 40)
-            
-            # Transferring a patient to another unit
+
             case 3:
                 print("Transferring a patient to another unit")
                 transfer_patient(cardiology_units, unit_capacities, valid_rooms)
-                print(cardiology_units)
                 print("*" * 40)
 
             case 4:
                 print("Updating patient information")
                 update_pt_information(cardiology_units)
-                print(cardiology_units)
                 print("*" * 40)
 
             case 5:
@@ -719,13 +1042,15 @@ class Hospital_Driver:
                 print("*" * 40)
 
             case 8:
-                print("Update one patient's vital_signs")
+                print("Update one patient's vital signs")
                 update_vital_signs(cardiology_units)
                 print("*" * 40)
+
             case 9:
-                print("View one patient's vital_signs")
+                print("View one patient's vital signs")
                 view_latest_vital_signs(cardiology_units)
                 print("*" * 40)
+
             case 10:
                 print("Viewing CVU/CVICU Bedflow")
                 check_available_rooms(cardiology_units, valid_rooms)
@@ -734,11 +1059,14 @@ class Hospital_Driver:
             case 11:
                 print("Exiting")
                 break
+
             case _:
                 print("Invalid choice. Try again!")
 
-    
     print("Thank you for visiting the unit! Application now closing")
-    
+
+
+if __name__ == "__main__":
+    main()
 
     
