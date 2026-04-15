@@ -1,18 +1,97 @@
 from nurse_profile import Nurse
-from assignment_engine import assign_patients_to_nurses
+from assignment_engine import assign_patients_to_nurses, detect_unsafe_assignments
 from patient_info import Patient
 
 
 # ---- Create nurses ----
 nurses = [
-    Nurse("Rina", 1, "Expert", ["ACLS", "CRRT", "IABP"], 18, 3),
-    Nurse("Neda", 2, "Expert", ["ACLS"], 16, 3),
-    Nurse("Arete", 3, "Intermediate", ["ACLS"], 14, 3),
-    Nurse("Celine", 4, "Beginner", ["BLS"], 10, 2),
-    Nurse("Bharati", 1, "Expert", ["ACLS", "CRRT", "IABP"], 18, 3),
-    Nurse("Eugenie", 2, "Expert", ["ACLS"], 16, 3),
-    Nurse("Nancy", 3, "Intermediate", ["ACLS"], 14, 3),
-    Nurse("Azam", 4, "Beginner", ["BLS"], 10, 2),
+    Nurse(
+        "Rina", 1, "Expert", ["BLS", "ACLS", "CRRT", "IABP"],
+        18, 3,
+        False, 12, 8,
+        can_take_admission=True,
+        empty_rooms_assigned=1,
+        learning_needs=[],
+        refused_patients=[],
+        is_light_duty=False
+    ),
+
+    Nurse(
+        "Neda", 2, "Expert", ["BLS", "ACLS"],
+        16, 3,
+        False, 10, 6,
+        can_take_admission=True,
+        empty_rooms_assigned=0,
+        learning_needs=["POST_CATH"],
+        refused_patients=[],
+        is_light_duty=False
+    ),
+
+    Nurse(
+        "Arete", 3, "Intermediate", ["BLS", "ACLS"],
+        14, 3,
+        False, 5, 2,
+        can_take_admission=True,
+        empty_rooms_assigned=0,
+        learning_needs=["CARDIAC_DRIPS", "POST_CATH"],
+        refused_patients=[],
+        is_light_duty=False
+    ),
+
+    Nurse(
+        "Celine", 4, "Beginner", ["BLS"],
+        10, 2,
+        True, 1, 0.5,
+        can_take_admission=False,
+        empty_rooms_assigned=0,
+        learning_needs=["TELEMETRY", "POST_CATH"],
+        refused_patients=[],
+        is_light_duty=False
+    ),
+
+    Nurse(
+        "Bharati", 5, "Expert", ["BLS", "ACLS", "CRRT", "IABP"],
+        18, 3,
+        False, 15, 10,
+        can_take_admission=True,
+        empty_rooms_assigned=0,
+        learning_needs=[],
+        refused_patients=[],
+        is_light_duty=False
+    ),
+
+    Nurse(
+        "Eugenie", 6, "Expert", ["BLS", "ACLS"],
+        16, 3,
+        False, 8, 5,
+        can_take_admission=True,
+        empty_rooms_assigned=1,
+        learning_needs=["CHEST_TUBES"],
+        refused_patients=[],
+        is_light_duty=False
+    ),
+
+    Nurse(
+        "Nancy", 7, "Intermediate", ["BLS", "ACLS"],
+        14, 3,
+        False, 4, 1.5,
+        can_take_admission=True,
+        empty_rooms_assigned=0,
+        learning_needs=["CARDIAC_DRIPS"],
+        refused_patients=[],
+        is_light_duty=False
+    ),
+
+    Nurse(
+        "Azam", 8, "Beginner", ["BLS"],
+        10, 2,
+        True, 1, 0.25,
+        can_take_admission=False,
+        empty_rooms_assigned=0,
+        learning_needs=["POST_CATH", "DISCHARGE_TEACHING"],
+        refused_patients=[],
+        is_light_duty=False
+    ),
 ]
 
 
@@ -31,7 +110,7 @@ patient1 = Patient(
     medications=["HEPARIN"],
     issues=["FALL_RISK"], plans=["ECHO"],
     pro_involved=["PT"], home_screen="LIVES_ALONE",
-    turnover="NO",
+    turnover="STABLE",
     acuity_score=7, total_weighted_score=9
 )
 
@@ -49,7 +128,7 @@ patient2 = Patient(
     medications=["AMIODARONE"],
     issues=["FALL_RISK"], plans=["ICU"],
     pro_involved=["RT"], home_screen="UNKNOWN",
-    turnover="NO",
+    turnover="NEW_ADMISSION",
     acuity_score=10, total_weighted_score=12
 )
 
@@ -67,7 +146,7 @@ patient3 = Patient(
     medications=["DIURETIC"],
     issues=["CONFUSED"], plans=["DC_SOON"],
     pro_involved=["SW"], home_screen="LIVES_ALONE",
-    turnover="YES",
+    turnover="STABLE",
     acuity_score=3, total_weighted_score=8
 )
 
@@ -79,13 +158,22 @@ assigned_nurses, unassigned = assign_patients_to_nurses(patient_list, nurses)
 
 
 # ---- Display ----
+warnings = detect_unsafe_assignments(assigned_nurses)
+
 print("\n=== ASSIGNMENT RESULTS ===")
 for nurse in assigned_nurses:
     nurse.display_assignment()
 
 if unassigned:
     print("\n=== UNASSIGNED PATIENTS ===")
-    for p in unassigned:
-        print(f" - {p.name}")
+    for patient in unassigned:
+        print(f" - Room {patient.room}: {patient.name}")
 else:
     print("\nAll patients assigned successfully.")
+
+if warnings:
+    print("\n=== UNSAFE / QUESTIONABLE ASSIGNMENTS ===")
+    for warning in warnings:
+        print(f" - {warning}")
+else:
+    print("\nNo unsafe assignments detected.")

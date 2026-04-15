@@ -61,6 +61,9 @@ class Nurse:
         # Assigned patients
         self.assigned_patients = []
 
+        # Running turnover workload score
+        self.current_turnover = 0
+
         # Running acuity score
         self.current_acuity = 0
 
@@ -127,22 +130,28 @@ class Nurse:
         self.assigned_patients.append(patient)
         self.current_acuity += patient.acuity_score
         self.current_weighted += patient.total_weighted_score
+
+        # Add turnover burden if patient has turnover_score
+        if hasattr(patient, "turnover_score"):
+            self.current_turnover += patient.turnover_score
+
         return True
 
     def display_assignment(self):
         print(f"\nNurse: {self.name}")
         print(f"Nurse ID: {self.nurse_id}")
         print(f"Experience Level: {self.experience_level}")
-        print(f"New Grad: {self.is_new_grad}")
-        print(f"Light Duty: {self.is_light_duty}")
-        print(f"Years as RN: {self.years_as_rn}")
-        print(f"Years in Cardiology: {self.years_in_cardiology}")
-        print(f"Can Take Admission: {self.can_take_admission}")
-        print(f"Empty Rooms Assigned: {self.empty_rooms_assigned}")
-        print(f"Learning Needs: {self.learning_needs}")
-        print(f"Refused Patients: {self.refused_patients}")
+        #print(f"New Grad: {self.is_new_grad}")
+        #print(f"Light Duty: {self.is_light_duty}")
+        #print(f"Years as RN: {self.years_as_rn}")
+        #print(f"Years in Cardiology: {self.years_in_cardiology}")
+        #print(f"Can Take Admission: {self.can_take_admission}")
+        #print(f"Empty Rooms Assigned: {self.empty_rooms_assigned}")
+        #print(f"Learning Needs: {self.learning_needs}")
+        #print(f"Refused Patients: {self.refused_patients}")
         print(f"Total Acuity: {self.current_acuity}/{self.adjusted_acuity_capacity()}")
         print(f"Total Weighted: {self.current_weighted}")
+        print(f"Total Turnover: {self.current_turnover}")
         print(f"Patient Count: {len(self.assigned_patients)}/{self.adjusted_patient_capacity()}")
         print("Patients:")
 
@@ -150,7 +159,8 @@ class Nurse:
             print(" - No patients assigned")
 
         for patient in self.assigned_patients:
+            turnover_display = getattr(patient, "turnover_score", 0)
             print(
                 f" - Room {patient.room}: {patient.name} "
-                f"(Acuity: {patient.acuity_score}, Weighted: {patient.total_weighted_score})"
+                f"(Acuity: {patient.acuity_score}, Weighted: {patient.total_weighted_score}, Turnover: {turnover_display})"
             )
