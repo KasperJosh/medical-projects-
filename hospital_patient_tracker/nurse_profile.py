@@ -1,7 +1,7 @@
 
 class Nurse:
 
-    def __init__(self, name, nurse_id, experience_level, certifications, max_acuity_capacity, max_patients):
+    def __init__(self, name, nurse_id, experience_level, certifications, max_acuity_capacity, max_patients, ):
         
         self.name = name
         self.nurse_id = nurse_id
@@ -21,8 +21,11 @@ class Nurse:
         # Assigned patients
         self.assigned_patients = []
         
-        # Running total acuity
+        # Running acuity score 
         self.current_acuity = 0
+
+        # Running current_weighted
+        self.current_weighted = 0
 
     def can_take_patient(self, patient):
         return (
@@ -39,15 +42,16 @@ class Nurse:
 
         self.assigned_patients.append(patient)
         self.current_acuity += patient.acuity_score
+        self.current_weighted += patient.total_weighted_score
         return True
 
     def display_assignment(self):
         print(f"\nNurse: {self.name}")
         print(f"Experience: {self.experience_level}")
         print(f"Total Acuity: {self.current_acuity}/{self.max_acuity_capacity}")
+        print(f"Total Weighted: {self.current_weighted}")
         print(f"Patient Count: {len(self.assigned_patients)}/{self.max_patients}")
         print("Patients:")
         for p in self.assigned_patients:
-            print(f" - Room {p.room}: {p.name} (Acuity: {p.acuity_score})")
-
+            print(f" - Room {p.room}: {p.name} (Acuity: {p.acuity_score}, Weighted: {p.total_weighted_score})")
     

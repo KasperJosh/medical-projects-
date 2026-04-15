@@ -17,6 +17,12 @@ from patient_acuity_score import get_patient_assignment_score
 # scores = get_patient_assignment_score(patient)
 #print(scores)
 
+#Importing from assignment_engine
+from assignment_engine import assign_patients_to_nurses
+
+#Importing the Nurse
+from nurse_profile import Nurse
+
 #Global variables 
 # Creating a dictionary to store the patients in each unit
 cardiology_units = {
@@ -49,6 +55,7 @@ valid_rooms = {
     }
 }
 
+
 #Welcome Banner to the Hospital 
 def welcome():
         print('+++++++++++++++++++++++++++++++++++++++++++')
@@ -71,11 +78,12 @@ def menu():
     print("10. View CVU/CVICU Bedflow Status")
     print("11. View patients ranked by acuity")
     print("12. View patients ranked by total weighted score")
-    print("13. Exit")
+    print("13. Generate Nurse Assignment")
+    print("14. Exit")
 
     try:
         choice = int(input("Please select your choice: "))
-        if 1 <= choice <= 13:
+        if 1 <= choice <= 14:
             return choice
         else:
             print("Please try again")
@@ -1027,6 +1035,31 @@ def view_patients_by_total_score(cardiology_units):
             f"Total: {patient.total_weighted_score}"
         )
 
+
+#_____________ NURSE ASSIGNMENT___________________
+
+def run_assignment(cardiology_units, nurses):
+    
+    # Gather all patients from both units
+    patient_list = []
+
+    for unit in cardiology_units.values():
+        for patient in unit.values():
+            patient_list.append(patient)
+
+    # Run assignment
+    assigned_nurses, unassigned = assign_patients_to_nurses(patient_list, nurses)
+
+    # Display results
+    for nurse in assigned_nurses:
+        nurse.display_assignment()
+
+    if unassigned:
+        print("\nUnassigned Patients:")
+        for patient in unassigned:
+            print(f" - {patient.name} (Acuity: {patient.acuity_score})")
+
+
 #___________________________________________________________
 #Main Driver
 def main():
@@ -1101,6 +1134,10 @@ def main():
                 print("*" * 40)
 
             case 13:
+                print("Generating Nurse Assignment")
+                run_assignment(cardiology_units, nurses)
+
+            case 14:
                 print("Exiting")
                 break
 
@@ -1114,3 +1151,52 @@ if __name__ == "__main__":
     main()
 
     
+
+#___________________________________________
+#SIMULATION
+
+class TestPatient:
+    def __init__(self, name, room, acuity_score, total_weighted_score):
+        self.name = name
+        self.room = room
+        self.acuity_score = acuity_score
+        self.total_weighted_score = total_weighted_score
+
+
+nurses = [
+    Nurse("Alice", 1, "Expert", ["ACLS", "CRRT", "IABP", "BLS"], 18, 3),
+    Nurse("Bob", 2, "Expert", ["ACLS", "BLS", "CCRN"], 16, 3),
+    Nurse("Carla", 3, "Intermediate", ["ACLS", "BLS"], 14, 3),
+    Nurse("David", 4, "Beginner", ["BLS"], 10, 2),
+]
+
+patient_list = [
+    TestPatient("Mr. Tremblay", "K0201", 8, 10),
+    TestPatient("Ms. Roy", "K0202", 6, 7),
+    TestPatient("Mr. Gagnon", "K0203", 5, 6),
+    TestPatient("Ms. Chen", "K0204", 7, 9),
+    TestPatient("Mr. Patel", "K0205", 4, 8),
+    TestPatient("Ms. Smith", "K0206", 3, 5),
+    TestPatient("Mr. Nguyen", "K0207", 9, 11),
+    TestPatient("Ms. Bouchard", "K0208", 2, 4),
+    TestPatient("Mr. Lee", "K0209", 6, 8),
+    TestPatient("Ms. Hassan", "K0210", 5, 7),
+    TestPatient("Mr. Wilson", "K0211", 4, 6),
+    TestPatient("Ms. Lopez", "K0212", 7, 10),
+]
+
+assigned_nurses, unassigned = assign_patients_to_nurses(patient_list, nurses)
+
+print("\n=== ASSIGNMENT RESULTS ===")
+for nurse in assigned_nurses:
+    nurse.display_assignment()
+
+if unassigned:
+    print("\n=== UNASSIGNED PATIENTS ===")
+    for patient in unassigned:
+        print(f" - Room {patient.room}: {patient.name} (Acuity: {patient.acuity_score}, Weighted: {patient.total_weighted_score})")
+else:
+    print("\nAll patients assigned successfully.")
+
+
+#_________________________________
