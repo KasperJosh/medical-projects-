@@ -131,4 +131,60 @@ def room_distance(room1, room2, neighbours):
 
     return None
 
-print(room_distance("K0220", "K0236", CVU_ROOM_NEIGHBOURS))
+
+#print(room_distance("K0220", "K0236", CVU_ROOM_NEIGHBOURS))
+
+def validate_all_cvu_rooms_mapped():
+    missing = valid_rooms["CVU"] - set(CVU_ROOM_NEIGHBOURS.keys())
+    extra = set(CVU_ROOM_NEIGHBOURS.keys()) - valid_rooms["CVU"]
+
+    if missing:
+        print("Missing rooms in CVU_ROOM_NEIGHBOURS:", missing)
+    if extra:
+        print("Extra rooms in CVU_ROOM_NEIGHBOURS:", extra)
+
+    if not missing and not extra:
+        print("All CVU rooms are correctly mapped in CVU_ROOM_NEIGHBOURS.")
+
+
+def validate_pods():
+    all_pod_rooms = set()
+
+    for pod, rooms in CVU_ROOM_PODS.items():
+        overlap = all_pod_rooms.intersection(rooms)
+        if overlap:
+            print(f"Overlap found in pod {pod}: {overlap}")
+        all_pod_rooms.update(rooms)
+
+    missing = valid_rooms["CVU"] - all_pod_rooms
+    extra = all_pod_rooms - valid_rooms["CVU"]
+
+    if missing:
+        print("Rooms missing from CVU_ROOM_PODS:", missing)
+    if extra:
+        print("Extra rooms in CVU_ROOM_PODS:", extra)
+
+    if not missing and not extra:
+        print("All CVU rooms are correctly assigned to pods.")
+
+
+def get_room_pod(room):
+    for pod, rooms in CVU_ROOM_PODS.items():
+        if room in rooms:
+            return pod
+    return None
+
+
+def are_rooms_across(room1, room2):
+    return room2 in CVU_ACROSS_ROOMS.get(room1, set())
+
+
+
+validate_neighbours(CVU_ROOM_NEIGHBOURS)
+validate_all_cvu_rooms_mapped()
+validate_pods()
+
+print(get_room_pod("K0256"))         # should be B
+print(get_room_pod("K0254"))         # should be C
+print(are_rooms_across("K0230", "K0255"))  # should be True
+print(room_distance("K0220", "K0236", CVU_ROOM_NEIGHBOURS))  # should be 13
