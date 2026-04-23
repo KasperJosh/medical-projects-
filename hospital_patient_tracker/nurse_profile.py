@@ -15,11 +15,15 @@ class Nurse:
         empty_rooms_assigned=0,
         learning_needs=None,
         refused_patients=None,
-        is_light_duty=False
+        is_light_duty=False,
+        pod= None
     ):
 
         self.name = name
         self.nurse_id = nurse_id
+
+        # Inserting the pod the nurse is working in
+        self.pod = pod 
 
         # Beginner / Intermediate / Expert
         self.experience_level = experience_level
@@ -69,6 +73,7 @@ class Nurse:
 
         # Running weighted workload score
         self.current_weighted = 0
+
 
     def adjusted_acuity_capacity(self):
         """
@@ -141,6 +146,7 @@ class Nurse:
         print(f"\nNurse: {self.name}")
         print(f"Nurse ID: {self.nurse_id}")
         print(f"Experience Level: {self.experience_level}")
+        print(f"Pod: {self.pod}")
         #print(f"New Grad: {self.is_new_grad}")
         #print(f"Light Duty: {self.is_light_duty}")
         #print(f"Years as RN: {self.years_as_rn}")

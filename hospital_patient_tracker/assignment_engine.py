@@ -1,7 +1,9 @@
 from report_standard import SCORING_FIELDS
+from unit_map import get_room_pod, room_distance, CVU_ROOM_CONNECTIONS
 
-
+# Which nurse should take which patient?
 # Defining functions for the nurse-patient load
+
 
 def nurse_load_score(nurse):
     """
@@ -43,6 +45,13 @@ def nurse_is_eligible_for_patient(nurse, patient):
     if not nurse.can_take_patient(patient):
         return False
 
+    patient_pod = get_room_pod(patient.room)
+
+    # Pod rule: nurse should only take patients in their assigned pod
+    if nurse.pod is not None and patient_pod is not None:
+        if nurse.pod != patient_pod:
+            return False
+
     turnover_score = get_turnover_score(patient)
 
     # Nurses who cannot take admissions should avoid heavy turnover patients
@@ -76,12 +85,13 @@ def assignment_fit_score(nurse, patient):
 
     turnover_score = get_turnover_score(patient)
 
+    #Workload Penalties
     # Penalty for patient turnover burden
     score += turnover_score * 2
-
     # Penalty for empty rooms already assigned to nurse
     score += nurse.empty_rooms_assigned * 2
 
+    #Experience Penalties
     # Penalty if cardiology experience is limited and patient is heavier
     if patient.acuity_score >= 7 and nurse.years_in_cardiology < 2:
         score += 3
@@ -98,6 +108,27 @@ def assignment_fit_score(nurse, patient):
                 score -= 1
                 break
 
+    # Geography penalty: prefer patients close to nurse's current assignment
+    if nurse.assigned_patients:
+        distances = []
+
+        for assigned_patient in nurse.assigned_patients:
+            distance = room_distance(
+                patient.room,
+                assigned_patient.room,
+                CVU_ROOM_CONNECTIONS
+            )
+
+            if distance is not None:
+                distances.append(distance)
+
+        if distances:
+            closest_distance = min(distances)
+            farthest_distance = max(distances)
+
+            score += closest_distance * 1
+            score += farthest_distance * 2
+
     return score
 
 
@@ -110,8 +141,16 @@ def assign_patients_to_nurses(patients, nurses):
     unassigned_patients = []
 
     # Highest acuity patients first
-    sorted_patients = sorted(patients, key=lambda p: p.acuity_score, reverse=True)
-
+    sorted_patients = sorted(
+        patients,
+        key=lambda p: (
+            p.acuity_score,
+            getattr(p, "total_weighted_score", 0),
+            get_turnover_score(p)
+        ),
+        reverse=True
+        )
+    
     for patient in sorted_patients:
         eligible_nurses = [
             nurse for nurse in nurses
