@@ -16,7 +16,7 @@ class Nurse:
         learning_needs=None,
         refused_patients=None,
         is_light_duty=False,
-        pod= None
+        pod = None
     ):
 
         self.name = name

@@ -7,97 +7,97 @@ from patient_info import Patient
 nurses = [
     Nurse(
         "Rina", 1, "Expert", ["BLS", "ACLS", "CRRT", "IABP"],
-        18, 3,
-        False, 12, 8,
+        18, 3, False, 12, 8,
         can_take_admission=True,
         empty_rooms_assigned=1,
         learning_needs=[],
         refused_patients=[],
-        is_light_duty=False
+        is_light_duty=False,
+        pod="B"
     ),
 
     Nurse(
         "Neda", 2, "Expert", ["BLS", "ACLS"],
-        16, 3,
-        False, 10, 6,
+        16, 3, False, 10, 6,
         can_take_admission=True,
         empty_rooms_assigned=0,
         learning_needs=["POST_CATH"],
         refused_patients=[],
-        is_light_duty=False
+        is_light_duty=False,
+        pod="B"
     ),
 
     Nurse(
         "Arete", 3, "Intermediate", ["BLS", "ACLS"],
-        14, 3,
-        False, 5, 2,
+        14, 3, False, 5, 2,
         can_take_admission=True,
         empty_rooms_assigned=0,
         learning_needs=["CARDIAC_DRIPS", "POST_CATH"],
         refused_patients=[],
-        is_light_duty=False
+        is_light_duty=False,
+        pod="B"
     ),
 
     Nurse(
         "Celine", 4, "Beginner", ["BLS"],
-        10, 2,
-        True, 1, 0.5,
+        10, 2, True, 1, 0.5,
         can_take_admission=False,
         empty_rooms_assigned=0,
         learning_needs=["TELEMETRY", "POST_CATH"],
         refused_patients=[],
-        is_light_duty=False
+        is_light_duty=False,
+        pod="B"
     ),
 
     Nurse(
         "Bharati", 5, "Expert", ["BLS", "ACLS", "CRRT", "IABP"],
-        18, 3,
-        False, 15, 10,
+        18, 3, False, 15, 10,
         can_take_admission=True,
         empty_rooms_assigned=0,
         learning_needs=[],
         refused_patients=[],
-        is_light_duty=False
+        is_light_duty=False,
+        pod="C"
     ),
 
     Nurse(
         "Eugenie", 6, "Expert", ["BLS", "ACLS"],
-        16, 3,
-        False, 8, 5,
+        16, 3, False, 8, 5,
         can_take_admission=True,
         empty_rooms_assigned=1,
         learning_needs=["CHEST_TUBES"],
         refused_patients=[],
-        is_light_duty=False
+        is_light_duty=False,
+        pod="C"
     ),
 
     Nurse(
         "Nancy", 7, "Intermediate", ["BLS", "ACLS"],
-        14, 3,
-        False, 4, 1.5,
+        14, 3, False, 4, 1.5,
         can_take_admission=True,
         empty_rooms_assigned=0,
         learning_needs=["CARDIAC_DRIPS"],
         refused_patients=[],
-        is_light_duty=False
+        is_light_duty=False,
+        pod="C"
     ),
 
     Nurse(
         "Azam", 8, "Beginner", ["BLS"],
-        10, 2,
-        True, 1, 0.25,
+        10, 2, True, 1, 0.25,
         can_take_admission=False,
         empty_rooms_assigned=0,
         learning_needs=["POST_CATH", "DISCHARGE_TEACHING"],
         refused_patients=[],
-        is_light_duty=False
+        is_light_duty=False,
+        pod="C"
     ),
 ]
 
 
 # ---- Create patients ----
 patient1 = Patient(
-    unit ="CVU",room="K0201", name="Jean Tremblay", mrn=1001, age=72, gender="M",
+    unit="CVU", room="K0210", name="Jean Tremblay", mrn=1001, age=72, gender="M",
     admission_date="2026-04-15",
     isolation_status="NONE", level_of_intervention="A", team_doctor="Dr. Smith",
     diagnosis="NSTEMI",
@@ -115,7 +115,7 @@ patient1 = Patient(
 )
 
 patient2 = Patient(
-    unit ="CVU",room="K0202", name="Maria Lopez", mrn=1002, age=65, gender="F",
+    unit="CVU", room="K0225", name="Maria Lopez", mrn=1002, age=65, gender="F",
     admission_date="2026-04-15",
     isolation_status="CONTACT", level_of_intervention="A", team_doctor="Dr. Brown",
     diagnosis="STEMI",
@@ -133,7 +133,7 @@ patient2 = Patient(
 )
 
 patient3 = Patient(
-    unit ="CVU",room="K0203", name="Sarah Nguyen", mrn=1003, age=80, gender="F",
+    unit="CVU", room="K0257", name="Sarah Nguyen", mrn=1003, age=80, gender="F",
     admission_date="2026-04-15",
     isolation_status="NONE", level_of_intervention="C", team_doctor="Dr. Lee",
     diagnosis="CHF",
@@ -150,7 +150,44 @@ patient3 = Patient(
     acuity_score=3, total_weighted_score=8
 )
 
-patient_list = [patient1, patient2, patient3]
+patient4 = Patient(
+    unit="CVU", room="K0231", name="George Martin", mrn=1004, age=76, gender="M",
+    admission_date="2026-04-16",
+    isolation_status="NONE", level_of_intervention="A", team_doctor="Dr. Patel",
+    diagnosis="CHF_EXACERBATION",
+    pmhx=["CAD", "HTN"], allergies=[],
+    type_sx="NONE", procedures_tests=["TTE"],
+    cardiac_status="NSR", respiratory_status="NP",
+    iv_access="PIV", nutrition="CARDIAC",
+    wounds_dressings="NONE", elimination="URINAL",
+    mobility="ASSIST_X1", lab_instability="DAILY",
+    medications=["LASIX"],
+    issues=["SOB"], plans=["DIURESIS"],
+    pro_involved=["PT"], home_screen="WITH_FAMILY",
+    turnover="TRANSFER_TODAY",
+    acuity_score=6, total_weighted_score=9
+)
+
+patient5 = Patient(
+    unit="CVU", room="K0254", name="Linda Park", mrn=1005, age=69, gender="F",
+    admission_date="2026-04-16",
+    isolation_status="NONE", level_of_intervention="A", team_doctor="Dr. Wong",
+    diagnosis="POST_CATH",
+    pmhx=["DM2"], allergies=[],
+    type_sx="NONE", procedures_tests=["CATH"],
+    cardiac_status="NSR", respiratory_status="RA",
+    iv_access="PIV", nutrition="DM_CBGM",
+    wounds_dressings="NONE", elimination="TOILET",
+    mobility="SUPERVISION", lab_instability="ROUTINE",
+    medications=["ASA"],
+    issues=["POST_PROCEDURE_MONITORING"], plans=["OBSERVE"],
+    pro_involved=[],
+    home_screen="INDEP",
+    turnover="STABLE",
+    acuity_score=4, total_weighted_score=6
+)
+
+patient_list = [patient1, patient2, patient3, patient4, patient5]
 
 
 # ---- Run assignment ----

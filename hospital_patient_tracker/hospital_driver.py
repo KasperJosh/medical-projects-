@@ -55,6 +55,9 @@ valid_rooms = {
     }
 }
 
+# Creating the nurses dictionnary
+nurses = {}
+
 
 #Welcome Banner to the Hospital 
 def welcome():
@@ -78,12 +81,13 @@ def menu():
     print("10. View CVU/CVICU Bedflow Status")
     print("11. View patients ranked by acuity")
     print("12. View patients ranked by total weighted score")
-    print("13. Generate Nurse Assignment")
-    print("14. Exit")
+    print("13. Adding a nurse to the unit")
+    print("14. Generate Nurse Assignment")
+    print("15. Exit")
 
     try:
         choice = int(input("Please select your choice: "))
-        if 1 <= choice <= 14:
+        if 1 <= choice <= 15:
             return choice
         else:
             print("Please try again")

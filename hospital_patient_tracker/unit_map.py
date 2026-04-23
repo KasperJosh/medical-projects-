@@ -173,12 +173,12 @@ def get_room_pod(room):
             return pod
     return None
 
-validate_connections(CVU_ROOM_CONNECTIONS)
-validate_all_cvu_rooms_mapped()
-validate_pods()
+#validate_connections(CVU_ROOM_CONNECTIONS)
+#validate_all_cvu_rooms_mapped()
+#validate_pods()
 
-print(get_room_pod("K0256"))              # should be B
-print(get_room_pod("K0254"))              # should be C
-print(room_distance("K0220", "K0236", CVU_ROOM_CONNECTIONS))
-print(room_distance("K0210", "K0217", CVU_ROOM_CONNECTIONS))
-print(room_distance("K0210", "K0271", CVU_ROOM_CONNECTIONS))
+#print(get_room_pod("K0256"))              # should be B
+#print(get_room_pod("K0254"))              # should be C
+#print(room_distance("K0220", "K0236", CVU_ROOM_CONNECTIONS))
+#print(room_distance("K0210", "K0217", CVU_ROOM_CONNECTIONS))
+#print(room_distance("K0210", "K0271", CVU_ROOM_CONNECTIONS))
