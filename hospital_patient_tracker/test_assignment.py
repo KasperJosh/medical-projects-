@@ -40,7 +40,7 @@ nurses = [
 
     Nurse(
         "Celine", 4, "Beginner", ["BLS"],
-        10, 2, True, 1, 0.5,
+        10, 2, False, 1, 0.5,
         can_take_admission=False,
         empty_rooms_assigned=0,
         learning_needs=["TELEMETRY", "POST_CATH"],

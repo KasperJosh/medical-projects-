@@ -39,7 +39,7 @@ def adjusted_acuity_limit(nurse):
         return int(nurse.max_acuity_capacity * 0.7)
 
     if nurse.experience_level == "Beginner":
-        return int(nurse.max_acuity_capacity * 0.8)
+        return int(nurse.max_acuity_capacity * 0.9)
 
     return nurse.max_acuity_capacity
 
@@ -77,7 +77,7 @@ def nurse_is_eligible_for_patient(nurse, patient):
         return False
 
     # New grad restriction for higher acuity patients
-    if nurse.is_new_grad and patient.acuity_score >= 6:
+    if nurse.is_new_grad and patient.acuity_score >= 7:
         return False
 
     # Low cardiology experience restriction for very high acuity patients
@@ -110,11 +110,12 @@ def assignment_fit_score(nurse, patient):
         future_acuity = nurse.current_acuity + patient.acuity_score
         acuity_ratio = future_acuity / safe_acuity_limit
         score += acuity_ratio * 12  # slightly stronger since it's predictive
-        #Workload Penalties
-        # Penalty for patient turnover burden
-        score += turnover_score * 2
-        # Penalty for empty rooms already assigned to nurse
-        score += nurse.empty_rooms_assigned * 2
+        
+    #Workload Penalties
+    # Penalty for patient turnover burden
+    score += turnover_score * 2
+    # Penalty for empty rooms already assigned to nurse
+    score += nurse.empty_rooms_assigned * 1
 
     #Experience Penalties
     # Penalty if cardiology experience is limited and patient is heavier
@@ -151,6 +152,15 @@ def assignment_fit_score(nurse, patient):
             closest_distance = min(distances)
             farthest_distance = max(distances)
 
+            # 🔥 REWARD: same cluster / very close rooms
+            if closest_distance == 1:
+                score -= 3  # strong reward for clustering
+
+            # Optional: mild reward if reasonably close
+            elif closest_distance == 2:
+                score -= 1
+
+            # Existing penalties (keep them)
             score += closest_distance * 1
             score += farthest_distance * 2
 
@@ -169,14 +179,14 @@ def assign_patients_to_nurses(patients, nurses):
         patient.turnover_score = get_turnover_score(patient)
     # Highest acuity patients first
     sorted_patients = sorted(
-        patients,
-        key=lambda p: (
-            p.acuity_score,
-            getattr(p, "total_weighted_score", 0),
-            get_turnover_score(p)
-        ),
-        reverse=True
-        )
+    patients,
+    key=lambda p: (
+        p.acuity_score,
+        get_turnover_score(p),
+        getattr(p, "total_weighted_score", 0)
+    ),
+    reverse=True
+    )
     
     for patient in sorted_patients:
         eligible_nurses = [
