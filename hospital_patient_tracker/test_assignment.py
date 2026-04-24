@@ -96,99 +96,127 @@ nurses = [
 
 
 # ---- Create patients ----
-patient1 = Patient(
-    unit="CVU", room="K0210", name="Jean Tremblay", mrn=1001, age=72, gender="M",
-    admission_date="2026-04-15",
-    isolation_status="NONE", level_of_intervention="A", team_doctor="Dr. Smith",
-    diagnosis="NSTEMI",
-    pmhx=["HTN", "DM2"], allergies=[],
-    type_sx="NONE", procedures_tests=["CATH"],
-    cardiac_status="AFIB", respiratory_status="NP",
-    iv_access="PIV", nutrition="DM_CBGM",
-    wounds_dressings="PRIMAPORE_STERNUM", elimination="FOLEY",
-    mobility="SUPERVISION", lab_instability="ROUTINE",
-    medications=["HEPARIN"],
-    issues=["FALL_RISK"], plans=["ECHO"],
-    pro_involved=["PT"], home_screen="LIVES_ALONE",
-    turnover="STABLE",
-    acuity_score=7, total_weighted_score=9
-)
+# -------- POD B --------
+patient1 = Patient("CVU","K0210","P1",2001,70,"M","2026-04-15","NONE","A","Dr",
+"NSTEMI",[],[],"NONE",["CATH"],
+"AFIB","NP","AOX3","ROUTINE","FALL_RISK","COOPERATIVE",
+"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","DM_CBGM",
+"FOLEY",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
+"NONE","STABLE",[], "", False, acuity_score=7, total_weighted_score=9)
 
-patient2 = Patient(
-    unit="CVU", room="K0225", name="Maria Lopez", mrn=1002, age=65, gender="F",
-    admission_date="2026-04-15",
-    isolation_status="CONTACT", level_of_intervention="A", team_doctor="Dr. Brown",
-    diagnosis="STEMI",
-    pmhx=["CAD"], allergies=[],
-    type_sx="CABG", procedures_tests=["CXR"],
-    cardiac_status="VT", respiratory_status="BIPAP",
-    iv_access="CVAD", nutrition="NPO",
-    wounds_dressings="COMPLEX_DRESSING", elimination="FOLEY",
-    mobility="BEDREST", lab_instability="Q4H",
-    medications=["AMIODARONE"],
-    issues=["FALL_RISK"], plans=["ICU"],
-    pro_involved=["RT"], home_screen="UNKNOWN",
-    turnover="NEW_ADMISSION",
-    acuity_score=10, total_weighted_score=12
-)
+patient2 = Patient("CVU","K0211","P2",2002,65,"F","2026-04-15","NONE","A","Dr",
+"STEMI",[],[],"CABG",["CXR"],
+"VT","BIPAP","AOX3","Q4H","FALL_RISK","ANXIOUS",
+"IV_COMPLEX","Q1H","CONTINUOUS","CVAD","BEDREST","NPO",
+"FOLEY",[], "COMPLEX_DRESSING","CONTROLLED","NONE","FAMILY","DAILY",
+"NONE","NEW_ADMISSION",[], "", False, acuity_score=10, total_weighted_score=12)
 
-patient3 = Patient(
-    unit="CVU", room="K0257", name="Sarah Nguyen", mrn=1003, age=80, gender="F",
-    admission_date="2026-04-15",
-    isolation_status="NONE", level_of_intervention="C", team_doctor="Dr. Lee",
-    diagnosis="CHF",
-    pmhx=["HTN"], allergies=[],
-    type_sx="NONE", procedures_tests=[],
-    cardiac_status="NSR", respiratory_status="RA",
-    iv_access="NONE", nutrition="REGULAR",
-    wounds_dressings="NONE", elimination="TOILET",
-    mobility="ASSIST_X2", lab_instability="DAILY",
-    medications=["DIURETIC"],
-    issues=["CONFUSED"], plans=["DC_SOON"],
-    pro_involved=["SW"], home_screen="LIVES_ALONE",
-    turnover="STABLE",
-    acuity_score=3, total_weighted_score=8
-)
+patient3 = Patient("CVU","K0214","P3",2003,80,"F","2026-04-15","NONE","C","Dr",
+"CHF",[],[],"NONE",[],
+"NSR","RA","AOX2","DAILY","NONE","CONFUSED",
+"PO","DAILY","ROUTINE","NONE","ASSIST_X2","REGULAR",
+"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
+"NONE","STABLE",[], "", False, acuity_score=3, total_weighted_score=6)
 
-patient4 = Patient(
-    unit="CVU", room="K0231", name="George Martin", mrn=1004, age=76, gender="M",
-    admission_date="2026-04-16",
-    isolation_status="NONE", level_of_intervention="A", team_doctor="Dr. Patel",
-    diagnosis="CHF_EXACERBATION",
-    pmhx=["CAD", "HTN"], allergies=[],
-    type_sx="NONE", procedures_tests=["TTE"],
-    cardiac_status="NSR", respiratory_status="NP",
-    iv_access="PIV", nutrition="CARDIAC",
-    wounds_dressings="NONE", elimination="URINAL",
-    mobility="ASSIST_X1", lab_instability="DAILY",
-    medications=["LASIX"],
-    issues=["SOB"], plans=["DIURESIS"],
-    pro_involved=["PT"], home_screen="WITH_FAMILY",
-    turnover="TRANSFER_TODAY",
-    acuity_score=6, total_weighted_score=9
-)
+patient4 = Patient("CVU","K0220","P4",2004,77,"M","2026-04-15","NONE","A","Dr",
+"ARRHYTHMIA",[],[],"NONE",[],
+"AFIB","NP","AOX3","ROUTINE","FALL_RISK","COOPERATIVE",
+"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","CARDIAC",
+"URINAL",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
+"NONE","TRANSFER_TODAY",[], "", False, acuity_score=6, total_weighted_score=8)
 
-patient5 = Patient(
-    unit="CVU", room="K0254", name="Linda Park", mrn=1005, age=69, gender="F",
-    admission_date="2026-04-16",
-    isolation_status="NONE", level_of_intervention="A", team_doctor="Dr. Wong",
-    diagnosis="POST_CATH",
-    pmhx=["DM2"], allergies=[],
-    type_sx="NONE", procedures_tests=["CATH"],
-    cardiac_status="NSR", respiratory_status="RA",
-    iv_access="PIV", nutrition="DM_CBGM",
-    wounds_dressings="NONE", elimination="TOILET",
-    mobility="SUPERVISION", lab_instability="ROUTINE",
-    medications=["ASA"],
-    issues=["POST_PROCEDURE_MONITORING"], plans=["OBSERVE"],
-    pro_involved=[],
-    home_screen="INDEP",
-    turnover="STABLE",
-    acuity_score=4, total_weighted_score=6
-)
+patient5 = Patient("CVU","K0225","P5",2005,60,"F","2026-04-15","CONTACT","A","Dr",
+"STEMI",[],[],"CABG",["CXR"],
+"VT","BIPAP","AOX3","Q4H","FALL_RISK","ANXIOUS",
+"IV_COMPLEX","Q1H","CONTINUOUS","CVAD","BEDREST","NPO",
+"FOLEY",[], "COMPLEX_DRESSING","CONTROLLED","NONE","FAMILY","DAILY",
+"NONE","NEW_ADMISSION",[], "", False, acuity_score=10, total_weighted_score=12)
 
-patient_list = [patient1, patient2, patient3, patient4, patient5]
+patient6 = Patient("CVU","K0226","P6",2006,72,"M","2026-04-15","NONE","A","Dr",
+"POST_CATH",[],[],"NONE",["CATH"],
+"NSR","NP","AOX3","ROUTINE","NONE","COOPERATIVE",
+"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","DM_CBGM",
+"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
+"NONE","POSSIBLE_TRANSFER",[], "", False, acuity_score=5, total_weighted_score=7)
 
+patient7 = Patient("CVU","K0230","P7",2007,68,"F","2026-04-15","NONE","A","Dr",
+"CHF",[],[],"NONE",[],
+"NSR","NP","AOX3","DAILY","NONE","COOPERATIVE",
+"PO","DAILY","ROUTINE","NONE","ASSIST_X1","CARDIAC",
+"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
+"NONE","STABLE",[], "", False, acuity_score=4, total_weighted_score=6)
+
+patient8 = Patient("CVU","K0255","P8",2008,75,"M","2026-04-15","NONE","A","Dr",
+"POST_OP",[],[],"NONE",[],
+"NSR","NP","AOX3","ROUTINE","FALL_RISK","COOPERATIVE",
+"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","CARDIAC",
+"FOLEY",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
+"NONE","DISCHARGE_TODAY",[], "", False, acuity_score=5, total_weighted_score=7)
+
+# -------- POD C --------
+patient9 = Patient("CVU","K0231","P9",2009,76,"M","2026-04-15","NONE","A","Dr",
+"CHF",[],[],"NONE",["TTE"],
+"NSR","NP","AOX3","ROUTINE","NONE","COOPERATIVE",
+"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","CARDIAC",
+"TOILET",[], "NONE","CONTROLLED","NONE","FAMILY","DAILY",
+"NONE","TRANSFER_TODAY",[], "", False, acuity_score=6, total_weighted_score=9)
+
+patient10 = Patient("CVU","K0232","P10",2010,70,"F","2026-04-15","NONE","A","Dr",
+"NSTEMI",[],[],"NONE",[],
+"AFIB","NP","AOX3","ROUTINE","FALL_RISK","COOPERATIVE",
+"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","CARDIAC",
+"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
+"NONE","STABLE",[], "", False, acuity_score=5, total_weighted_score=7)
+
+patient11 = Patient("CVU","K0240","P11",2011,85,"F","2026-04-15","NONE","C","Dr",
+"CHF",[],[],"NONE",[],
+"NSR","RA","AOX2","DAILY","NONE","CONFUSED",
+"PO","DAILY","ROUTINE","NONE","ASSIST_X2","REGULAR",
+"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
+"NONE","STABLE",[], "", False, acuity_score=3, total_weighted_score=6)
+
+patient12 = Patient("CVU","K0244","P12",2012,65,"M","2026-04-15","NONE","A","Dr",
+"POST_CATH",[],[],"NONE",["CATH"],
+"NSR","NP","AOX3","ROUTINE","NONE","COOPERATIVE",
+"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","DM_CBGM",
+"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
+"NONE","POSSIBLE_TRANSFER",[], "", False, acuity_score=5, total_weighted_score=7)
+
+patient13 = Patient("CVU","K0250","P13",2013,72,"M","2026-04-15","NONE","A","Dr",
+"ARRHYTHMIA",[],[],"NONE",[],
+"AFIB","NP","AOX3","ROUTINE","NONE","COOPERATIVE",
+"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","CARDIAC",
+"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
+"NONE","STABLE",[], "", False, acuity_score=5, total_weighted_score=7)
+
+patient14 = Patient("CVU","K0251","P14",2014,68,"F","2026-04-15","NONE","A","Dr",
+"CHF",[],[],"NONE",[],
+"NSR","NP","AOX3","ROUTINE","NONE","COOPERATIVE",
+"PO","DAILY","ROUTINE","NONE","ASSIST_X1","CARDIAC",
+"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
+"NONE","STABLE",[], "", False, acuity_score=4, total_weighted_score=6)
+
+patient15 = Patient("CVU","K0254","P15",2015,69,"F","2026-04-15","NONE","A","Dr",
+"POST_CATH",[],[],"NONE",["CATH"],
+"NSR","NP","AOX3","ROUTINE","NONE","COOPERATIVE",
+"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","DM_CBGM",
+"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
+"NONE","STABLE",[], "", False, acuity_score=4, total_weighted_score=6)
+
+patient16 = Patient("CVU","K0271","P16",2016,78,"M","2026-04-15","NONE","A","Dr",
+"CHF",[],[],"NONE",[],
+"NSR","NP","AOX3","ROUTINE","NONE","COOPERATIVE",
+"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","CARDIAC",
+"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
+"NONE","NEW_ADMISSION",[], "", False, acuity_score=7, total_weighted_score=9)
+
+
+patient_list = [
+    patient1, patient2, patient3, patient4,
+    patient5, patient6, patient7, patient8,
+    patient9, patient10, patient11, patient12,
+    patient13, patient14, patient15, patient16
+]
 
 # ---- Run assignment ----
 assigned_nurses, unassigned = assign_patients_to_nurses(patient_list, nurses)

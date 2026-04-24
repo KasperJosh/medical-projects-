@@ -31,6 +31,17 @@ def get_turnover_score(patient):
             return score
     return 0
 
+def adjusted_acuity_limit(nurse):
+    """
+    Returns the safe acuity limit based on nurse experience.
+    """
+    if nurse.is_new_grad:
+        return int(nurse.max_acuity_capacity * 0.7)
+
+    if nurse.experience_level == "Beginner":
+        return int(nurse.max_acuity_capacity * 0.8)
+
+    return nurse.max_acuity_capacity
 
 def nurse_is_eligible_for_patient(nurse, patient):
     """
@@ -43,6 +54,13 @@ def nurse_is_eligible_for_patient(nurse, patient):
 
     # Base capacity / refusal check
     if not nurse.can_take_patient(patient):
+        return False
+
+    # Experience-adjusted acuity limit
+    # This prevents new grads / beginners from being maxed out
+    safe_acuity_limit = adjusted_acuity_limit(nurse)
+
+    if nurse.current_acuity + patient.acuity_score > safe_acuity_limit:
         return False
 
     patient_pod = get_room_pod(patient.room)
@@ -59,7 +77,7 @@ def nurse_is_eligible_for_patient(nurse, patient):
         return False
 
     # New grad restriction for higher acuity patients
-    if nurse.is_new_grad and patient.acuity_score >= 7:
+    if nurse.is_new_grad and patient.acuity_score >= 6:
         return False
 
     # Low cardiology experience restriction for very high acuity patients
@@ -81,15 +99,22 @@ def assignment_fit_score(nurse, patient):
     - new grad penalty
     - optional learning exposure bonus
     """
+    
     score = nurse_load_score(nurse)
 
+    safe_acuity_limit = adjusted_acuity_limit(nurse)
     turnover_score = get_turnover_score(patient)
 
-    #Workload Penalties
-    # Penalty for patient turnover burden
-    score += turnover_score * 2
-    # Penalty for empty rooms already assigned to nurse
-    score += nurse.empty_rooms_assigned * 2
+    # Penalize nurses getting close to their safe limit AFTER taking this patient
+    if safe_acuity_limit > 0:
+        future_acuity = nurse.current_acuity + patient.acuity_score
+        acuity_ratio = future_acuity / safe_acuity_limit
+        score += acuity_ratio * 12  # slightly stronger since it's predictive
+        #Workload Penalties
+        # Penalty for patient turnover burden
+        score += turnover_score * 2
+        # Penalty for empty rooms already assigned to nurse
+        score += nurse.empty_rooms_assigned * 2
 
     #Experience Penalties
     # Penalty if cardiology experience is limited and patient is heavier
@@ -140,6 +165,8 @@ def assign_patients_to_nurses(patients, nurses):
     """
     unassigned_patients = []
 
+    for patient in patients:
+        patient.turnover_score = get_turnover_score(patient)
     # Highest acuity patients first
     sorted_patients = sorted(
         patients,
@@ -166,7 +193,9 @@ def assign_patients_to_nurses(patients, nurses):
             key=lambda nurse: assignment_fit_score(nurse, patient)
         )
 
-        best_nurse.assign_patient(patient)
+        if best_nurse is not None:
+            patient.turnover_score = get_turnover_score(patient)
+            best_nurse.assign_patient(patient)
 
     return nurses, unassigned_patients
 
@@ -181,10 +210,13 @@ def detect_unsafe_assignments(nurses):
     for nurse in nurses:
 
         # Over capacity by acuity
-        if nurse.current_acuity > nurse.adjusted_acuity_capacity():
+        safe_acuity_limit = adjusted_acuity_limit(nurse)
+
+        # Over safe acuity limit
+        if nurse.current_acuity > safe_acuity_limit:
             warnings.append(
-                f"{nurse.name} is over acuity capacity "
-                f"({nurse.current_acuity}/{nurse.adjusted_acuity_capacity()})."
+                f"{nurse.name} is over safe acuity capacity "
+                f"({nurse.current_acuity}/{safe_acuity_limit})."
             )
 
         # Over capacity by patient count
@@ -195,10 +227,10 @@ def detect_unsafe_assignments(nurses):
             )
 
         # New grad carrying too much acuity
-        if nurse.is_new_grad and nurse.current_acuity >= 10:
+        if nurse.is_new_grad and nurse.current_acuity > safe_acuity_limit:
             warnings.append(
                 f"{nurse.name} is a new grad with a very heavy acuity load "
-                f"({nurse.current_acuity})."
+                f"({nurse.current_acuity}/{safe_acuity_limit})."
             )
 
         # Light duty nurse still carrying too much
