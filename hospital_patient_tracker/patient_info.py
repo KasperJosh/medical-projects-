@@ -1,7 +1,4 @@
 
-
-
-
 class Patient:
     """Representing a patient on the unit"""
 
@@ -56,6 +53,7 @@ class Patient:
         pro_involved=None,
         home_screen="N/A",
         turnover="STABLE",
+        previous_nurse_id=None,
         vital_signs=None,
         special_flags=None,
 
@@ -117,6 +115,7 @@ class Patient:
         self.pro_involved = pro_involved if pro_involved else []
         self.home_screen = home_screen
         self.turnover = turnover
+        self.previous_nurse_id = previous_nurse_id
         self.vital_signs = vital_signs
         self.special_flags = special_flags if special_flags else []
 

@@ -110,7 +110,7 @@ def safe_get_patient_value(patient, field_name):
     """
     return getattr(patient, field_name, None)
 
-# Gets the weight of the field. Example: Hemodynamic is 2.0
+# Gets the weight of the field. Example: hemodynamic_status is 2.0
 def get_field_weight(field_name):
     """
     Return the weight for a field.
