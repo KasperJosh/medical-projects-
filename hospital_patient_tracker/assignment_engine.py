@@ -1,10 +1,11 @@
 from report_standard import SCORING_FIELDS
-from unit_map import get_room_pod, room_distance, CVU_ROOM_CONNECTIONS
+from unit_map import get_room_pod, adjusted_room_distance
 
 # Which nurse should take which patient?
 # Defining functions for the nurse-patient load
 
 
+# Gives each nurse a current workload score
 def nurse_load_score(nurse):
     """
     Lower score = better nurse to receive next patient.
@@ -15,7 +16,7 @@ def nurse_load_score(nurse):
     """
     return (nurse.current_acuity * 2) + (nurse.current_turnover * 2) + nurse.current_weighted
 
-
+# Checks the patient's turnover type and converts it into a number
 def get_turnover_score(patient):
     """
     Return the turnover score (0-4) based on the patient's turnover value.
@@ -31,6 +32,8 @@ def get_turnover_score(patient):
             return score
     return 0
 
+# Lowers the max safe acuity depending on experience
+# Protective the system is for new grads_beginners
 def adjusted_acuity_limit(nurse):
     """
     Returns the safe acuity limit based on nurse experience.
@@ -43,6 +46,13 @@ def adjusted_acuity_limit(nurse):
 
     return nurse.max_acuity_capacity
 
+
+#Hard Safety Filter
+# Is this nuse even allowed to take this patient?
+# Checks basic capacity / refusals, prevents unsafe acuity overload, prevents assigning across
+#pods, prevents nurses who cannot take admissions from receiving heavy turnover 
+# Protects new grads from high-acuity patients
+# Non negotiable rules section
 def nurse_is_eligible_for_patient(nurse, patient):
     """
     Hard safety / assignment rules:
@@ -86,13 +96,15 @@ def nurse_is_eligible_for_patient(nurse, patient):
 
     return True
 
-
+# Ranking systems, only runs after nurse passed the safety filter
 def assignment_fit_score(nurse, patient):
     """
     Lower score = better fit.
 
     Uses:
     - nurse load
+    - patient count fairness
+    - continuity of care
     - empty rooms awaiting admission
     - turnover burden
     - cardiology experience
@@ -101,6 +113,15 @@ def assignment_fit_score(nurse, patient):
     """
     
     score = nurse_load_score(nurse)
+
+    # Fairness penalty: avoid giving too many patients to the same nurse too early
+    score += len(nurse.assigned_patients) * 2
+
+    # Continuity of care bonus:
+    # Prefer assigning the patient to the same nurse as the previous shift if possible
+    if hasattr(patient, "previous_nurse_id"):
+        if patient.previous_nurse_id == nurse.nurse_id:
+            score -= 3
 
     safe_acuity_limit = adjusted_acuity_limit(nurse)
     turnover_score = get_turnover_score(patient)
@@ -135,14 +156,16 @@ def assignment_fit_score(nurse, patient):
                 break
 
     # Geography penalty: prefer patients close to nurse's current assignment
+    # Uses adjusted_room_distance(), which includes:
+    # - real walking steps
+    # - pod crossing penalty
     if nurse.assigned_patients:
         distances = []
 
         for assigned_patient in nurse.assigned_patients:
-            distance = room_distance(
+            distance = adjusted_room_distance(
                 patient.room,
-                assigned_patient.room,
-                CVU_ROOM_CONNECTIONS
+                assigned_patient.room
             )
 
             if distance is not None:
@@ -152,21 +175,27 @@ def assignment_fit_score(nurse, patient):
             closest_distance = min(distances)
             farthest_distance = max(distances)
 
-            # 🔥 REWARD: same cluster / very close rooms
-            if closest_distance == 1:
-                score -= 3  # strong reward for clustering
+            # Reward very close rooms based on real step counts
+            if closest_distance <= 4:
+                score -= 3
 
-            # Optional: mild reward if reasonably close
-            elif closest_distance == 2:
+            elif closest_distance <= 8:
                 score -= 1
 
-            # Existing penalties (keep them)
-            score += closest_distance * 1
-            score += farthest_distance * 2
+            # Penalize spread-out assignments
+            score += closest_distance * 0.25
+            score += farthest_distance * 0.5
 
     return score
+    
+#2 steps = extremely close
+#4 steps = very close
+#8 steps = close
+#20+ steps = far
+#30+ penalty = pod crossing
 
-
+# Main function
+# It assigns hardest patients first
 def assign_patients_to_nurses(patients, nurses):
     """
     Assign patients to nurses using:
@@ -177,11 +206,11 @@ def assign_patients_to_nurses(patients, nurses):
 
     for patient in patients:
         patient.turnover_score = get_turnover_score(patient)
+        
     # Highest acuity patients first
     sorted_patients = sorted(
     patients,
-    key=lambda p: (
-        p.acuity_score,
+    key=lambda p: (p.acuity_score,
         get_turnover_score(p),
         getattr(p, "total_weighted_score", 0)
     ),
@@ -207,9 +236,9 @@ def assign_patients_to_nurses(patients, nurses):
             patient.turnover_score = get_turnover_score(patient)
             best_nurse.assign_patient(patient)
 
-    return nurses, unassigned_patients
+    return nurses, unassigned_patients   
 
-
+#Safety audit after assignment 
 def detect_unsafe_assignments(nurses):
     """
     Check for unsafe or questionable nurse assignments.

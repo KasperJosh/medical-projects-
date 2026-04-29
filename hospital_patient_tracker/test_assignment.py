@@ -97,118 +97,262 @@ nurses = [
 
 # ---- Create patients ----
 # -------- POD B --------
-patient1 = Patient("CVU","K0210","P1",2001,70,"M","2026-04-15","NONE","A","Dr",
-"NSTEMI",[],[],"NONE",["CATH"],
-"AFIB","NP","AOX3","ROUTINE","FALL_RISK","COOPERATIVE",
-"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","DM_CBGM",
-"FOLEY",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
-"NONE","STABLE",[], "", False, acuity_score=7, total_weighted_score=9)
 
-patient2 = Patient("CVU","K0211","P2",2002,65,"F","2026-04-15","NONE","A","Dr",
-"STEMI",[],[],"CABG",["CXR"],
-"VT","BIPAP","AOX3","Q4H","FALL_RISK","ANXIOUS",
-"IV_COMPLEX","Q1H","CONTINUOUS","CVAD","BEDREST","NPO",
-"FOLEY",[], "COMPLEX_DRESSING","CONTROLLED","NONE","FAMILY","DAILY",
-"NONE","NEW_ADMISSION",[], "", False, acuity_score=10, total_weighted_score=12)
+patient1 = Patient(
+    unit="CVU", room="K0210", name="P1", mrn=2001, age=70, gender="M",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="NSTEMI",
+    isolation_status="NONE", level_of_intervention="A",
+    type_sx="NONE", procedures_tests=["CATH"],
+    hemodynamic_status="STABLE", cardiac_status="AFIB", respiratory_status="NP",
+    neurological_status="AOX3", lab_instability="ROUTINE",
+    safety_risk="FALL_RISK", behaviour_cooperation="COOPERATIVE",
+    medication_complexity="IV_SIMPLE", cbgm_frequency="ACHS",
+    monitoring_frequency="ENHANCED",
+    iv_access="PIV", nutrition="DM_CBGM", wounds_dressings="NONE",
+    elimination="FOLEY", mobility="SUPERVISION",
+    pain_management="CONTROLLED",
+    turnover="STABLE", previous_nurse_id=1,
+    acuity_score=7, total_weighted_score=9
+)
 
-patient3 = Patient("CVU","K0214","P3",2003,80,"F","2026-04-15","NONE","C","Dr",
-"CHF",[],[],"NONE",[],
-"NSR","RA","AOX2","DAILY","NONE","CONFUSED",
-"PO","DAILY","ROUTINE","NONE","ASSIST_X2","REGULAR",
-"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
-"NONE","STABLE",[], "", False, acuity_score=3, total_weighted_score=6)
+patient2 = Patient(
+    unit="CVU", room="K0211", name="P2", mrn=2002, age=65, gender="F",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="STEMI",
+    isolation_status="NONE", level_of_intervention="A",
+    type_sx="CABG", procedures_tests=["CXR"],
+    hemodynamic_status="UNSTABLE", cardiac_status="VT", respiratory_status="BIPAP",
+    neurological_status="AOX3", lab_instability="Q4H",
+    safety_risk="FALL_RISK", behaviour_cooperation="ANXIOUS",
+    medication_complexity="IV_COMPLEX", cbgm_frequency="Q1H",
+    monitoring_frequency="CONTINUOUS",
+    iv_access="CVAD", nutrition="NPO", wounds_dressings="COMPLEX_DRESSING",
+    elimination="FOLEY", mobility="BEDREST",
+    pain_management="CONTROLLED",
+    turnover="NEW_ADMISSION", previous_nurse_id=2,
+    acuity_score=10, total_weighted_score=12
+)
 
-patient4 = Patient("CVU","K0220","P4",2004,77,"M","2026-04-15","NONE","A","Dr",
-"ARRHYTHMIA",[],[],"NONE",[],
-"AFIB","NP","AOX3","ROUTINE","FALL_RISK","COOPERATIVE",
-"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","CARDIAC",
-"URINAL",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
-"NONE","TRANSFER_TODAY",[], "", False, acuity_score=6, total_weighted_score=8)
+patient3 = Patient(
+    unit="CVU", room="K0214", name="P3", mrn=2003, age=80, gender="F",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="CHF",
+    isolation_status="NONE", level_of_intervention="C",
+    hemodynamic_status="STABLE", cardiac_status="NSR", respiratory_status="RA",
+    neurological_status="AOX2", lab_instability="DAILY",
+    safety_risk="NONE", behaviour_cooperation="CONFUSED",
+    medication_complexity="PO", cbgm_frequency="DAILY",
+    monitoring_frequency="ROUTINE",
+    iv_access="NONE", nutrition="REGULAR", wounds_dressings="NONE",
+    elimination="TOILET", mobility="ASSIST_X2",
+    pain_management="CONTROLLED",
+    turnover="STABLE", previous_nurse_id=3,
+    acuity_score=3, total_weighted_score=6
+)
 
-patient5 = Patient("CVU","K0225","P5",2005,60,"F","2026-04-15","CONTACT","A","Dr",
-"STEMI",[],[],"CABG",["CXR"],
-"VT","BIPAP","AOX3","Q4H","FALL_RISK","ANXIOUS",
-"IV_COMPLEX","Q1H","CONTINUOUS","CVAD","BEDREST","NPO",
-"FOLEY",[], "COMPLEX_DRESSING","CONTROLLED","NONE","FAMILY","DAILY",
-"NONE","NEW_ADMISSION",[], "", False, acuity_score=10, total_weighted_score=12)
+patient4 = Patient(
+    unit="CVU", room="K0220", name="P4", mrn=2004, age=77, gender="M",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="ARRHYTHMIA",
+    isolation_status="NONE", level_of_intervention="A",
+    hemodynamic_status="STABLE", cardiac_status="AFIB", respiratory_status="NP",
+    neurological_status="AOX3", lab_instability="ROUTINE",
+    safety_risk="FALL_RISK", behaviour_cooperation="COOPERATIVE",
+    medication_complexity="IV_SIMPLE", cbgm_frequency="ACHS",
+    monitoring_frequency="ENHANCED",
+    iv_access="PIV", nutrition="CARDIAC", wounds_dressings="NONE",
+    elimination="URINAL", mobility="SUPERVISION",
+    pain_management="CONTROLLED",
+    turnover="TRANSFER_TODAY", previous_nurse_id=1,
+    acuity_score=6, total_weighted_score=8
+)
 
-patient6 = Patient("CVU","K0226","P6",2006,72,"M","2026-04-15","NONE","A","Dr",
-"POST_CATH",[],[],"NONE",["CATH"],
-"NSR","NP","AOX3","ROUTINE","NONE","COOPERATIVE",
-"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","DM_CBGM",
-"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
-"NONE","POSSIBLE_TRANSFER",[], "", False, acuity_score=5, total_weighted_score=7)
+patient5 = Patient(
+    unit="CVU", room="K0225", name="P5", mrn=2005, age=60, gender="F",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="STEMI",
+    isolation_status="CONTACT", level_of_intervention="A",
+    type_sx="CABG", procedures_tests=["CXR"],
+    hemodynamic_status="UNSTABLE", cardiac_status="VT", respiratory_status="BIPAP",
+    neurological_status="AOX3", lab_instability="Q4H",
+    safety_risk="FALL_RISK", behaviour_cooperation="ANXIOUS",
+    medication_complexity="IV_COMPLEX", cbgm_frequency="Q1H",
+    monitoring_frequency="CONTINUOUS",
+    iv_access="CVAD", nutrition="NPO", wounds_dressings="COMPLEX_DRESSING",
+    elimination="FOLEY", mobility="BEDREST",
+    pain_management="CONTROLLED",
+    turnover="NEW_ADMISSION", previous_nurse_id=2,
+    acuity_score=10, total_weighted_score=12
+)
 
-patient7 = Patient("CVU","K0230","P7",2007,68,"F","2026-04-15","NONE","A","Dr",
-"CHF",[],[],"NONE",[],
-"NSR","NP","AOX3","DAILY","NONE","COOPERATIVE",
-"PO","DAILY","ROUTINE","NONE","ASSIST_X1","CARDIAC",
-"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
-"NONE","STABLE",[], "", False, acuity_score=4, total_weighted_score=6)
+patient6 = Patient(
+    unit="CVU", room="K0226", name="P6", mrn=2006, age=72, gender="M",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="POST_CATH",
+    procedures_tests=["CATH"],
+    hemodynamic_status="STABLE", cardiac_status="NSR", respiratory_status="NP",
+    neurological_status="AOX3", lab_instability="ROUTINE",
+    safety_risk="NONE", behaviour_cooperation="COOPERATIVE",
+    medication_complexity="IV_SIMPLE", cbgm_frequency="ACHS",
+    monitoring_frequency="ENHANCED",
+    iv_access="PIV", nutrition="DM_CBGM", wounds_dressings="NONE",
+    elimination="TOILET", mobility="SUPERVISION",
+    pain_management="CONTROLLED",
+    turnover="POSSIBLE_TRANSFER", previous_nurse_id=3,
+    acuity_score=5, total_weighted_score=7
+)
 
-patient8 = Patient("CVU","K0255","P8",2008,75,"M","2026-04-15","NONE","A","Dr",
-"POST_OP",[],[],"NONE",[],
-"NSR","NP","AOX3","ROUTINE","FALL_RISK","COOPERATIVE",
-"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","CARDIAC",
-"FOLEY",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
-"NONE","DISCHARGE_TODAY",[], "", False, acuity_score=5, total_weighted_score=7)
+patient7 = Patient(
+    unit="CVU", room="K0230", name="P7", mrn=2007, age=68, gender="F",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="CHF",
+    hemodynamic_status="STABLE", cardiac_status="NSR", respiratory_status="NP",
+    neurological_status="AOX3", lab_instability="DAILY",
+    safety_risk="NONE", behaviour_cooperation="COOPERATIVE",
+    medication_complexity="PO", cbgm_frequency="DAILY",
+    monitoring_frequency="ROUTINE",
+    iv_access="NONE", nutrition="CARDIAC", wounds_dressings="NONE",
+    elimination="TOILET", mobility="ASSIST_X1",
+    pain_management="CONTROLLED",
+    turnover="STABLE", previous_nurse_id=4,
+    acuity_score=4, total_weighted_score=6
+)
+
+patient8 = Patient(
+    unit="CVU", room="K0255", name="P8", mrn=2008, age=75, gender="M",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="POST_OP",
+    hemodynamic_status="STABLE", cardiac_status="NSR", respiratory_status="NP",
+    neurological_status="AOX3", lab_instability="ROUTINE",
+    safety_risk="FALL_RISK", behaviour_cooperation="COOPERATIVE",
+    medication_complexity="IV_SIMPLE", cbgm_frequency="ACHS",
+    monitoring_frequency="ENHANCED",
+    iv_access="PIV", nutrition="CARDIAC", wounds_dressings="NONE",
+    elimination="FOLEY", mobility="SUPERVISION",
+    pain_management="CONTROLLED",
+    turnover="DISCHARGE_TODAY", previous_nurse_id=1,
+    acuity_score=5, total_weighted_score=7
+)
 
 # -------- POD C --------
-patient9 = Patient("CVU","K0231","P9",2009,76,"M","2026-04-15","NONE","A","Dr",
-"CHF",[],[],"NONE",["TTE"],
-"NSR","NP","AOX3","ROUTINE","NONE","COOPERATIVE",
-"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","CARDIAC",
-"TOILET",[], "NONE","CONTROLLED","NONE","FAMILY","DAILY",
-"NONE","TRANSFER_TODAY",[], "", False, acuity_score=6, total_weighted_score=9)
 
-patient10 = Patient("CVU","K0232","P10",2010,70,"F","2026-04-15","NONE","A","Dr",
-"NSTEMI",[],[],"NONE",[],
-"AFIB","NP","AOX3","ROUTINE","FALL_RISK","COOPERATIVE",
-"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","CARDIAC",
-"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
-"NONE","STABLE",[], "", False, acuity_score=5, total_weighted_score=7)
+patient9 = Patient(
+    unit="CVU", room="K0231", name="P9", mrn=2009, age=76, gender="M",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="CHF",
+    procedures_tests=["TTE"],
+    hemodynamic_status="STABLE", cardiac_status="NSR", respiratory_status="NP",
+    neurological_status="AOX3", lab_instability="ROUTINE",
+    safety_risk="NONE", behaviour_cooperation="COOPERATIVE",
+    medication_complexity="IV_SIMPLE", cbgm_frequency="ACHS",
+    monitoring_frequency="ENHANCED",
+    iv_access="PIV", nutrition="CARDIAC", wounds_dressings="NONE",
+    elimination="TOILET", mobility="SUPERVISION",
+    pain_management="CONTROLLED",
+    family_social="FAMILY",
+    turnover="TRANSFER_TODAY", previous_nurse_id=5,
+    acuity_score=6, total_weighted_score=9
+)
 
-patient11 = Patient("CVU","K0240","P11",2011,85,"F","2026-04-15","NONE","C","Dr",
-"CHF",[],[],"NONE",[],
-"NSR","RA","AOX2","DAILY","NONE","CONFUSED",
-"PO","DAILY","ROUTINE","NONE","ASSIST_X2","REGULAR",
-"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
-"NONE","STABLE",[], "", False, acuity_score=3, total_weighted_score=6)
+patient10 = Patient(
+    unit="CVU", room="K0232", name="P10", mrn=2010, age=70, gender="F",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="NSTEMI",
+    hemodynamic_status="STABLE", cardiac_status="AFIB", respiratory_status="NP",
+    neurological_status="AOX3", lab_instability="ROUTINE",
+    safety_risk="FALL_RISK", behaviour_cooperation="COOPERATIVE",
+    medication_complexity="IV_SIMPLE", cbgm_frequency="ACHS",
+    monitoring_frequency="ENHANCED",
+    iv_access="PIV", nutrition="CARDIAC", wounds_dressings="NONE",
+    elimination="TOILET", mobility="SUPERVISION",
+    pain_management="CONTROLLED",
+    turnover="STABLE", previous_nurse_id=6,
+    acuity_score=5, total_weighted_score=7
+)
 
-patient12 = Patient("CVU","K0244","P12",2012,65,"M","2026-04-15","NONE","A","Dr",
-"POST_CATH",[],[],"NONE",["CATH"],
-"NSR","NP","AOX3","ROUTINE","NONE","COOPERATIVE",
-"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","DM_CBGM",
-"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
-"NONE","POSSIBLE_TRANSFER",[], "", False, acuity_score=5, total_weighted_score=7)
+patient11 = Patient(
+    unit="CVU", room="K0240", name="P11", mrn=2011, age=85, gender="F",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="CHF",
+    level_of_intervention="C",
+    hemodynamic_status="STABLE", cardiac_status="NSR", respiratory_status="RA",
+    neurological_status="AOX2", lab_instability="DAILY",
+    safety_risk="NONE", behaviour_cooperation="CONFUSED",
+    medication_complexity="PO", cbgm_frequency="DAILY",
+    monitoring_frequency="ROUTINE",
+    iv_access="NONE", nutrition="REGULAR", wounds_dressings="NONE",
+    elimination="TOILET", mobility="ASSIST_X2",
+    pain_management="CONTROLLED",
+    turnover="STABLE", previous_nurse_id=7,
+    acuity_score=3, total_weighted_score=6
+)
 
-patient13 = Patient("CVU","K0250","P13",2013,72,"M","2026-04-15","NONE","A","Dr",
-"ARRHYTHMIA",[],[],"NONE",[],
-"AFIB","NP","AOX3","ROUTINE","NONE","COOPERATIVE",
-"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","CARDIAC",
-"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
-"NONE","STABLE",[], "", False, acuity_score=5, total_weighted_score=7)
+patient12 = Patient(
+    unit="CVU", room="K0244", name="P12", mrn=2012, age=65, gender="M",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="POST_CATH",
+    procedures_tests=["CATH"],
+    hemodynamic_status="STABLE", cardiac_status="NSR", respiratory_status="NP",
+    neurological_status="AOX3", lab_instability="ROUTINE",
+    safety_risk="NONE", behaviour_cooperation="COOPERATIVE",
+    medication_complexity="IV_SIMPLE", cbgm_frequency="ACHS",
+    monitoring_frequency="ENHANCED",
+    iv_access="PIV", nutrition="DM_CBGM", wounds_dressings="NONE",
+    elimination="TOILET", mobility="SUPERVISION",
+    pain_management="CONTROLLED",
+    turnover="POSSIBLE_TRANSFER", previous_nurse_id=5,
+    acuity_score=5, total_weighted_score=7
+)
 
-patient14 = Patient("CVU","K0251","P14",2014,68,"F","2026-04-15","NONE","A","Dr",
-"CHF",[],[],"NONE",[],
-"NSR","NP","AOX3","ROUTINE","NONE","COOPERATIVE",
-"PO","DAILY","ROUTINE","NONE","ASSIST_X1","CARDIAC",
-"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
-"NONE","STABLE",[], "", False, acuity_score=4, total_weighted_score=6)
+patient13 = Patient(
+    unit="CVU", room="K0250", name="P13", mrn=2013, age=72, gender="M",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="ARRHYTHMIA",
+    hemodynamic_status="STABLE", cardiac_status="AFIB", respiratory_status="NP",
+    neurological_status="AOX3", lab_instability="ROUTINE",
+    safety_risk="NONE", behaviour_cooperation="COOPERATIVE",
+    medication_complexity="IV_SIMPLE", cbgm_frequency="ACHS",
+    monitoring_frequency="ENHANCED",
+    iv_access="PIV", nutrition="CARDIAC", wounds_dressings="NONE",
+    elimination="TOILET", mobility="SUPERVISION",
+    pain_management="CONTROLLED",
+    turnover="STABLE", previous_nurse_id=6,
+    acuity_score=5, total_weighted_score=7
+)
 
-patient15 = Patient("CVU","K0254","P15",2015,69,"F","2026-04-15","NONE","A","Dr",
-"POST_CATH",[],[],"NONE",["CATH"],
-"NSR","NP","AOX3","ROUTINE","NONE","COOPERATIVE",
-"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","DM_CBGM",
-"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
-"NONE","STABLE",[], "", False, acuity_score=4, total_weighted_score=6)
+patient14 = Patient(
+    unit="CVU", room="K0251", name="P14", mrn=2014, age=68, gender="F",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="CHF",
+    hemodynamic_status="STABLE", cardiac_status="NSR", respiratory_status="NP",
+    neurological_status="AOX3", lab_instability="DAILY",
+    safety_risk="NONE", behaviour_cooperation="COOPERATIVE",
+    medication_complexity="PO", cbgm_frequency="DAILY",
+    monitoring_frequency="ROUTINE",
+    iv_access="NONE", nutrition="CARDIAC", wounds_dressings="NONE",
+    elimination="TOILET", mobility="ASSIST_X1",
+    pain_management="CONTROLLED",
+    turnover="STABLE", previous_nurse_id=7,
+    acuity_score=4, total_weighted_score=6
+)
 
-patient16 = Patient("CVU","K0271","P16",2016,78,"M","2026-04-15","NONE","A","Dr",
-"CHF",[],[],"NONE",[],
-"NSR","NP","AOX3","ROUTINE","NONE","COOPERATIVE",
-"IV_SIMPLE","ACHS","ENHANCED","PIV","SUPERVISION","CARDIAC",
-"TOILET",[], "NONE","CONTROLLED","NONE","INDEP","DAILY",
-"NONE","NEW_ADMISSION",[], "", False, acuity_score=7, total_weighted_score=9)
+patient15 = Patient(
+    unit="CVU", room="K0254", name="P15", mrn=2015, age=69, gender="F",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="POST_CATH",
+    procedures_tests=["CATH"],
+    hemodynamic_status="STABLE", cardiac_status="NSR", respiratory_status="NP",
+    neurological_status="AOX3", lab_instability="ROUTINE",
+    safety_risk="NONE", behaviour_cooperation="COOPERATIVE",
+    medication_complexity="IV_SIMPLE", cbgm_frequency="ACHS",
+    monitoring_frequency="ENHANCED",
+    iv_access="PIV", nutrition="DM_CBGM", wounds_dressings="NONE",
+    elimination="TOILET", mobility="SUPERVISION",
+    pain_management="CONTROLLED",
+    turnover="STABLE", previous_nurse_id=8,
+    acuity_score=4, total_weighted_score=6
+)
+
+patient16 = Patient(
+    unit="CVU", room="K0271", name="P16", mrn=2016, age=78, gender="M",
+    admission_date="2026-04-15", team_doctor="Dr", diagnosis="CHF",
+    hemodynamic_status="STABLE", cardiac_status="NSR", respiratory_status="NP",
+    neurological_status="AOX3", lab_instability="ROUTINE",
+    safety_risk="NONE", behaviour_cooperation="COOPERATIVE",
+    medication_complexity="IV_SIMPLE", cbgm_frequency="ACHS",
+    monitoring_frequency="ENHANCED",
+    iv_access="PIV", nutrition="CARDIAC", wounds_dressings="NONE",
+    elimination="TOILET", mobility="SUPERVISION",
+    pain_management="CONTROLLED",
+    turnover="NEW_ADMISSION", previous_nurse_id=5,
+    acuity_score=7, total_weighted_score=9
+)
 
 
 patient_list = [
